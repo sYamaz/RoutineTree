@@ -8,11 +8,11 @@
 import SwiftUI
 
 struct TaskTreeView<Node:View>: View {
-    @ObservedObject var task:RoutineTask
+    @Binding var task:RoutineTask
     let node:(RoutineTask) -> Node
     
-    init(task: RoutineTask, node:@escaping (RoutineTask) -> Node){
-        self.task = task
+    init(task:Binding<RoutineTask>, node:@escaping (RoutineTask) -> Node){
+        self._task = task
         self.node = node
     }
     
@@ -24,8 +24,9 @@ struct TaskTreeView<Node:View>: View {
                     [self.task.id: center]
                 })
             HStack(alignment: .top, spacing: nil){
-                ForEach(task.children, id: \.id){t in
-                    TaskTreeView(task: t, node: self.node)
+                ForEach(task.children.indices, id: \.self){index in
+                    let t = $task.children[index]
+                    TaskTreeView(task:  t, node: self.node)
                 }
             }
         }
@@ -51,7 +52,7 @@ struct TaskTreeView<Node:View>: View {
 struct TaskTreeView_Previews: PreviewProvider {
     static var previews: some View {
         VStack(alignment: .center, spacing: nil){
-            TaskTreeView(task: previewTree, node: {rt in Text(rt.title).modifier(RoundedRectangleStyle())})
+            TaskTreeView(task: .constant(previewTree), node: {rt in Text(rt.title).modifier(RoundedRectangleStyle())})
         }
     }
 }

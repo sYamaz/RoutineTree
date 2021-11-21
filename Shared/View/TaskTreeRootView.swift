@@ -7,15 +7,16 @@
 
 import SwiftUI
 
-struct TaskTreeRootView<VM:RoutineViewModelDelegate & ObservableObject,Root:View, Node:View>: View {
-    @ObservedObject var vm:VM
+struct TaskTreeRootView<Root:View, Node:View>: View {
+    
+    @Binding var routine:Routine
     let node:(RoutineTask) -> Node
     let root:(Routine) -> Root
-    let task:RoutineTask = .init(id: .createStartTaskId(), type: .Start, title: "Start", description: "Description", properties: .init(), children: .init())
+    
     var body: some View {
         VStack(alignment: .leading, spacing: nil){
             // Singletonなコレクション（PreferenceKey）にViewの中心座標を登録する
-            root(vm.routine)
+            root(routine)
                 .anchorPreference(
                     key: CollectDict.self,
                     value: .center,
@@ -23,16 +24,18 @@ struct TaskTreeRootView<VM:RoutineViewModelDelegate & ObservableObject,Root:View
                         [TaskId.createStartTaskId(): center]
                 })
             HStack(alignment: .top, spacing: nil){
-                ForEach(vm.routine.tasks, id: \.id){
-                    TaskTreeView(task: $0, node: self.node)
+                ForEach(self.routine.tasks.indices, id: \.self){index in
+                    let t = self.$routine.tasks[index]
+                    TaskTreeView(task: t, node: self.node)
                 }
             }
         }
         .backgroundPreferenceValue(CollectDict.self, {(centers:[TaskId:Anchor<CGPoint>]) in
             GeometryReader{g in
-                ForEach(self.vm.routine.tasks, id: \.id, content:{child in
+                ForEach(self.routine.tasks.indices, id: \.self, content:{index in
+                    let child = self.routine.tasks[index]
                     // taskの中心位置をSingletonなコレクションから取得
-                    if let taskStartCenter = centers[self.task.id] {
+                    if let taskStartCenter = centers[TaskId.createStartTaskId()] {
                         let start = g[taskStartCenter]
                         // childの中心位置をSingletonなコレクションから取得
                         if let taskEndCenter = centers[child.id] {
@@ -48,10 +51,8 @@ struct TaskTreeRootView<VM:RoutineViewModelDelegate & ObservableObject,Root:View
 
 struct TaskTreeRootView_Previews: PreviewProvider {
     static var previews: some View {
-        let vm:RoutineViewModel = .init(routine: previewRoutine)
-        
         TaskTreeRootView(
-            vm:vm ,
+            routine: .constant(previewRoutine),
             node: {rt in Text(rt.title).modifier(RoundedRectangleStyle())},
             root: {r in Text(r.title).modifier(DashRoundedRectangleStyle())
             

@@ -30,7 +30,9 @@ struct RoutineView<VM:RoutineViewModelDelegate & ObservableObject>: View {
                 // rootを一つにするため、treeでのみ使用するRoutineTaskを作成する
                 
                 TaskTreeRootView(
-                    vm: self.vm,
+                    routine: .init(
+                        get: {vm.routine},
+                        set: {r in vm.updateRoutine(r)}),
                     node: {t in
                         factory.generateTreeItemView(task: t)
                             .frame(maxWidth:150)

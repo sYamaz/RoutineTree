@@ -9,7 +9,7 @@ import Foundation
 import Combine
 
 protocol RoutineViewModelDelegate{
-    var routine:Routine{get}
+    var routine:Routine{get set}
     /// ルーティンのタイトルを更新する
     /// - Returns: Void
     func updateTitle(_ title:String) -> Void
@@ -20,6 +20,8 @@ protocol RoutineViewModelDelegate{
     /// タスクを完了ずみにマークする
     /// - Returns: Void
     func quit() -> Void
+    
+    func updateRoutine(_ r:Routine) -> Void
 }
 
 
@@ -36,6 +38,10 @@ class RoutineViewModel: RoutineViewModelDelegate, ObservableObject{
     }
     func updateTitle(_ title: String) -> Void {
         self.routine.title = title
+    }
+    
+    func updateRoutine(_ r:Routine) -> Void{
+        self.routine = r
     }
     
     func play() {
