@@ -6,35 +6,36 @@
 //
 
 import Foundation
+import Combine
+import SwiftUI
 
-struct Routine: Identifiable{
+
+class Routine: ObservableObject, Identifiable, TaskAppendable{
     public let id: RoutineId
-    public let title:String
-    public let taskIds:[TaskId]
-}
-
-extension Routine{
-    public func editTitle(_ title:String) -> Self{
-        .init(id: self.id, title: title, taskIds: self.taskIds)
+    @Published public var title:String
+    @Published public var tasks:[RoutineTask]
+    
+    private var subscription:Set<AnyCancellable> = .init()
+    init(id:RoutineId, title:String, tasks:[RoutineTask]){
+        self.id = id
+        self.title = title
+        self.tasks = tasks
     }
     
-    public func append(_ taskId:TaskId) -> Self{
-        var new = self.taskIds
-        if(new.contains(taskId)){
-            return self
+    public func start() -> Void{
+        for t in tasks{
+            t.visit()
         }
-        
-        new.append(taskId)
-        return .init(id: self.id, title:self.title, taskIds: new)
     }
     
-    public func remove(_ taskId:TaskId) -> Self{
-        var new = self.taskIds
-        if(new.contains(taskId)){
-            new.removeAll(where: {t in t.id == taskId.id})
-            return .init(id: self.id, title: self.title, taskIds: new)
+    public func forceFinished() -> Void{
+        for t in tasks{
+            t.forceFinished()
         }
-        
-        return self;
+    }
+    
+    public func append(_ task:RoutineTask) -> Void{
+        self.tasks.append(task)
+        print(tasks)
     }
 }

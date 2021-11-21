@@ -7,32 +7,21 @@
 
 import Foundation
 class SyncTaskListItemViewModel: ObservableObject{
-    @Published var title:String = ""
-    @Published var description:String = ""
+    @Published var task:RoutineTask
     
-    private let taskId:TaskId
-    private let taskDb:TaskDatabaseDelegate
-    
-    init(taskId: TaskId, taskDb:TaskDatabaseDelegate){
-        self.taskId = taskId
-        self.taskDb = taskDb
-        
-        if let t = taskDb.getTask(id: self.taskId){
-            self.title = t.title
-            self.description = t.description
-            
-        } else {
-            self.title = "unknown"
-            self.description = "unknown"
-        }
+    init(task: RoutineTask){
+        self.task = task
     }
     
-    func update(editingTitle:String, editingDescription:String) -> Void{
-        let t = self.taskDb.getTask(id: self.taskId)!
-        let newT = t.editTitle(self.title).editDescription(self.description)
-        self.taskDb.updateTask(newT)
-        
-        self.title = editingTitle
-        self.description = editingDescription
+    func updateTitle(title:String) -> Void{
+        self.task.title = title
+    }
+    
+    func updateDescription(description:String) -> Void{
+        self.task.description = description
+    }
+    
+    func markAsDone() -> Void{
+
     }
 }

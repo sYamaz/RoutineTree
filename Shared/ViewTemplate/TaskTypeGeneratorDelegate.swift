@@ -9,6 +9,5 @@ import Foundation
 import SwiftUI
 protocol TaskTypeGeneratorDelegate{
     var type:TaskType{get}
-    func generateNodeView(task:RoutineTask) -> AnyView
-    func generateListItemView(task:RoutineTask) -> AnyView
+    func generateTreeItemView(task:RoutineTask) -> AnyView
 }

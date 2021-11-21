@@ -2,68 +2,53 @@
 //  TimeSpanTaskEditView.swift
 //  RoutineTree (iOS)
 //
-//  Created by Shun Yamazaki on 2021/11/12.
+//  Created by Shun Yamazaki on 2021/11/18.
 //
 
 import SwiftUI
 
 struct TimeSpanTaskEditView: View {
-    
-    @Binding private var editingTitle:String
-    @Binding private var editingDescription:String
-    @Binding private var editingTimerSeconds:Int
-    @Binding private var editingTimerMinutes:Int
-    
-    init(editingTitle:Binding<String>,
-         editingDescription:Binding<String>,
-         editingTimerSeconds:Binding<Int>,
-         editingTimerMinutes:Binding<Int>){
-        self._editingTitle = editingTitle
-        self._editingDescription = editingDescription
-        self._editingTimerSeconds = editingTimerSeconds
-        self._editingTimerMinutes = editingTimerMinutes
-    }
+    @ObservedObject var vm:TimeSpanTaskListItemViewModel
+    let factory:AddNewTaskButtonFactory = .init()
     
     var body: some View {
         VStack(alignment: .leading, spacing: nil){
-            TextField("", text: $editingTitle, prompt: nil)
+            TextField("", text: .init(get: {vm.task.title}, set: {vm.task.title = $0}), prompt: nil)
                 .font(.title)
-            TextEditor(text: $editingDescription)
+                .border(.secondary)
+            TextEditor(text:.init(get: {vm.task.description}, set: {vm.task.description = $0}))
                 .frame(height:100)
-            GeometryReader{g in
-                HStack(alignment: .center, spacing: nil){
-                    let minutes = 0..<60
-                    let seconds = 0..<60
-                    Spacer()
-                    Picker(selection: $editingTimerMinutes, content: {
-                        
-                        ForEach(minutes.indices){idx in
-                            let min = minutes[idx]
-                            Text("\(min)")
-                        }
-                    }, label: {Text("min")})
-                        .pickerStyle(.wheel)
-                        .frame(width: 70)
-                        .clipped()
-                    
-                    Text("min")
-                    
-                    Picker(selection: $editingTimerSeconds, content: {
-                        
-                        ForEach(seconds.indices){ idx in
-                            let sec = seconds[idx]
-                            Text("\(sec)")
-                        }
-                    }, label: {Text("sec")})
-                        .pickerStyle(.wheel)
-                        .frame(width:60)
-                        .clipped()
-                    
-                    Text("sec")
-                    
-                    Spacer()
+                .border(.secondary)
+            
+            HStack(alignment: .center, spacing: nil){
+                Spacer()
+                Picker("min", selection: .init(get: {vm.task.getMinutes()}, set: {vm.task.setMinutes($0)})){
+                    ForEach(0..<60){m in
+                        Text(String(m)).tag(m)
+                    }
                 }
+                .pickerStyle(.wheel)
+                .frame(width:70)
+                .compositingGroup()
+                .clipped()
+                
+                Text("min")
+                
+                Picker("sec", selection: .init(get: {vm.task.getSeconds()}, set: {vm.task.setSeconds($0)})){
+                    ForEach(0..<60){Text(String($0)).tag($0)}
+                }
+                .pickerStyle(.wheel)
+                .frame(width:70)
+                .compositingGroup()
+                .clipped()
+                
+                Text("sec")
+                Spacer()
             }
+            
+            Spacer()
+            
+            factory.generate(appendable: self.vm.task)
         }
         .padding()
     }
@@ -71,10 +56,9 @@ struct TimeSpanTaskEditView: View {
 
 struct TimeSpanTaskEditView_Previews: PreviewProvider {
     static var previews: some View {
-        TimeSpanTaskEditView(
-            editingTitle: .constant("TimeSpan Title"),
-            editingDescription: .constant("TimeSpan Description"),
-            editingTimerSeconds: .constant(30),
-            editingTimerMinutes: .constant(20))
+        TimeSpanTaskEditView(vm:.init(task: .init(id: .init(id: .init()), type: .TimeSpan, title: "Task", description: "Description", properties: [
+            "minutes":"1",
+            "seconds":"20"
+        ], children: .init())))
     }
 }

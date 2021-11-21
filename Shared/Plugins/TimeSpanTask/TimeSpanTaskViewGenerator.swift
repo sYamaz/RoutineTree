@@ -10,20 +10,13 @@ import SwiftUI
 
 class TimeSpanTaskViewGenerator: TaskTypeGeneratorDelegate{
     var type: TaskType = .TimeSpan
-    let db: TaskDatabaseDelegate
-    
-    init(db:TaskDatabaseDelegate){
-        self.db = db
+    func generateTreeItemView(task: RoutineTask) -> AnyView {
+        let vm = TimeSpanTaskListItemViewModel(task: task)
+        return .init(NavigationLink(destination: {
+            TimeSpanTaskEditView(vm:vm)
+        }){
+            TimeSpanTaskListItemView(vm: vm)}
+                        .modifier(RoundedRectangleStyle())
+        )
     }
-    
-    func generateNodeView(task: RoutineTask) -> AnyView {
-        return .init(Text("Node"))
-    }
-    
-    func generateListItemView(task: RoutineTask) -> AnyView {
-        let vm = TimeSpanTaskListItemViewModel(taskId: task.id, taskDb: self.db)
-        let view = TimeSpanTaskListItemView(vm: vm)
-        return .init(view)
-    }
-    
 }

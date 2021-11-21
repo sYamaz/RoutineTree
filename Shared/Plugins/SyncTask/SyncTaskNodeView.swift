@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct SyncTaskNodeView: View, NodeViewDelegate {
+struct SyncTaskNodeView: View {
     private let color:Color
     private let checked:Bool
     private let showTips:Bool
@@ -109,7 +109,7 @@ extension SyncTaskNodeView{
 struct ImmediateTaskNodeView_Previews: PreviewProvider {
     static var previews: some View {
         
-        let task = RoutineTask(id: .init(id: .init()), type: .Sync, title: "Title", description: "Description", followingTaskId: .createAddNewTaskId(), properties: .init())
+        let task = RoutineTask(owner:.init(id: .init()), id: .init(id: .init()), type: .Sync, title: "Title", description: "Description", previousTaskId: .createAddNewTaskId(), properties: .init())
         
         let vm = SyncTaskNodeViewModel(id: task.id, ps: .init(), db: TaskDatabase(tasks: [task]))
         

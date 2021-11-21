@@ -20,7 +20,7 @@ struct TaskId: Hashable{
 
 
 extension TaskId{
-    public static func createAddNewTaskId() -> TaskId{
+    public static func createAddNewTaskId() -> Self{
         return .init(id: "addnew")
     }
     
@@ -30,7 +30,17 @@ extension TaskId{
 }
 
 extension TaskId{
-    public static func createUndeterminedId() -> TaskId{
+    public static func createStartTaskId() -> Self{
+        return .init(id: "start")
+    }
+    
+    public func isStartTaskId() -> Bool{
+        return self.id == "start"
+    }
+}
+
+extension TaskId{
+    public static func createUndeterminedId() -> Self{
         return .init(id: "undetermined")
     }
     

@@ -10,49 +10,23 @@ import SwiftUI
 struct TimeSpanTaskListItemView: View {
     @ObservedObject var vm:TimeSpanTaskListItemViewModel
     
-    @State var editMode = false
-    @State var editingTitle:String = ""
-    @State var editingDescription:String = ""
-    @State var editingMinutes:Int = 0
-    @State var editingSeconds:Int = 0
-    
     init(vm:TimeSpanTaskListItemViewModel){
         self.vm = vm
     }
     
     var body: some View {
         VStack(alignment: .leading, spacing: nil){
-            Text(vm.title)
+            Text(vm.task.title)
                 .font(.body)
                 .foregroundColor(.primary)
-            Text(vm.description)
+            Text(vm.task.description)
                 .font(.caption)
                 .foregroundColor(.secondary)
-            Text("\(vm.minutes) min \(vm.seconds) sec")
+            Text("\(vm.task.getMinutes()) min \(vm.task.getSeconds()) sec")
                 .font(.caption)
                 .foregroundColor(.secondary)
-            ProgressView(value: vm.progress)
+            ProgressView(value: 0.3)
                 .progressViewStyle(.linear)
-        }
-        .onTapGesture {
-            editMode = true
-        }
-        .sheet(isPresented: $editMode, onDismiss: {
-            vm.update(title: self.editingTitle,
-                      description: self.editingDescription,
-                      minutes: self.editingMinutes,
-                      seconds: self.editingSeconds)
-        }){
-            TimeSpanTaskEditView(editingTitle: $editingTitle,
-                                 editingDescription: $editingDescription,
-            editingTimerSeconds: $editingSeconds,
-            editingTimerMinutes: $editingMinutes)
-                .onAppear(perform: {
-                    self.editingTitle = vm.title
-                    self.editingDescription = vm.description
-                    self.editingMinutes = vm.minutes
-                    self.editingSeconds = vm.seconds
-                })
         }
     }
 }
@@ -62,12 +36,12 @@ struct TimeSpanTaskListItemView_Previews: PreviewProvider {
         
         let taskId = TaskId(id: .init())
         
-        let task = RoutineTask(id: taskId, type: .TimeSpan, title: "Title", description: "Description", followingTaskId: .createAddNewTaskId(), properties: [
+        let task = RoutineTask(id: taskId, type: .TimeSpan, title: "Title", description: "Description",  properties: [
             "minutes":"5",
             "seconds":"30"
-        ])
+        ], children: .init())
         
-        let vm = TimeSpanTaskListItemViewModel(taskId: taskId, taskDb: TaskDatabase(tasks: [task]))
+        let vm = TimeSpanTaskListItemViewModel(task: task)
         
         TimeSpanTaskListItemView(vm: vm)
     }

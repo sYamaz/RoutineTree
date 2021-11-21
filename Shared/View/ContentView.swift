@@ -8,17 +8,37 @@
 import SwiftUI
 
 struct ContentView: View  {
-    @ObservedObject private var vm:ContentViewModel
-    @ObservedObject private var router:ContentRouter
-    init(vm: ContentViewModel, router:ContentRouter){
+    @ObservedObject private var vm:RoutineListViewModel
+    private let router:RoutineViewFactory
+    
+    init(vm: RoutineListViewModel, router:RoutineViewFactory){
         self.vm = vm
         self.router = router
     }
     var body: some View {
-        VStack{
-            router.viewToShow
-        }.onAppear(perform: {
-            vm.router.navigateToRoutineListView()
+        NavigationView(content: {
+            List{
+                ForEach(vm.routines){r in
+                    NavigationLink(destination: {
+                        router.getRoutineView(routine: r)
+                    }, label: {
+                        Text(r.title)
+                    })
+                }
+                .onDelete(perform: {idxs in
+                    // 削除
+                    let target = vm.routines[idxs.first!]
+                    vm.delete(target.id)
+                })
+            }
+            .navigationTitle(Text("Routines"))
+            .toolbar(content: {
+                Button(action: {
+                    let _ = vm.add()
+                }, label: {
+                    Image(systemName: "plus")
+                })
+            })
         })
     }
 }
@@ -26,13 +46,9 @@ struct ContentView: View  {
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         
-        let routineDb = RoutineDatabase(routines: [
-            .init(id: .init(id: .init()), title: "Routine1", taskIds: .init()),
-            .init(id: .init(id: .init()), title: "Routine2", taskIds: .init())
-        ])
+        let routineDb = RoutineDatabase.previewInstance()
+        let router = RoutineViewFactory()
         
-        let taskDb = TaskDatabase(tasks: .init())
-        let router = ContentRouter(routineDb: routineDb, taskDb: taskDb, generator: TaskTemplateGenerator(plugins: .init()))
-        ContentView(vm: ContentViewModel(router: router), router:router)
+        ContentView(vm: RoutineListViewModel(routineDb: routineDb), router: router)
     }
 }

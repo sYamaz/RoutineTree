@@ -6,50 +6,80 @@
 //
 
 import Foundation
-struct RoutineTask: Identifiable{
+protocol TaskAppendable{
+    func append(_ newTask:RoutineTask) -> Void
+}
+    
+class RoutineTask: ObservableObject, Identifiable, TaskAppendable{
     /// このタスクを識別するためのID
     public let id:TaskId
     /// このタスクのタイプ
     public let type:TaskType
     /// タイトルまたはタスク名
-    public let title:String
+    @Published public var title:String
     /// このタスクの詳細な説明
-    public let description:String
-    /// このタスクの直前のタスク
-    public let followingTaskId:TaskId
+    @Published public var description:String
     /// このタスクに関するその他の情報
-    public let properties:Dictionary<String, String>
+    @Published public var properties:Dictionary<String, String>
+    
+    @Published public var children:[RoutineTask]
+    
+    @Published private(set) var doing:Bool = false
+    
+    init(id:TaskId, type:TaskType, title:String, description:String, properties:Dictionary<String,String>, children:[RoutineTask]){
+        self.id = id
+        self.type = type
+        self.title = title
+        self.description = description
+        self.properties = properties
+        self.children = children
+    }
+
+    
+    public func visit() -> Void{
+        self.doing = true
+    }
+    
+    public func markAsDone() -> Void{
+        self.doing = false
+        for t in children{
+            t.visit()
+        }
+    }
+    
+    public func forceFinished() -> Void{
+        self.doing = false
+        for t in children{
+            t.forceFinished()
+        }
+    }
+    
+    public func append(_ newTask:RoutineTask) -> Void{
+        self.children.append(newTask)
+        self.objectWillChange.send()
+    }
+    
+    public func deleteChild(_ id:TaskId) -> Void{
+        self.children.removeAll(where: {t in t.id == id})
+        self.objectWillChange.send()
+    }
 }
 
 extension RoutineTask{
-    /// タイトルを編集したインスタンスを生成します
-    /// - Parameter new: 新しいタイトル
-    /// - Returns: 新たなRoutineTaskインスタンス
-    public func editTitle(_ new:String) -> Self{
-        return .init(id: self.id, type:self.type, title: new, description: self.description, followingTaskId: self.followingTaskId, properties: self.properties)
+    
+    func getMinutes() -> Int{
+        return Int( self.properties["minutes"]! )!
     }
     
-    /// 説明文を編集したインスタンスを生成します
-    /// - Parameter new: 新しい説明文
-    /// - Returns: 新たなRoutineTaskインスタンス
-    public func editDescription(_ new:String) -> Self{
-        return .init(id: self.id, type:self.type, title: self.title, description: new, followingTaskId: self.followingTaskId, properties: self.properties)
+    func setMinutes(_ val:Int) -> Void{
+        self.properties["minutes"] = String(val)
     }
     
-    /// 後続タスクを変更したインスタンスを生成します
-    /// - Parameter new: 新たな先行タスク
-    /// - Returns: 新たなインスタンス
-    public func editFollowingTaskId(_ new:TaskId) -> Self{
-        return .init(id: self.id, type:self.type, title: self.title, description: self.description, followingTaskId: new, properties: self.properties)
+    func getSeconds() -> Int{
+        return Int(self.properties["seconds"]!)!
     }
     
-    /// プロパティを変更したインスタンスを生成します
-    /// - Parameter new: 新たなプロパティ
-    /// - Returns: 新たなインスタンス
-    public func editProperties(prop:String, value:String) -> Self{
-        var p = self.properties
-        p[prop] = value
-        
-        return .init(id: self.id, type:self.type, title: self.title, description: self.description, followingTaskId: self.followingTaskId, properties: p)
+    func setSeconds(_ val:Int) -> Void{
+        self.properties["seconds"] = String(val)
     }
 }

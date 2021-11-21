@@ -8,5 +8,5 @@
 import Foundation
 import SwiftUI
 protocol TaskTemplateGeneratorDelegate{
-    func generateView(task:RoutineTask) -> AnyView
+    func generateTreeItemView(task:RoutineTask) -> AnyView
 }

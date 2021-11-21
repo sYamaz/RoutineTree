@@ -29,6 +29,12 @@ protocol RoutineDatabaseDelegate{
 
 class RoutineDatabase: RoutineDatabaseDelegate, ObservableObject{
 
+    static func previewInstance() -> RoutineDatabase{
+        return .init(routines: [
+            .init(id: .init(id: .init()), title: "Routine1", tasks: .init()),
+            .init(id: .init(id: .init()), title: "Routine2", tasks: .init())
+        ])
+    }
     
     @Published private var routines: [Routine]
     private var subscriptions:Set<AnyCancellable> = .init()
@@ -42,7 +48,7 @@ class RoutineDatabase: RoutineDatabaseDelegate, ObservableObject{
     }
     
     func addRoutine() -> RoutineId {
-        let newOne:Routine = .init(id: .init(id: .init()), title: "New routine", taskIds: .init())
+        let newOne:Routine = .init(id: .init(id: .init()), title: "New routine", tasks: .init())
         routines.append(newOne)
         return newOne.id
     }

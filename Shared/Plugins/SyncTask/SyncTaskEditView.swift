@@ -8,21 +8,29 @@
 import SwiftUI
 
 struct SyncTaskEditView: View {
-    @Binding private var editingTitle:String
-    @Binding private var editingDescription:String
+    @State private var taskId:TaskId = .createStartTaskId()
     
-    init(editingTitle:Binding<String>, editingDescription:Binding<String>){
-        
-        self._editingTitle = editingTitle
-        self._editingDescription = editingDescription
+    @ObservedObject var vm:SyncTaskListItemViewModel
+    
+    let factory:AddNewTaskButtonFactory = .init()
+    
+    init(vm:SyncTaskListItemViewModel){
+        self.vm = vm
     }
     
     var body: some View {
         VStack(alignment: .leading, spacing: nil){
-            TextField("", text: $editingTitle, prompt: nil)
-                .font(.title)
-            TextEditor(text: $editingDescription)
+
+            TextField("", text: .init(get: {vm.task.title}, set: {vm.task.title = $0}), prompt: nil)
+                    .font(.title)
+                    .border(.secondary)
+            TextEditor(text:.init(get: {vm.task.description}, set: {vm.task.description = $0}))
+                    .frame(height:100)
+                    .border(.secondary)
+            
             Spacer()
+            
+            factory.generate(appendable: self.vm.task)
         }
         .padding()
     }
@@ -30,6 +38,8 @@ struct SyncTaskEditView: View {
 
 struct SyncTaskEditView_Previews: PreviewProvider {
     static var previews: some View {
-        SyncTaskEditView(editingTitle: .constant("Title"), editingDescription: .constant("Description"))
+        NavigationView{
+            SyncTaskEditView(vm:.init(task: .init(id: .init(id: .init()), type: .Sync, title: "Title", description: "Description", properties: .init(), children: .init())))
+        }
     }
 }

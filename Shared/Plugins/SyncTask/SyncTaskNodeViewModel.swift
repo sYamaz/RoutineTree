@@ -16,12 +16,10 @@ class SyncTaskNodeViewModel: SyncTaskNodeViewModelDelegate, ObservableObject{
     
     private let playStore:PlayStore
     private let taskId:TaskId
-    private let taskDatabase:TaskDatabaseDelegate
     private var subscription:Set<AnyCancellable> = .init()
     
     init(id:TaskId,
-         ps:PlayStore,
-         db:TaskDatabaseDelegate){
+         ps:PlayStore){
         self.playStore = ps
         self.taskId = id
         self.taskDatabase = db

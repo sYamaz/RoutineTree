@@ -7,37 +7,8 @@
 
 import Foundation
 import SwiftUI
-protocol ContentWireframe: ObservableObject, ContentNavigator {
-    var viewToShow:AnyView {get}
-}
-
-protocol ContentNavigator{
-    func navigateToRoutineView(routine:Routine) -> Void
-    func navigateToRoutineListView() -> Void
-}
-
-class ContentNavigatorPreview: ContentNavigator{
-    func navigateToRoutineView(routine: Routine) -> Void{
-        
-    }
-    
-    func navigateToRoutineListView() -> Void{
-        
-    }
+protocol ContentWireframe: ObservableObject {
 }
 
 class ContentWireframePreview: ContentWireframe{
-    @Published var viewToShow: AnyView
-    
-    init(){
-        self.viewToShow = AnyView(Text("Hello world"))
-    }
-    
-    func navigateToRoutineView(routine: Routine) {
-        self.viewToShow = AnyView(Text("Routine view"))
-    }
-    
-    func navigateToRoutineListView() -> Void{
-        self.viewToShow = AnyView(Text("Routine List view"))
-    }
 }

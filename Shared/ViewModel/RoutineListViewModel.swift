@@ -7,15 +7,13 @@
 
 import Foundation
 import Combine
-class RoutineListViewModel<DB: RoutineDatabaseDelegate>: RoutineListViewModelDelegate{
+class RoutineListViewModel: RoutineListViewModelDelegate{
     @Published var routines:[Routine] = [Routine]()
     private var subscriptions:Set<AnyCancellable> = .init()
-    private let routineDb:DB
-    private let navigator:ContentNavigator
+    private let routineDb:RoutineDatabaseDelegate
     
-    init(routineDb:DB, navigator:ContentNavigator){
+    init(routineDb:RoutineDatabase){
         self.routineDb = routineDb
-        self.navigator = navigator
         routineDb.onReceive(closure: {v in self.routines = v})
     }
     
@@ -26,9 +24,5 @@ class RoutineListViewModel<DB: RoutineDatabaseDelegate>: RoutineListViewModelDel
     func add() -> Routine {
         let newId = self.routineDb.addRoutine()
         return self.routineDb.getRoutine(id: newId)!
-    }
-    
-    func moveTo(routine: Routine) -> Void {
-        navigator.navigateToRoutineView(routine: routine)
     }
 }
