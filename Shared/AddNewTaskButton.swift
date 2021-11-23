@@ -8,16 +8,10 @@
 import SwiftUI
 
 
-struct AddNewTaskButton<Content:View>: View {
-    var appendable:TaskAppendable
+struct AddNewTaskButton<Content:View, T:TaskAppendable>: View {
+    @Binding var appendable:T
     @State var mode = false
-    
-    private let content:Content
-    
-    init(appendable:TaskAppendable, @ViewBuilder content:(TaskAppendable) -> Content){
-        self.appendable = appendable
-        self.content = content(appendable)
-    }
+    @ViewBuilder var content:(Binding<T>) -> Content
     
     var body: some View {
 
@@ -31,7 +25,7 @@ struct AddNewTaskButton<Content:View>: View {
                     Text("add next task")
                 })
                 .confirmationDialog(Text("Select task type."), isPresented: $mode, titleVisibility: .visible, actions: {
-                    self.content
+                    self.content($appendable)
                 })
         }
         
@@ -40,7 +34,7 @@ struct AddNewTaskButton<Content:View>: View {
 
 struct AddNewTaskButton_Previews: PreviewProvider {
     static var previews: some View {
-        AddNewTaskButton(appendable: RoutineTask(id: .createStartTaskId(), type: .Start, title: "start", description: "description", properties: .init(), children: .init())){ t in
+        AddNewTaskButton(appendable: .constant(RoutineTask(id: .createStartTaskId(), type: .Start, title: "start", description: "description", properties: .init(), children: .init()))){ t in
             Button("aaa"){
                 
             }

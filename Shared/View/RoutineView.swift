@@ -8,53 +8,43 @@
 import SwiftUI
 
 /// TODO : TabコンテンツのViewを独立させる
-struct RoutineView<VM:RoutineViewModelDelegate & ObservableObject>: View {
-    @ObservedObject var vm:VM
+struct RoutineView: View {
+    @State private var routineMode:Bool = false
+    @State var editingTaskId:TaskId? = nil
     
-    @State var addMode:Bool = false
-    @State var treeMode:Bool = false
-    @State var editTitleMode:Bool = false
-    @State var routineMode:Bool = false
     
-    private let factory:TaskViewFactory
-    
-    init(vm:VM, factory:TaskViewFactory){
-        self.vm = vm
-        self.factory = factory
-    }
+    @Binding var routine:Routine
+    let factory:TaskViewFactory
     
     var body: some View {
-        VStack(alignment: .center, spacing: nil){
+        GeometryReader{g in
+        ZStack(alignment: .center){
             // tree view
             ScrollView([.horizontal, .vertical], showsIndicators: true){
-                // rootを一つにするため、treeでのみ使用するRoutineTaskを作成する
-                
                 TaskTreeRootView(
                     routine: .init(
-                        get: {vm.routine},
-                        set: {r in vm.updateRoutine(r)}),
+                        get: {self.routine},
+                        set: {r in self.$routine.wrappedValue = r}),
                     node: {t in
-                        factory.generateTreeItemView(task: t)
+                        factory.generateNodeView(task: t)
                             .frame(maxWidth:150)
                             .padding(8)
                     },
                     root: {r in
-                        NavigationLink(
-                            destination: {
-                                StartTaskEditView(appendable: r)
-                            }, label: {
-                                Text("Start")
-                            }).modifier(DashRoundedRectangleStyle())
+                        StartTaskNodeView(routine: $routine)
                     })
+                
+                Divider().padding(32).hidden()
             }
             // startbutton
             VStack(alignment: .center, spacing: nil){
+                Spacer()
                 if(self.routineMode == false){
                     Button(action:{
                         // start routine
-                        print(vm.routine.tasks)
+                        print(self.routine.tasks)
                         self.routineMode = true
-                        self.vm.play()
+                        self.routine.start()
                         }){
                             HStack(alignment: .center, spacing: nil){
                                 Image(systemName: "play")
@@ -67,25 +57,32 @@ struct RoutineView<VM:RoutineViewModelDelegate & ObservableObject>: View {
                         
                 } else {
                     VStack(alignment: .center, spacing: nil){
-                        TaskPlayingView(routine: self.vm.routine, factory: self.factory)
+                        TaskPlayingView(
+                            routine: .init(
+                                get: {self.routine},
+                                set: {r in self.routine = r}),
+                            factory: self.factory)
                         Button("Quit"){
                             self.routineMode = false
-                            self.vm.quit()
+                            self.routine.forceFinished()
                         }
                     }
                     .padding()
                 }
             }
+            //.background(Color.init(Color.RGBColorSpace.sRGB, white: 0, opacity: 0))
         }
-        .navigationTitle(Text(vm.routine.title))
-        .background(.regularMaterial)
+    }
+        .navigationTitle(Text(self.routine.title))
+        //.background(.regularMaterial)
     }
 }
 
 struct RoutineView_Previews: PreviewProvider {
     static var previews: some View {
+
         NavigationView{
-            RoutineView(vm:RoutineViewModel(routine: previewRoutine), factory:taskViewFactory)
+            RoutineView(routine: .constant(previewRoutine), factory: taskViewFactory)
         }
     }
 }

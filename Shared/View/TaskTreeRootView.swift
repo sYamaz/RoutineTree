@@ -10,13 +10,13 @@ import SwiftUI
 struct TaskTreeRootView<Root:View, Node:View>: View {
     
     @Binding var routine:Routine
-    let node:(RoutineTask) -> Node
-    let root:(Routine) -> Root
+    let node:(Binding<RoutineTask>) -> Node
+    let root:(Binding<Routine>) -> Root
     
     var body: some View {
         VStack(alignment: .leading, spacing: nil){
             // Singletonなコレクション（PreferenceKey）にViewの中心座標を登録する
-            root(routine)
+            root($routine)
                 .anchorPreference(
                     key: CollectDict.self,
                     value: .center,
@@ -53,8 +53,8 @@ struct TaskTreeRootView_Previews: PreviewProvider {
     static var previews: some View {
         TaskTreeRootView(
             routine: .constant(previewRoutine),
-            node: {rt in Text(rt.title).modifier(RoundedRectangleStyle())},
-            root: {r in Text(r.title).modifier(DashRoundedRectangleStyle())
+            node: {rt in Text(rt.wrappedValue.title).modifier(RoundedRectangleStyle())},
+            root: {r in Text(r.wrappedValue.title).modifier(DashRoundedRectangleStyle())
             
         })
     }

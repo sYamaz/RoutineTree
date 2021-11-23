@@ -7,24 +7,26 @@
 
 import Foundation
 protocol TaskAppendable{
-    func append(_ newTask:RoutineTask) -> Void
+    mutating func append(_ newTask:RoutineTask) -> Void
 }
     
-class RoutineTask: ObservableObject, Identifiable, TaskAppendable{
+struct RoutineTask: Identifiable, TaskAppendable{
     /// このタスクを識別するためのID
     public let id:TaskId
     /// このタスクのタイプ
     public let type:TaskType
     /// タイトルまたはタスク名
-    @Published public var title:String
+    public var title:String
     /// このタスクの詳細な説明
-    @Published public var description:String
+    public var description:String
     /// このタスクに関するその他の情報
-    @Published public var properties:Dictionary<String, String>
+    public var properties:Dictionary<String, String>
     
-    @Published public var children:[RoutineTask]
+    public var children:[RoutineTask]
     
-    @Published private(set) var doing:Bool = false
+    private(set) var doing:Bool = false
+    
+    public var editing:Bool
     
     init(id:TaskId, type:TaskType, title:String, description:String, properties:Dictionary<String,String>, children:[RoutineTask]){
         self.id = id
@@ -33,35 +35,34 @@ class RoutineTask: ObservableObject, Identifiable, TaskAppendable{
         self.description = description
         self.properties = properties
         self.children = children
+        self.editing = false
     }
 
     
-    public func visit() -> Void{
+    public mutating func visit() -> Void{
         self.doing = true
     }
     
-    public func markAsDone() -> Void{
+    public mutating func markAsDone() -> Void{
         self.doing = false
-        for t in children{
+        for var t in children{
             t.visit()
         }
     }
     
-    public func forceFinished() -> Void{
+    public mutating func forceFinished() -> Void{
         self.doing = false
-        for t in children{
+        for var t in children{
             t.forceFinished()
         }
     }
     
-    public func append(_ newTask:RoutineTask) -> Void{
+    public mutating func append(_ newTask:RoutineTask) -> Void{
         self.children.append(newTask)
-        self.objectWillChange.send()
     }
     
-    public func deleteChild(_ id:TaskId) -> Void{
+    public mutating func deleteChild(_ id:TaskId) -> Void{
         self.children.removeAll(where: {t in t.id == id})
-        self.objectWillChange.send()
     }
 }
 
@@ -71,7 +72,7 @@ extension RoutineTask{
         return Int( self.properties["minutes"]! )!
     }
     
-    func setMinutes(_ val:Int) -> Void{
+    mutating func setMinutes(_ val:Int) -> Void{
         self.properties["minutes"] = String(val)
     }
     
@@ -79,7 +80,7 @@ extension RoutineTask{
         return Int(self.properties["seconds"]!)!
     }
     
-    func setSeconds(_ val:Int) -> Void{
+    mutating func setSeconds(_ val:Int) -> Void{
         self.properties["seconds"] = String(val)
     }
 }

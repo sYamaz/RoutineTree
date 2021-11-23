@@ -9,13 +9,11 @@ import Foundation
 import SwiftUI
 class SyncTaskViewGenerator: TaskTypeGeneratorDelegate{
     var type: TaskType = .Sync
-    func generateTreeItemView(task: RoutineTask) -> AnyView {
-        let vm = SyncTaskListItemViewModel(task: task)
-        
+    func generateNodeView(task: Binding<RoutineTask>) -> AnyView {
         return .init(NavigationLink(destination: {
-            SyncTaskEditView(vm: vm)
+            SyncTaskEditView(task: task)
         }){
-            SyncTaskListItemView(vm:vm)
+            SyncTaskNodeView(task: task)
                 .modifier(RoundedRectangleStyle())
         })
     }

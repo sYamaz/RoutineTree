@@ -6,16 +6,13 @@
 //
 
 import Foundation
-import Combine
 import SwiftUI
 
 
-class Routine: ObservableObject, Identifiable, TaskAppendable{
+struct Routine: Identifiable, TaskAppendable{
     public let id: RoutineId
-    @Published public var title:String
-    @Published public var tasks:[RoutineTask]
-    
-    private var subscription:Set<AnyCancellable> = .init()
+    public var title:String
+    public var tasks:[RoutineTask]
     init(id:RoutineId, title:String, tasks:[RoutineTask]){
         self.id = id
         self.title = title
@@ -23,18 +20,18 @@ class Routine: ObservableObject, Identifiable, TaskAppendable{
     }
     
     public func start() -> Void{
-        for t in tasks{
+        for var t in tasks{
             t.visit()
         }
     }
     
     public func forceFinished() -> Void{
-        for t in tasks{
+        for var t in tasks{
             t.forceFinished()
         }
     }
     
-    public func append(_ task:RoutineTask) -> Void{
+    public mutating func append(_ task:RoutineTask) -> Void{
         self.tasks.append(task)
         print(tasks)
     }

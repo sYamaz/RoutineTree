@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct TaskPlayingView: View {
-    @ObservedObject var routine:Routine
+    @Binding var routine:Routine
     let factory:TaskViewFactory
     
     var body: some View {
@@ -16,7 +16,8 @@ struct TaskPlayingView: View {
                         .filter({t in t.doing})
         
         List(){
-            ForEach(tasks, id: \.id){t in
+            ForEach(tasks.indices, id: \.self){index in
+                var t = tasks[index]
                 HStack(alignment: .center, spacing: nil){
                     Text(t.title)
                     Spacer()
@@ -47,7 +48,7 @@ struct TaskPlayingView: View {
 struct TaskPlayingView_Previews: PreviewProvider {
     static var previews: some View {
         let routine = previewRoutine
-        TaskPlayingView(routine: routine, factory: taskViewFactory)
+        TaskPlayingView(routine: .constant(routine), factory: taskViewFactory)
             .onAppear(perform: {routine.start()})
     }
         

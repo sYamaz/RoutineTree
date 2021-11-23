@@ -9,11 +9,19 @@ import SwiftUI
 
 struct StartTaskEditView: View {
     let factory:AddNewTaskButtonFactory = .init()
-    var appendable:TaskAppendable
+    @Binding var appendable:Routine
     var body: some View {
         VStack(alignment: .leading, spacing: nil){
+            Text("Next tasks")
+            List{
+                ForEach(appendable.tasks, id: \.id){t in
+                    Button(t.title){
+                    }
+                }
+            }
+            
             Spacer()
-            factory.generate(appendable: appendable)
+            factory.generate(appendable: $appendable)
         }
         .padding()
     }
@@ -21,8 +29,8 @@ struct StartTaskEditView: View {
 
 struct StartTaskEditView_Previews: PreviewProvider {
     static var previews: some View {
-        let t = RoutineTask(id: .createStartTaskId(), type: .Start, title: "Start", description: "description", properties: .init(), children: .init())
+        let r = Routine(id: .init(id: .init()), title: "RoutineName", tasks: .init())
         
-        StartTaskEditView(appendable: t)
+        StartTaskEditView(appendable: .constant(r))
     }
 }

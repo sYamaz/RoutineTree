@@ -9,16 +9,16 @@ import SwiftUI
 
 struct TaskTreeView<Node:View>: View {
     @Binding var task:RoutineTask
-    let node:(RoutineTask) -> Node
+    let node:(Binding<RoutineTask>) -> Node
     
-    init(task:Binding<RoutineTask>, node:@escaping (RoutineTask) -> Node){
+    init(task:Binding<RoutineTask>, node:@escaping (Binding<RoutineTask>) -> Node){
         self._task = task
         self.node = node
     }
     
     var body: some View {
         VStack(alignment: .leading, spacing: nil){
-            node(self.task)
+            node(self.$task)
                 // Singletonなコレクション（PreferenceKey）にViewの中心座標を登録する
                 .anchorPreference(key: CollectDict.self, value: .center, transform: {center in
                     [self.task.id: center]
@@ -52,7 +52,7 @@ struct TaskTreeView<Node:View>: View {
 struct TaskTreeView_Previews: PreviewProvider {
     static var previews: some View {
         VStack(alignment: .center, spacing: nil){
-            TaskTreeView(task: .constant(previewTree), node: {rt in Text(rt.title).modifier(RoundedRectangleStyle())})
+            TaskTreeView(task: .constant(previewTree), node: {rt in Text(rt.wrappedValue.title).modifier(RoundedRectangleStyle())})
         }
     }
 }

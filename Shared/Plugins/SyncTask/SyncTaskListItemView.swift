@@ -7,32 +7,36 @@
 
 import SwiftUI
 
-struct SyncTaskListItemView: View {
-    @ObservedObject private var vm:SyncTaskListItemViewModel
-
-    init(vm: SyncTaskListItemViewModel){
-        self.vm = vm
-    }
-    
+struct SyncTaskNodeView: View {
+  
+    @Binding var task:RoutineTask
+    @State private var editing = false
     var body: some View {
-        VStack(alignment: .leading, spacing: nil){
-            Text(vm.task.title)
-                .font(.body)
-                .foregroundColor(.primary)
-            Text(vm.task.description)
-                .font(.caption)
-                .foregroundColor(.secondary)
+        Button(action: {
+            task.editing = true
+        }){
+            VStack(alignment: .leading, spacing: nil){
+                Text(self.task.title)
+                    .font(.body)
+                    .foregroundColor(.primary)
+                Text(self.task.description)
+                    .font(.caption)
+                    .foregroundColor(.secondary)
+            }
         }
+        .sheet(isPresented: $task.editing, onDismiss: {
+            
+        }, content: {
+            SyncTaskEditView(task: $task)
+        })
     }
 }
 
-struct SyncTaskListItemView_Previews: PreviewProvider {
+struct SyncTaskNodeView_Previews: PreviewProvider {
     static var previews: some View {
         let task = RoutineTask(id: .init(id: .init()), type: .Sync, title: "Title", description: "Description",  properties: .init(),
                                children: .init())
         
-        let vm = SyncTaskListItemViewModel(task: task)
-        
-        SyncTaskListItemView(vm:vm)
+        SyncTaskNodeView(task: .constant(task))
     }
 }

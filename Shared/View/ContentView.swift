@@ -18,11 +18,12 @@ struct ContentView: View  {
     var body: some View {
         NavigationView(content: {
             List{
-                ForEach(vm.routines){r in
+                ForEach(vm.routines.indices, id: \.self){i in
+                    let r = $vm.routines[i]
                     NavigationLink(destination: {
                         router.getRoutineView(routine: r)
                     }, label: {
-                        Text(r.title)
+                        Text(r.wrappedValue.title)
                     })
                 }
                 .onDelete(perform: {idxs in

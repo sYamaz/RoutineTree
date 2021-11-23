@@ -24,7 +24,6 @@ struct RoutineTreeApp: App {
 }
 
 let taskViewFactory :TaskViewFactory = .init(plugins: [
-    StartTaskViewGenerator(),
     SyncTaskViewGenerator(),
     TimeSpanTaskViewGenerator()
 ])
