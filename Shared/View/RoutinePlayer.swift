@@ -10,7 +10,6 @@ import SwiftUI
 struct RoutinePlayer: View {
     @Binding var routine:Routine
     @State private var routineMode:Bool = false
-    @State private var showItems:Bool = false
     
     let factory:TaskViewFactory
     var body: some View {
@@ -24,7 +23,7 @@ struct RoutinePlayer: View {
                     HStack{Spacer()}
                 }
                 Button(action:{
-                    if(routineMode){
+                    if(self.routine.routineMode){
                         // cancel routine
                         self.routine.forceFinished()
                         withAnimation(){

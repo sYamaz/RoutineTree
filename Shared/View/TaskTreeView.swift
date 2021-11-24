@@ -17,14 +17,14 @@ struct TaskTreeView<Node:View>: View {
     }
     
     var body: some View {
-        VStack(alignment: .leading, spacing: nil){
+        LazyVStack(alignment: .leading, spacing: nil, pinnedViews: .sectionHeaders){
             node(self.$task)
                 .id($task.id)
                 // Singletonなコレクション（PreferenceKey）にViewの中心座標を登録する
                 .anchorPreference(key: CollectDict.self, value: .center, transform: {center in
                     [self.task.id: center]
                 })
-            HStack(alignment: .top, spacing: nil){
+            LazyHStack(alignment: .top, spacing: nil, pinnedViews: .sectionHeaders){
                 ForEach(task.children.indices, id: \.self){index in
                     let t = $task.children[index]
                     TaskTreeView(task:  t, node: self.node)

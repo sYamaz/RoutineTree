@@ -9,7 +9,6 @@ import SwiftUI
 
 /// TODO : TabコンテンツのViewを独立させる
 struct RoutineView: View {
-    @State private var routineMode:Bool = false
     @State var editingTaskId:TaskId? = nil
     @Binding var routine:Routine
     let factory:TaskViewFactory
@@ -36,7 +35,8 @@ struct RoutineView: View {
                         })
 
                     // ボタンで隠れた部分をスクロールで移動できるようにするためのスペース
-                    Divider().padding(32).hidden()
+                    //Divider().padding(32).hidden()
+                    Spacer(minLength: routine.routineMode ? 200 : 40)
                 }
                 
                 // startbutton

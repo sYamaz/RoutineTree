@@ -14,7 +14,7 @@ struct TaskTreeRootView<Root:View, Node:View>: View {
     let root:(Binding<Routine>) -> Root
     
     var body: some View {
-        VStack(alignment: .leading, spacing: nil){
+        LazyVStack(alignment: .leading, spacing: nil, pinnedViews: .sectionHeaders){
             // Singletonなコレクション（PreferenceKey）にViewの中心座標を登録する
             root($routine)
                 .id(TaskId.createStartTaskId())
@@ -24,7 +24,7 @@ struct TaskTreeRootView<Root:View, Node:View>: View {
                     transform: {center in
                         [TaskId.createStartTaskId(): center]
                 })
-            HStack(alignment: .top, spacing: nil){
+            LazyHStack(alignment: .top, spacing: nil, pinnedViews: .sectionHeaders){
                 ForEach(self.routine.tasks.indices, id: \.self){index in
                     let t = self.$routine.tasks[index]
                     TaskTreeView(task: t, node: self.node)

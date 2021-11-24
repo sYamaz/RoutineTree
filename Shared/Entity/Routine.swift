@@ -13,6 +13,7 @@ struct Routine: Identifiable, TaskAppendable{
     public let id: RoutineId
     public var title:String
     public var tasks:[RoutineTask]
+    public var routineMode:Bool = false
     init(id:RoutineId, title:String, tasks:[RoutineTask]){
         self.id = id
         self.title = title
@@ -20,6 +21,7 @@ struct Routine: Identifiable, TaskAppendable{
     }
     
     public mutating func start() -> Void{
+        self.routineMode = true
         for i in tasks.indices{
             tasks[i].visit()
         }
@@ -39,6 +41,7 @@ struct Routine: Identifiable, TaskAppendable{
         for i in tasks.indices{
             tasks[i].forceFinished()
         }
+        self.routineMode = false
     }
     
     public mutating func append(_ task:RoutineTask) -> Void{
