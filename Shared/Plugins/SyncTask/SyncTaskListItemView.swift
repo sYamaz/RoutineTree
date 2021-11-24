@@ -10,10 +10,27 @@ import SwiftUI
 struct SyncTaskNodeView: View {
   
     @Binding var task:RoutineTask
-    @State private var editing = false
+    @Binding var editing:TaskId?
+    
+    private func editingToBool(_ val:TaskId?) -> Bool{
+        if let id = val{
+            return id.id == task.id.id
+        }
+        return false
+    }
+    
+    private func boolToEditing(_ val:Bool) -> TaskId?{
+        if(val){
+            return task.id
+        } else {
+            return nil
+        }
+    }
+    
     var body: some View {
+        
         Button(action: {
-            task.editing = true
+            self.editing = task.id
         }){
             VStack(alignment: .leading, spacing: nil){
                 Text(self.task.title)
@@ -24,11 +41,15 @@ struct SyncTaskNodeView: View {
                     .foregroundColor(.secondary)
             }
         }
-        .sheet(isPresented: $task.editing, onDismiss: {
+        .sheet(isPresented: .init(
+            get: { editingToBool(self.editing)},
+            set: { self.editing = boolToEditing($0)}
+        ), onDismiss: {
             
         }, content: {
-            SyncTaskEditView(task: $task)
+            SyncTaskEditView(task: $task, editing: $editing)
         })
+        .modifier(RoundedRectangleStyle(focused: task.doing == .Doing))
     }
 }
 
@@ -37,6 +58,6 @@ struct SyncTaskNodeView_Previews: PreviewProvider {
         let task = RoutineTask(id: .init(id: .init()), type: .Sync, title: "Title", description: "Description",  properties: .init(),
                                children: .init())
         
-        SyncTaskNodeView(task: .constant(task))
+        SyncTaskNodeView(task: .constant(task), editing: .constant(nil))
     }
 }

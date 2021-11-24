@@ -17,6 +17,7 @@ struct TaskTreeRootView<Root:View, Node:View>: View {
         VStack(alignment: .leading, spacing: nil){
             // Singletonなコレクション（PreferenceKey）にViewの中心座標を登録する
             root($routine)
+                .id(TaskId.createStartTaskId())
                 .anchorPreference(
                     key: CollectDict.self,
                     value: .center,
@@ -53,7 +54,7 @@ struct TaskTreeRootView_Previews: PreviewProvider {
     static var previews: some View {
         TaskTreeRootView(
             routine: .constant(previewRoutine),
-            node: {rt in Text(rt.wrappedValue.title).modifier(RoundedRectangleStyle())},
+            node: {rt in Text(rt.wrappedValue.title).modifier(RoundedRectangleStyle(focused: false))},
             root: {r in Text(r.wrappedValue.title).modifier(DashRoundedRectangleStyle())
             
         })

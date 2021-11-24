@@ -10,11 +10,11 @@ import SwiftUI
 struct TimeSpanTaskNodeView: View {
 
     @Binding var task:RoutineTask
-    @State var editing:Bool = false
+    @Binding var editing:TaskId?
     
     var body: some View {
         Button(action:{
-            task.editing = true
+            self.editing = task.id
         }){
             VStack(alignment: .leading, spacing: nil){
                 Text(self.task.title)
@@ -30,11 +30,22 @@ struct TimeSpanTaskNodeView: View {
                     .progressViewStyle(.linear)
             }
         }
-        .sheet(isPresented: $task.editing, onDismiss: {
+        .sheet(isPresented: .init(
+            get: {
+                if let id = self.editing{
+                    return id.id == task.id.id
+                }
+                return false
+            },
+            set: { b in
+                self.editing = b ? task.id : nil
+            }
+        ), onDismiss: {
             
         }, content: {
-            TimeSpanTaskEditView(task: $task)
+            TimeSpanTaskEditView(task: $task, editing: $editing)
         })
+        .modifier(RoundedRectangleStyle(focused: task.doing == .Doing))
     }
 }
 
@@ -48,6 +59,6 @@ struct TimeSpanTaskNodeView_Previews: PreviewProvider {
             "seconds":"30"
         ], children: .init())
 
-        TimeSpanTaskNodeView(task: .constant(task))
+        TimeSpanTaskNodeView(task: .constant(task), editing: .constant(nil))
     }
 }

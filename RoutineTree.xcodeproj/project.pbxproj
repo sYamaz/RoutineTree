@@ -38,6 +38,8 @@
 		9320D6DC273DD48C00C0D40B /* SyncTaskEditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9320D6DB273DD48C00C0D40B /* SyncTaskEditView.swift */; };
 		932624A22748D1030078FA02 /* TaskTreeRootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 932624A12748D1030078FA02 /* TaskTreeRootView.swift */; };
 		932C30BC274CD81500D2DBA0 /* StartTaskNodeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 932C30BB274CD81500D2DBA0 /* StartTaskNodeView.swift */; };
+		932C30BE274CF51600D2DBA0 /* TaskPlayingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 932C30BD274CF51600D2DBA0 /* TaskPlayingView.swift */; };
+		932C30C0274D0C0900D2DBA0 /* RoutinePlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 932C30BF274D0C0900D2DBA0 /* RoutinePlayer.swift */; };
 		934D8C78273EAD0D00BF507E /* TimeSpanTaskNodeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 934D8C77273EAD0D00BF507E /* TimeSpanTaskNodeView.swift */; };
 		9367A1D8273BE61300ED54E2 /* RoutineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9367A1D7273BE61300ED54E2 /* RoutineView.swift */; };
 		9367A1DA273BE70100ED54E2 /* RoutineViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9367A1D9273BE70100ED54E2 /* RoutineViewModel.swift */; };
@@ -45,7 +47,7 @@
 		93876D0A274530C300201CF8 /* TaskTreeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93876D09274530C300201CF8 /* TaskTreeView.swift */; };
 		93B72870273BFD8800121435 /* TaskTemplateGeneratorDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93B7286F273BFD8800121435 /* TaskTemplateGeneratorDelegate.swift */; };
 		93B72875273C034F00121435 /* TaskViewFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93B72874273C034F00121435 /* TaskViewFactory.swift */; };
-		93FF6DD62747216B00A2A210 /* TaskPlayingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93FF6DD52747216B00A2A210 /* TaskPlayingView.swift */; };
+		93FF6DD62747216B00A2A210 /* RoutinePlayingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93FF6DD52747216B00A2A210 /* RoutinePlayingView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -99,6 +101,8 @@
 		9320D6DB273DD48C00C0D40B /* SyncTaskEditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SyncTaskEditView.swift; sourceTree = "<group>"; };
 		932624A12748D1030078FA02 /* TaskTreeRootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskTreeRootView.swift; sourceTree = "<group>"; };
 		932C30BB274CD81500D2DBA0 /* StartTaskNodeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartTaskNodeView.swift; sourceTree = "<group>"; };
+		932C30BD274CF51600D2DBA0 /* TaskPlayingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskPlayingView.swift; sourceTree = "<group>"; };
+		932C30BF274D0C0900D2DBA0 /* RoutinePlayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutinePlayer.swift; sourceTree = "<group>"; };
 		934D8C77273EAD0D00BF507E /* TimeSpanTaskNodeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeSpanTaskNodeView.swift; sourceTree = "<group>"; };
 		9367A1D7273BE61300ED54E2 /* RoutineView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutineView.swift; sourceTree = "<group>"; };
 		9367A1D9273BE70100ED54E2 /* RoutineViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutineViewModel.swift; sourceTree = "<group>"; };
@@ -106,7 +110,7 @@
 		93876D09274530C300201CF8 /* TaskTreeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskTreeView.swift; sourceTree = "<group>"; };
 		93B7286F273BFD8800121435 /* TaskTemplateGeneratorDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskTemplateGeneratorDelegate.swift; sourceTree = "<group>"; };
 		93B72874273C034F00121435 /* TaskViewFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskViewFactory.swift; sourceTree = "<group>"; };
-		93FF6DD52747216B00A2A210 /* TaskPlayingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskPlayingView.swift; sourceTree = "<group>"; };
+		93FF6DD52747216B00A2A210 /* RoutinePlayingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutinePlayingView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -214,9 +218,11 @@
 			children = (
 				931891D727369926007E2C5E /* ContentView.swift */,
 				9367A1D7273BE61300ED54E2 /* RoutineView.swift */,
-				93876D09274530C300201CF8 /* TaskTreeView.swift */,
 				932624A12748D1030078FA02 /* TaskTreeRootView.swift */,
-				93FF6DD52747216B00A2A210 /* TaskPlayingView.swift */,
+				93876D09274530C300201CF8 /* TaskTreeView.swift */,
+				932C30BF274D0C0900D2DBA0 /* RoutinePlayer.swift */,
+				93FF6DD52747216B00A2A210 /* RoutinePlayingView.swift */,
+				932C30BD274CF51600D2DBA0 /* TaskPlayingView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -478,12 +484,14 @@
 				9318922E2736B82C007E2C5E /* Routine.swift in Sources */,
 				9318922827369EC6007E2C5E /* RoutineTask.swift in Sources */,
 				931891FE27369927007E2C5E /* RoutineTreeApp.swift in Sources */,
-				93FF6DD62747216B00A2A210 /* TaskPlayingView.swift in Sources */,
+				93FF6DD62747216B00A2A210 /* RoutinePlayingView.swift in Sources */,
 				93B72875273C034F00121435 /* TaskViewFactory.swift in Sources */,
 				9318922A2736A04B007E2C5E /* TaskId.swift in Sources */,
+				932C30C0274D0C0900D2DBA0 /* RoutinePlayer.swift in Sources */,
 				9318921E27369BCE007E2C5E /* RoutineViewFactory.swift in Sources */,
 				930E5E8B274886460028B41E /* AddNewTaskButton.swift in Sources */,
 				9318922227369CB0007E2C5E /* RoutineListViewModel.swift in Sources */,
+				932C30BE274CF51600D2DBA0 /* TaskPlayingView.swift in Sources */,
 				934D8C78273EAD0D00BF507E /* TimeSpanTaskNodeView.swift in Sources */,
 				930E63E8273C7BC2006E214F /* TaskTypeGeneratorDelegate.swift in Sources */,
 				9373390427468EB3006C76C5 /* TimeSpanTaskEditView.swift in Sources */,

@@ -9,22 +9,33 @@ import SwiftUI
 
 struct StartTaskNodeView: View {
     @Binding var routine:Routine
-    @State private var editing:Bool = false
+    @Binding var editing:TaskId?
     var body: some View {
-        Button(action: {
-            editing = true
-        }, label: {
-            Text(routine.title)
+        Button(action: {editing = .createStartTaskId()}){
+            Text("start")
                 .modifier(DashRoundedRectangleStyle())
+        }
+        .sheet(isPresented: .init(
+            get: {
+                if let id = editing {
+                    return id.isStartTaskId()
+                }
+                return false
+            },
+            set: {b in
+                self.editing = b ? .createStartTaskId() : nil
+            }
+        ), onDismiss: {
+            
+        }, content: {
+            StartTaskEditView(appendable: $routine, editing: $editing)
+            
         })
-            .sheet(isPresented: $editing, onDismiss: {
-                
-            }, content: {StartTaskEditView(appendable: $routine)})
     }
 }
 
 struct StartTaskNodeView_Previews: PreviewProvider {
     static var previews: some View {
-        StartTaskNodeView(routine: .constant(previewRoutine))
+        StartTaskNodeView(routine: .constant(previewRoutine), editing: .constant(nil))
     }
 }

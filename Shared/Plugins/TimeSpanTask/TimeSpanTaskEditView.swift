@@ -9,6 +9,7 @@ import SwiftUI
 
 struct TimeSpanTaskEditView: View {
     @Binding var task:RoutineTask
+    @Binding var editing:TaskId?
     let factory:AddNewTaskButtonFactory = .init()
     
     var body: some View {
@@ -49,7 +50,10 @@ struct TimeSpanTaskEditView: View {
             Text("Next tasks")
             List{
                 ForEach(task.children, id: \.id){t in
-                    Text(t.title)
+                    Button(t.title){
+                        editing = nil
+                        editing = t.id
+                    }
                 }
             }
             
@@ -68,6 +72,6 @@ struct TimeSpanTaskEditView_Previews: PreviewProvider {
             "seconds":"20"
         ], children: .init())
         
-        TimeSpanTaskEditView(task: .constant(task))
+        TimeSpanTaskEditView(task: .constant(task), editing: .constant(nil))
     }
 }

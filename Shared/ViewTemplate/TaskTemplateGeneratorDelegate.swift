@@ -8,5 +8,5 @@
 import Foundation
 import SwiftUI
 protocol TaskTemplateGeneratorDelegate{
-    func generateNodeView(task:Binding<RoutineTask>) -> AnyView
+    func generateNodeView(task:Binding<RoutineTask>, editing:Binding<TaskId?>) -> AnyView
 }

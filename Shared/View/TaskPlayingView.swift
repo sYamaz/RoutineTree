@@ -2,54 +2,50 @@
 //  TaskPlayingView.swift
 //  RoutineTree (iOS)
 //
-//  Created by Shun Yamazaki on 2021/11/19.
+//  Created by Shun Yamazaki on 2021/11/23.
 //
 
 import SwiftUI
 
 struct TaskPlayingView: View {
-    @Binding var routine:Routine
+    @Binding var task:RoutineTask
     let factory:TaskViewFactory
     
     var body: some View {
-        let tasks = flattenRoutine(r: self.routine)
-                        .filter({t in t.doing})
-        
-        List(){
-            ForEach(tasks.indices, id: \.self){index in
-                var t = tasks[index]
-                HStack(alignment: .center, spacing: nil){
-                    Text(t.title)
+        VStack(alignment: .center, spacing: nil){
+            if(task.doing == .Doing){
+                HStack{
+                factory.generatePlayView(task: $task).transition(.asymmetric(insertion: .move(edge: .leading), removal: .move(edge: .trailing)))
+                        .transition(.asymmetric(insertion: .move(edge: .leading), removal: .move(edge: .trailing)))
                     Spacer()
-                    Button("Done"){
-                        print("Click")
-                        t.markAsDone()
-                    }
+                    Button(action: {
+                        withAnimation{
+                            self.task.markAsDone()
+                        }
+                    }, label: {
+                        Text("Done")
+                    })
+                }
+            }else{
+                ForEach($task.children.indices, id:\.self){i in
+                    TaskPlayingView(task: $task.children[i], factory: self.factory)
                 }
             }
         }
-    }
-    
-    private func flattenRoutine(r:Routine) -> [RoutineTask]{
-        var tasks:[RoutineTask] = r.tasks
-        tasks.append(contentsOf: r.tasks.flatMap{t in flattenChildren(task: t)})
-        return tasks
-    }
-    
-    private func flattenChildren(task:RoutineTask) -> [RoutineTask]{
-        var ret:[RoutineTask] = task.children
-        for c in task.children{
-            ret.append(contentsOf: flattenChildren(task: c))
-        }
-        return ret
     }
 }
 
 struct TaskPlayingView_Previews: PreviewProvider {
     static var previews: some View {
-        let routine = previewRoutine
-        TaskPlayingView(routine: .constant(routine), factory: taskViewFactory)
-            .onAppear(perform: {routine.start()})
-    }
+        var task:RoutineTask = .init(id: .init(id: .init()), type: .Sync, title: "Root", description: "Description", properties: .init(), children: [
+            .init(id: .init(id: .init()), type: .Sync, title: "Child1", description: "Description", properties: .init(), children: [
+                .init(id: .init(id: .init()), type: .Sync, title: "Child1-1", description: "Description", properties: .init(), children: .init()),
+                .init(id: .init(id: .init()), type: .Sync, title: "Child1-2", description: "Description", properties: .init(), children: .init()),
+            ]),
+            .init(id: .init(id: .init()), type: .Sync, title: "Child2", description: "Description", properties: .init(), children: .init())
+        ])
         
+        TaskPlayingView(task: .constant(task), factory: taskViewFactory)
+            .onAppear(perform: {task.visit()})
+    }
 }

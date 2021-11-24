@@ -19,6 +19,7 @@ struct TaskTreeView<Node:View>: View {
     var body: some View {
         VStack(alignment: .leading, spacing: nil){
             node(self.$task)
+                .id($task.id)
                 // Singletonなコレクション（PreferenceKey）にViewの中心座標を登録する
                 .anchorPreference(key: CollectDict.self, value: .center, transform: {center in
                     [self.task.id: center]
@@ -52,7 +53,7 @@ struct TaskTreeView<Node:View>: View {
 struct TaskTreeView_Previews: PreviewProvider {
     static var previews: some View {
         VStack(alignment: .center, spacing: nil){
-            TaskTreeView(task: .constant(previewTree), node: {rt in Text(rt.wrappedValue.title).modifier(RoundedRectangleStyle())})
+            TaskTreeView(task: .constant(previewTree), node: {rt in Text(rt.wrappedValue.title).modifier(RoundedRectangleStyle(focused: false))})
         }
     }
 }
@@ -77,11 +78,18 @@ struct RoundedCircleStyle: ViewModifier {
 }
 
 struct RoundedRectangleStyle : ViewModifier{
+    let focused:Bool
     func body(content: Content) -> some View {
+        if(focused){
+            content.padding(4)
+                .background(RoundedRectangle(cornerRadius: 8).stroke(Color.accentColor))
+                .background(RoundedRectangle(cornerRadius: 8).fill(.background).overlay(RoundedRectangle(cornerRadius: 8).fill(Color.accentColor.opacity(0.3))))
+        } else {
         content
             .padding(4)
             .background(RoundedRectangle(cornerRadius: 8).stroke(Color.accentColor))
             .background(RoundedRectangle(cornerRadius: 8).fill(.background))
+        }
     }
 }
 

@@ -9,6 +9,7 @@ import SwiftUI
 
 struct SyncTaskEditView: View {
     @Binding var task:RoutineTask
+    @Binding var editing:TaskId?
     let factory:AddNewTaskButtonFactory = .init()
     
     var body: some View {
@@ -26,7 +27,10 @@ struct SyncTaskEditView: View {
             Text("Next tasks")
             List{
                 ForEach(task.children, id: \.id){t in
-                    Text(t.title)
+                    Button(t.title){
+                        editing = nil
+                        editing = t.id
+                    }
                 }
             }
             
@@ -42,7 +46,7 @@ struct SyncTaskEditView_Previews: PreviewProvider {
         let task = RoutineTask(id: .init(id: .init()), type: .Sync, title: "Title", description: "Description", properties: .init(), children: .init())
         
         NavigationView{
-            SyncTaskEditView(task: .constant(task))
+            SyncTaskEditView(task: .constant(task), editing: .constant(nil))
         }
     }
 }

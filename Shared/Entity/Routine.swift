@@ -19,20 +19,29 @@ struct Routine: Identifiable, TaskAppendable{
         self.tasks = tasks
     }
     
-    public func start() -> Void{
-        for var t in tasks{
-            t.visit()
+    public mutating func start() -> Void{
+        for i in tasks.indices{
+            tasks[i].visit()
         }
     }
     
-    public func forceFinished() -> Void{
-        for var t in tasks{
-            t.forceFinished()
+    public func allDone() -> Bool{
+        for i in tasks.indices{
+            if(tasks[i].allDone() == false){
+                return false
+            }
+        }
+        
+        return true
+    }
+    
+    public mutating func forceFinished() -> Void{
+        for i in tasks.indices{
+            tasks[i].forceFinished()
         }
     }
     
     public mutating func append(_ task:RoutineTask) -> Void{
         self.tasks.append(task)
-        print(tasks)
     }
 }

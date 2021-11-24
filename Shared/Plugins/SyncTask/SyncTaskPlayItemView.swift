@@ -19,12 +19,6 @@ struct SyncTaskPlayItemView: View {
                     .font(.caption)
                     .foregroundColor(.secondary)
             }
-            Spacer()
-            Button(action: {
-                self.task.markAsDone()
-            }, label: {
-                Text("Done")
-            })
         }
     }
 }

@@ -24,36 +24,59 @@ struct RoutineTask: Identifiable, TaskAppendable{
     
     public var children:[RoutineTask]
     
-    private(set) var doing:Bool = false
+    public var doing:PlayState
+    public var lastStartAt:Date?
     
-    public var editing:Bool
-    
-    init(id:TaskId, type:TaskType, title:String, description:String, properties:Dictionary<String,String>, children:[RoutineTask]){
+    private init(id:TaskId,
+                 type:TaskType,
+                 title:String,
+                 description:String,
+                 properties:Dictionary<String,String>,
+                 children:[RoutineTask],
+                 doing:PlayState,
+                 lastStartAt:Date){
         self.id = id
         self.type = type
         self.title = title
         self.description = description
         self.properties = properties
         self.children = children
-        self.editing = false
+        self.doing = doing
+        self.lastStartAt = lastStartAt
     }
 
     
     public mutating func visit() -> Void{
-        self.doing = true
+        self.doing = .Doing
+        self.lastStartAt = Date()
     }
     
     public mutating func markAsDone() -> Void{
-        self.doing = false
-        for var t in children{
-            t.visit()
+        self.doing = .Done
+        for i in children.indices{
+            self.children[i].visit()
         }
     }
     
+    public func allDone() -> Bool{
+        if(self.doing != .Done){
+            return false
+        }
+        
+        for i in children.indices {
+            if(children[i].allDone() == false){
+                return false
+            }
+        }
+        
+        return true
+    }
+    
     public mutating func forceFinished() -> Void{
-        self.doing = false
-        for var t in children{
-            t.forceFinished()
+        self.doing = .None
+        
+        for i in children.indices{
+            self.children[i].forceFinished()
         }
     }
     
@@ -63,6 +86,24 @@ struct RoutineTask: Identifiable, TaskAppendable{
     
     public mutating func deleteChild(_ id:TaskId) -> Void{
         self.children.removeAll(where: {t in t.id == id})
+    }
+}
+
+extension RoutineTask{
+    init(id:TaskId,
+         type:TaskType,
+         title:String,
+         description:String,
+         properties:Dictionary<String,String>,
+         children:[RoutineTask]){
+        self.id = id
+        self.type = type
+        self.title = title
+        self.description = description
+        self.properties = properties
+        self.children = children
+        self.doing = .None
+        self.lastStartAt = nil
     }
 }
 
@@ -83,4 +124,10 @@ extension RoutineTask{
     mutating func setSeconds(_ val:Int) -> Void{
         self.properties["seconds"] = String(val)
     }
+}
+
+enum PlayState{
+    case None
+    case Doing
+    case Done
 }
