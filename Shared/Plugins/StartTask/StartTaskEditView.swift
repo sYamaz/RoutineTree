@@ -9,7 +9,7 @@ import SwiftUI
 
 struct StartTaskEditView: View {
     let factory:AddNewTaskButtonFactory = .init()
-    @Binding var appendable:Routine
+    @Binding var appendable:RoutineTree
     @Binding var editing:TaskId?
     var body: some View {
         VStack(alignment: .leading, spacing: nil){
@@ -32,7 +32,7 @@ struct StartTaskEditView: View {
 
 struct StartTaskEditView_Previews: PreviewProvider {
     static var previews: some View {
-        let r = Routine(id: .init(id: .init()), title: "RoutineName", tasks: .init())
+        let r = RoutineTree(id: .init(id: .init()), title: "RoutineName", tasks: .init())
         
         StartTaskEditView(appendable: .constant(r), editing: .constant(nil))
     }

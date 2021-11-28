@@ -10,10 +10,8 @@ import SwiftUI
 
 /// RoutineViewを生成します
 class RoutineViewFactory: ContentWireframe{
-
-    func getRoutineView(routine:Binding<Routine>) -> AnyView
+    func getRoutineView(routine:Binding<RoutineTree>) -> RoutineView
     {
-        let view = RoutineView(routine: routine, factory: taskViewFactory)
-        return .init(view)
+        return RoutineView(routine: routine, factory: taskViewFactory)
     }
 }

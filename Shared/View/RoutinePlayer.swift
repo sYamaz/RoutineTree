@@ -8,54 +8,92 @@
 import SwiftUI
 
 struct RoutinePlayer: View {
-    @Binding var routine:Routine
-    @State private var routineMode:Bool = false
-    
+    @Binding var playerMode:PlayerMode
+    @Binding var routine:RoutineTree
+    @Binding var routines:[RoutineTree]
     let factory:TaskViewFactory
+    
+    
+    
     var body: some View {
         VStack(alignment: .center, spacing: nil){
-            Spacer()
             VStack(alignment: .center, spacing: nil){
-                if(routineMode){
-                    RoutinePlayingView(routine: self.$routine, factory: self.factory)
-                        .frame(height:200)
+                if(routine.allDone()){
+                    Button(action: {
+                        withAnimation{
+                            self.routine.forceFinished()
+                            self.playerMode = .hidden
+                        }
+                    }, label: {
+                        HStack(alignment: .center, spacing: nil, content: {
+                            Spacer()
+                            Image(systemName: "hands.sparkles")
+                            Text("Completed!")
+                            Spacer()
+                        })
+                    })
                         .padding()
-                    HStack{Spacer()}
-                }
-                Button(action:{
-                    if(self.routine.routineMode){
-                        // cancel routine
-                        self.routine.forceFinished()
-                        withAnimation(){
-                            self.routineMode = false
-                        }
+                } else {
+                    switch playerMode {
+                    case .hidden:
+                        HStack(alignment: .center, spacing: nil, content: {
+                            Picker("routine", selection: self.$routine, content: {
+                                ForEach(self.routines, id: \.id){r in
+                                    Text(r.title).tag(r)
+                                }
+                            })
+                            Spacer()
+                            Button(action: {
+                                // start routine
+                                self.routine.start()
+                                withAnimation(){
+                                    self.playerMode = .small
+                                }
+                            }, label: {
+                                Image(systemName: "play.fill").imageScale(.large)
+                            })
+                        }).padding()
+                    case .small:
+                        VStack(alignment: .center, spacing: nil, content: {
+                            HStack(alignment: .center, spacing: nil, content: {
+                                Button(action: {
+                                    withAnimation{
+                                        self.playerMode = .middle
+                                    }
+                                    print(playerMode)
+                                }, label: {
+                                    Image(systemName: "chevron.up")
+                                    .padding()})
+                            })
+                            RoutinePlayingView(routine: self.$routine, factory: self.factory)
+                                .frame(height:200)
+                                .padding()
+                        })
+                            .transition(.scale)
+                    case .middle:
+                        VStack(alignment: .center, spacing: nil, content: {
+                            HStack(alignment: .center, spacing: nil, content: {
+                                Button(action: {
+                                    withAnimation{
+                                        self.playerMode = .small
+                                    }
+                                }, label: {
+                                    Image(systemName: "chevron.down").padding()
+                                })
+                            })
+                            RoutinePlayingView(routine: self.$routine, factory: self.factory)
+                                .padding()
+                        }).transition(.scale)
                     }
-                    else{
-                        // start routine
-                        self.routine.start()
-                        withAnimation(){
-                            self.routineMode = true
-                        }
-                    }
-                }){
-                    HStack(alignment: .center, spacing: nil){
-                        let t:(String, String) = routineMode ?
-                        (routine.allDone() ? ("Completed !", "hands.sparkles") : ("Cancel", "stop.fill")) : ("Start routine", "play")
-                        
-                        Image(systemName: t.1)
-                        Text(t.0)
-                    }
-                    .padding()
                 }
             }
-            .background(RoundedRectangle(cornerRadius: 32).stroke(Color.accentColor))
-            .background(RoundedRectangle(cornerRadius: 32).fill(.background))
         }
     }
-}
-
-struct RoutinePlayer_Previews: PreviewProvider {
-    static var previews: some View {
-        RoutinePlayer(routine: .constant(previewRoutine), factory: taskViewFactory)
+    
+    struct RoutinePlayer_Previews: PreviewProvider {
+        static var previews: some View {
+            RoutinePlayer(playerMode: .constant(.hidden) , routine: .constant(tutorialRoutine), routines: .constant([tutorialRoutine]), factory: taskViewFactory)
+                .border(.gray)
+        }
     }
 }

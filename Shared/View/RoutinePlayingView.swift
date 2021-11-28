@@ -8,34 +8,21 @@
 import SwiftUI
 
 struct RoutinePlayingView: View {
-    @Binding var routine:Routine
+    @Binding var routine:RoutineTree
     let factory:TaskViewFactory
     
     var body: some View {
         ScrollView(){
-            ForEach($routine.tasks.indices, id: \.self){index in
-                TaskPlayingView(task: $routine.tasks[index], factory: factory)
+            ForEach($routine.tasks, id: \.id){t in
+                TaskPlayingView(task: t, factory: factory)
             }
         }
-    }
-    
-    private func allDone(tasks:[RoutineTask]) -> Bool{
-        for task in tasks{
-            if(task.doing != .Done){
-                return false
-            }
-            if(allDone(tasks: task.children) == false){
-                return false
-            }
-        }
-        
-        return true
     }
 }
 
 struct RoutinePlayingView_Previews: PreviewProvider {
     static var previews: some View {
-        var routine = previewRoutine
+        var routine = makeStarted(routine: tutorialRoutine)
         RoutinePlayingView(routine: .constant(routine), factory: taskViewFactory)
             .onAppear(perform: {routine.start()})
     }

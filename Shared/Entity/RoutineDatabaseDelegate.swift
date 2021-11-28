@@ -14,17 +14,17 @@ protocol RoutineDatabaseDelegate{
     
     /// ルーティンを取得します
     /// - Returns: ルーティン
-    func getRoutine(id: RoutineId) -> Routine?
+    func getRoutine(id: RoutineId) -> RoutineTree?
     
     /// ルーティンを更新します
     /// - Returns: Void
-    func updateRoutine(_ routine:Routine) -> Void
+    func updateRoutine(_ routine:RoutineTree) -> Void
     
     /// ルーティンを削除します
     /// - Returns: Void
     func deleteRoutine(id:RoutineId) -> Void
     
-    func onReceive(closure: @escaping ([Routine]) -> Void) -> Void
+    func onReceive(closure: @escaping ([RoutineTree]) -> Void) -> Void
 }
 
 class RoutineDatabase: RoutineDatabaseDelegate, ObservableObject{
@@ -36,24 +36,24 @@ class RoutineDatabase: RoutineDatabaseDelegate, ObservableObject{
         ])
     }
     
-    @Published private var routines: [Routine]
+    @Published private var routines: [RoutineTree]
     private var subscriptions:Set<AnyCancellable> = .init()
     
     init(){
         self.routines = .init()
     }
     
-    init(routines:[Routine]){
+    init(routines:[RoutineTree]){
         self.routines = routines
     }
     
     func addRoutine() -> RoutineId {
-        let newOne:Routine = .init(id: .init(id: .init()), title: "New routine", tasks: .init())
+        let newOne:RoutineTree = .init(id: .init(id: .init()), title: "New routine", tasks: .init())
         routines.append(newOne)
         return newOne.id
     }
     
-    func getRoutine(id: RoutineId) -> Routine? {
+    func getRoutine(id: RoutineId) -> RoutineTree? {
         for routine in routines {
             if(routine.id == id){
                 return routine
@@ -62,7 +62,7 @@ class RoutineDatabase: RoutineDatabaseDelegate, ObservableObject{
         return nil
     }
     
-    func updateRoutine(_ routine: Routine) -> Void {
+    func updateRoutine(_ routine: RoutineTree) -> Void {
         if let idx = routines.firstIndex(where: {r in r.id == routine.id}){
             self.routines[idx] = routine
         }
@@ -74,7 +74,7 @@ class RoutineDatabase: RoutineDatabaseDelegate, ObservableObject{
         }
     }
     
-    func onReceive(closure: @escaping ([Routine]) -> Void) {
+    func onReceive(closure: @escaping ([RoutineTree]) -> Void) {
         self.$routines.sink(receiveValue: closure).store(in: &self.subscriptions)
     }
 }

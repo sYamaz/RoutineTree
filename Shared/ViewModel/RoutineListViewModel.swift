@@ -8,7 +8,7 @@
 import Foundation
 import Combine
 class RoutineListViewModel: RoutineListViewModelDelegate{
-    @Published var routines:[Routine] = [Routine]()
+    @Published var routines:[RoutineTree] = [RoutineTree]()
     private var subscriptions:Set<AnyCancellable> = .init()
     private let routineDb:RoutineDatabaseDelegate
     
@@ -21,7 +21,7 @@ class RoutineListViewModel: RoutineListViewModelDelegate{
         self.routineDb.deleteRoutine(id: routineId)
     }
     
-    func add() -> Routine {
+    func add() -> RoutineTree {
         let newId = self.routineDb.addRoutine()
         return self.routineDb.getRoutine(id: newId)!
     }

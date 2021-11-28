@@ -23,7 +23,7 @@ struct AddNewTaskButtonFactory{
         })
     }
     
-    func generate(appendable:Binding<Routine>) -> some View{
+    func generate(appendable:Binding<RoutineTree>) -> some View{
         return AddNewTaskButton(appendable: appendable, content: {t in
             Button("sync"){
                 t.wrappedValue.append(.init(id: .init(id: .init()), type: .Sync, title: "New Task", description: "Description", properties: .init(), children: .init()))

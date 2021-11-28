@@ -7,8 +7,7 @@
 
 import Foundation
 import SwiftUI
-protocol ContentWireframe: ObservableObject {
-}
-
-class ContentWireframePreview: ContentWireframe{
+protocol ContentWireframe {
+    associatedtype V
+    func getRoutineView(routine:Binding<RoutineTree>) -> V
 }

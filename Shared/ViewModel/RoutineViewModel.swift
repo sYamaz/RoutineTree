@@ -9,7 +9,7 @@ import Foundation
 import Combine
 
 protocol RoutineViewModelDelegate{
-    var routine:Routine{get set}
+    var routine:RoutineTree{get set}
     /// ルーティンのタイトルを更新する
     /// - Returns: Void
     func updateTitle(_ title:String) -> Void
@@ -21,7 +21,7 @@ protocol RoutineViewModelDelegate{
     /// - Returns: Void
     func quit() -> Void
     
-    func updateRoutine(_ r:Routine) -> Void
+    func updateRoutine(_ r:RoutineTree) -> Void
 }
 
 
@@ -29,9 +29,9 @@ class RoutineViewModel: RoutineViewModelDelegate, ObservableObject{
 
     
     private var subscriptions:Set<AnyCancellable> = .init()
-    @Published var routine:Routine
+    @Published var routine:RoutineTree
     
-    init(routine:Routine){
+    init(routine:RoutineTree){
         self.routine = routine
         
         self.$routine.sink(receiveValue: {r in print("RoutineViewModel: routine udpated.")}).store(in: &subscriptions)
@@ -40,7 +40,7 @@ class RoutineViewModel: RoutineViewModelDelegate, ObservableObject{
         self.routine.title = title
     }
     
-    func updateRoutine(_ r:Routine) -> Void{
+    func updateRoutine(_ r:RoutineTree) -> Void{
         self.routine = r
     }
     

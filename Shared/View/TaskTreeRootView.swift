@@ -9,12 +9,12 @@ import SwiftUI
 
 struct TaskTreeRootView<Root:View, Node:View>: View {
     
-    @Binding var routine:Routine
+    @Binding var routine:RoutineTree
     let node:(Binding<RoutineTask>) -> Node
-    let root:(Binding<Routine>) -> Root
+    let root:(Binding<RoutineTree>) -> Root
     
     var body: some View {
-        LazyVStack(alignment: .leading, spacing: nil, pinnedViews: .sectionHeaders){
+        VStack(alignment: .leading, spacing: nil){
             // Singletonなコレクション（PreferenceKey）にViewの中心座標を登録する
             root($routine)
                 .id(TaskId.createStartTaskId())
@@ -24,9 +24,8 @@ struct TaskTreeRootView<Root:View, Node:View>: View {
                     transform: {center in
                         [TaskId.createStartTaskId(): center]
                 })
-            LazyHStack(alignment: .top, spacing: nil, pinnedViews: .sectionHeaders){
-                ForEach(self.routine.tasks.indices, id: \.self){index in
-                    let t = self.$routine.tasks[index]
+            HStack(alignment: .top, spacing: nil){
+                ForEach(self.$routine.tasks, id:\.id){t in
                     TaskTreeView(task: t, node: self.node)
                 }
             }
@@ -53,8 +52,8 @@ struct TaskTreeRootView<Root:View, Node:View>: View {
 struct TaskTreeRootView_Previews: PreviewProvider {
     static var previews: some View {
         TaskTreeRootView(
-            routine: .constant(previewRoutine),
-            node: {rt in Text(rt.wrappedValue.title).modifier(RoundedRectangleStyle(focused: false))},
+            routine: .constant(tutorialRoutine),
+            node: {rt in Text(rt.wrappedValue.title).modifier(RoundedRectangleStyle(focused: false)).padding()},
             root: {r in Text(r.wrappedValue.title).modifier(DashRoundedRectangleStyle())
             
         })

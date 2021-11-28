@@ -8,12 +8,15 @@
 import SwiftUI
 
 struct StartTaskNodeView: View {
-    @Binding var routine:Routine
+    @Binding var routine:RoutineTree
     @Binding var editing:TaskId?
     var body: some View {
         Button(action: {editing = .createStartTaskId()}){
-            Text("start")
-                .modifier(DashRoundedRectangleStyle())
+            VStack(alignment: .center, spacing: nil, content: {
+                Text("start")
+            })
+            .foregroundColor(.primary)
+            .modifier(DashRoundedRectangleStyle())
         }
         .sheet(isPresented: .init(
             get: {
@@ -29,13 +32,12 @@ struct StartTaskNodeView: View {
             
         }, content: {
             StartTaskEditView(appendable: $routine, editing: $editing)
-            
         })
     }
 }
 
 struct StartTaskNodeView_Previews: PreviewProvider {
     static var previews: some View {
-        StartTaskNodeView(routine: .constant(previewRoutine), editing: .constant(nil))
+        StartTaskNodeView(routine: .constant(tutorialRoutine), editing: .constant(nil))
     }
 }

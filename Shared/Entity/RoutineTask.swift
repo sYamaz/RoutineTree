@@ -10,7 +10,7 @@ protocol TaskAppendable{
     mutating func append(_ newTask:RoutineTask) -> Void
 }
     
-struct RoutineTask: Identifiable, TaskAppendable{
+struct RoutineTask: Hashable, Identifiable, TaskAppendable{
     /// このタスクを識別するためのID
     public let id:TaskId
     /// このタスクのタイプ
