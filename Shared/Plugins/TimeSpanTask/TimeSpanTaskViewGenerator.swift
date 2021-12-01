@@ -14,7 +14,7 @@ class TimeSpanTaskViewGenerator: TaskTypeGeneratorDelegate{
         return .init(TimeSpanTaskNodeView(task: task, editing: editing))
     }
     
-    func generatePlayView(task:Binding<RoutineTask>) -> AnyView{
+    func generatePlayView(task:Binding<PlayableRoutineTask>) -> AnyView{
         return .init(TimeSpanTaskPlayItemView(task: task))
     }
 }

@@ -14,7 +14,7 @@ struct AddNewTaskButton<Content:View, T:TaskAppendable>: View {
     @ViewBuilder var content:(Binding<T>) -> Content
     
     var body: some View {
-
+        
         HStack(alignment: .center, spacing: nil){
             Spacer()
             Button(
@@ -22,7 +22,10 @@ struct AddNewTaskButton<Content:View, T:TaskAppendable>: View {
                     mode = true
                 },
                 label: {
-                    Text("add next task")
+                    HStack{
+                        Image(systemName: "plus")
+                        Text("Add")
+                    }
                 })
                 .confirmationDialog(Text("Select task type."), isPresented: $mode, titleVisibility: .visible, actions: {
                     self.content($appendable)

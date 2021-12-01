@@ -13,6 +13,6 @@ struct DashRoundedRectangleStyle: ViewModifier{
         content
             .padding(4)
             .background(RoundedRectangle(cornerRadius: 8).stroke(style: StrokeStyle(lineWidth: 1, lineCap: .round, lineJoin: .round, miterLimit: 1, dash: [2], dashPhase: 1)))
-            .background(RoundedRectangle(cornerRadius: 8).fill(.background))
+            .background(RoundedRectangle(cornerRadius: 8).fill(.regularMaterial))
     }
 }

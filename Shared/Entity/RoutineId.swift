@@ -6,6 +6,6 @@
 //
 
 import Foundation
-struct RoutineId: Hashable{
+struct RoutineId: Hashable, Codable, Equatable{
     public let id:UUID
 }

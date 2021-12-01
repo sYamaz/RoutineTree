@@ -26,8 +26,6 @@ struct TimeSpanTaskNodeView: View {
                 Text("\(self.task.getMinutes()) min \(self.task.getSeconds()) sec")
                     .font(.caption)
                     .foregroundColor(.secondary)
-                ProgressView(value: 0.3)
-                    .progressViewStyle(.linear)
             }
         }
         .sheet(isPresented: .init(
@@ -45,7 +43,7 @@ struct TimeSpanTaskNodeView: View {
         }, content: {
             TimeSpanTaskEditView(task: $task, editing: $editing)
         })
-        .modifier(RoundedRectangleStyle(focused: task.doing == .Doing))
+        .modifier(RoundedRectangleStyle(focused: false))
     }
 }
 

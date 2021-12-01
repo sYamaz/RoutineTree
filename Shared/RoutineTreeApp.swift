@@ -9,17 +9,41 @@ import SwiftUI
 
 @main
 struct RoutineTreeApp: App {
+    @State var routines:[RoutineTree] = [tutorialRoutine]
+    @State var targetId:RoutineId = tutorialRoutine.id
+    let router = RoutineViewFactory()
+    
     var body: some Scene {
         WindowGroup {
-            let routines:[RoutineTree] = [
-                tutorialRoutine,
-            ]
-            let routineDb = RoutineDatabase(routines: routines)
-            let router = RoutineViewFactory()
-            let vm = RoutineListViewModel(routineDb: routineDb)
-            ContentView(vm: vm, router: router)
+            ContentView(routines: $routines, router: router, targetId: $targetId)
+//                .onAppear(perform: {
+//                    routines = load()
+//                })
+//                .onDisappear(perform: {
+//                    save(routines: routines)
+//                })
         }
     }
+//    
+//    private func save(routines:[RoutineTree]) -> Void{
+//        let enc = JSONEncoder()
+//        guard let data = try? enc.encode(routines) else{
+//            return
+//        }
+//        UserDefaults.standard.set(data, forKey: "routines")
+//    }
+//
+//    private func load() -> [RoutineTree]{
+//        guard let data = UserDefaults.standard.data(forKey: "routines") else {
+//            return .init()
+//        }
+//        let dec = JSONDecoder()
+//        guard let ret = try? dec.decode([RoutineTree].self, from: data) else{
+//            return .init()
+//        }
+//
+//        return ret
+//    }
 }
 
 let tutorialRoutine:RoutineTree = .init(id: .init(id: .init()), title: "Tutorial", tasks: [
@@ -35,14 +59,8 @@ let tutorialRoutine:RoutineTree = .init(id: .init(id: .init()), title: "Tutorial
             ])
         ])
     ])
-
+    
 ])
-
-func makeStarted(routine:RoutineTree) -> RoutineTree{
-    var r = routine
-    r.start()
-    return r
-}
 
 let taskViewFactory :TaskViewFactory = .init(plugins: [
     SyncTaskViewGenerator(),

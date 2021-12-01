@@ -37,7 +37,6 @@ struct RoutineView: View {
             Divider().padding(100).hidden()
             
         }
-        .background(.regularMaterial)
         .sheet(isPresented: $settingMode, onDismiss: nil, content: {
             VStack(alignment: .leading, spacing: nil){
                 HStack{

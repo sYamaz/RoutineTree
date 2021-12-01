@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct SyncTaskPlayItemView: View {
-    @Binding var task:RoutineTask
+    @Binding var task:PlayableRoutineTask
     var body: some View {
         HStack(alignment: .center, spacing: nil){
             VStack(alignment: .leading, spacing: nil){
@@ -27,6 +27,6 @@ struct SyncTaskPlayItemView_Previews: PreviewProvider {
     static var previews: some View {
         let task = RoutineTask(id: .init(id: .init()), type: .Sync, title: "Title", description: "Description", properties: .init(), children:.init())
 
-        SyncTaskPlayItemView(task: .constant(task))
+        SyncTaskPlayItemView(task: .constant(task.makePlayable()))
     }
 }

@@ -18,7 +18,7 @@ struct RoundedRectangleStyle : ViewModifier{
         content
             .padding(4)
             .background(RoundedRectangle(cornerRadius: 8).stroke(Color.accentColor))
-            .background(RoundedRectangle(cornerRadius: 8).fill(.background))
+            .background(RoundedRectangle(cornerRadius: 8).fill(.regularMaterial))
         }
     }
 }

@@ -25,27 +25,12 @@ struct RoutineTree: Hashable, Identifiable, TaskAppendable{
         self.tasks = tasks
     }
     
-    public mutating func start() -> Void{
-        for i in tasks.indices{
-            tasks[i].visit()
-        }
+    public func makePlayable() -> PlayableRoutineTree{
+        let cs = self.tasks.map{t in t.makePlayable()}
+        let ret = PlayableRoutineTree(id: self.id, title: self.title, tasks: cs)
+        return ret
     }
-    
-    public func allDone() -> Bool{
-        for i in tasks.indices{
-            if(tasks[i].allDone() == false){
-                return false
-            }
-        }
-        
-        return true
-    }
-    
-    public mutating func forceFinished() -> Void{
-        for i in tasks.indices{
-            tasks[i].forceFinished()
-        }
-    }
+
     
     public mutating func append(_ task:RoutineTask) -> Void{
         self.tasks.append(task)

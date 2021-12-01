@@ -49,7 +49,7 @@ struct SyncTaskNodeView: View {
         }, content: {
             SyncTaskEditView(task: $task, editing: $editing)
         })
-        .modifier(RoundedRectangleStyle(focused: task.doing == .Doing))
+        .modifier(RoundedRectangleStyle(focused: false))
     }
 }
 

@@ -13,7 +13,7 @@ class SyncTaskViewGenerator: TaskTypeGeneratorDelegate{
         return .init(SyncTaskNodeView(task: task, editing: editing))
     }
     
-    func generatePlayView(task:Binding<RoutineTask>) -> AnyView{
+    func generatePlayView(task:Binding<PlayableRoutineTask>) -> AnyView {
         return .init(SyncTaskPlayItemView(task: task))
     }
 }

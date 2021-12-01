@@ -6,7 +6,7 @@
 //
 
 import Foundation
-struct TaskId: Hashable{
+struct TaskId: Hashable, Codable{
     let id:String
     
     public init(id: UUID){

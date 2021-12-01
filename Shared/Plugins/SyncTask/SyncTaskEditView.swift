@@ -13,30 +13,9 @@ struct SyncTaskEditView: View {
     let factory:AddNewTaskButtonFactory = .init()
     
     var body: some View {
-        VStack(alignment: .leading, spacing: nil){
-
-            TextField("", text: .init(get: {self.task.title}, set: {self.task.title = $0}), prompt: nil)
-                    .font(.title)
-                    .border(.secondary)
-            TextEditor(text:.init(get: {self.task.description}, set: {self.task.description = $0}))
-                    .frame(height:100)
-                    .border(.secondary)
-            
-            Spacer()
-            
-            Text("Next tasks")
-            List{
-                ForEach(task.children, id: \.id){t in
-                    Button(t.title){
-                        editing = nil
-                        editing = t.id
-                    }
-                }
-            }
-            
-            factory.generate(appendable: self.$task)
+        RoutineEditView(task: $task, editingTaskId: $editing){t in
+            EmptyView()
         }
-        .padding()
     }
 }
 
@@ -45,8 +24,8 @@ struct SyncTaskEditView_Previews: PreviewProvider {
         
         let task = RoutineTask(id: .init(id: .init()), type: .Sync, title: "Title", description: "Description", properties: .init(), children: .init())
         
-        NavigationView{
+
             SyncTaskEditView(task: .constant(task), editing: .constant(nil))
-        }
+        
     }
 }

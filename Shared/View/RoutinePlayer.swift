@@ -6,93 +6,73 @@
 //
 
 import SwiftUI
-
 struct RoutinePlayer: View {
-    @Binding var playerMode:PlayerMode
-    @Binding var routine:RoutineTree
+
+    // 再生可能なルーティンリスト
     @Binding var routines:[RoutineTree]
+    // 再生対象のルーティンのID
+    @Binding var targetId:RoutineId
+    // タスクごとのUI生成器
     let factory:TaskViewFactory
     
-    
+    // 実行対象のルーティン
+    @State private var targetRoutine:PlayableRoutineTree = .init(id: .init(id: .init()), title: "empty", tasks: [])
+    // プレイヤーの表示モード
+    @State private var playerMode:PlayerMode = .small
+    // プレイヤーの再生状態
+    @State private var playing:PlayingState = .none
     
     var body: some View {
-        VStack(alignment: .center, spacing: nil){
-            VStack(alignment: .center, spacing: nil){
-                if(routine.allDone()){
-                    Button(action: {
-                        withAnimation{
-                            self.routine.forceFinished()
-                            self.playerMode = .hidden
-                        }
-                    }, label: {
-                        HStack(alignment: .center, spacing: nil, content: {
-                            Spacer()
-                            Image(systemName: "hands.sparkles")
-                            Text("Completed!")
-                            Spacer()
-                        })
-                    })
-                        .padding()
-                } else {
-                    switch playerMode {
-                    case .hidden:
-                        HStack(alignment: .center, spacing: nil, content: {
-                            Picker("routine", selection: self.$routine, content: {
-                                ForEach(self.routines, id: \.id){r in
-                                    Text(r.title).tag(r)
-                                }
-                            })
-                            Spacer()
-                            Button(action: {
-                                // start routine
-                                self.routine.start()
-                                withAnimation(){
-                                    self.playerMode = .small
-                                }
-                            }, label: {
-                                Image(systemName: "play.fill").imageScale(.large)
-                            })
-                        }).padding()
-                    case .small:
-                        VStack(alignment: .center, spacing: nil, content: {
-                            HStack(alignment: .center, spacing: nil, content: {
-                                Button(action: {
-                                    withAnimation{
-                                        self.playerMode = .middle
-                                    }
-                                    print(playerMode)
-                                }, label: {
-                                    Image(systemName: "chevron.up")
-                                    .padding()})
-                            })
-                            RoutinePlayingView(routine: self.$routine, factory: self.factory)
-                                .frame(height:200)
-                                .padding()
-                        })
-                            .transition(.scale)
-                    case .middle:
-                        VStack(alignment: .center, spacing: nil, content: {
-                            HStack(alignment: .center, spacing: nil, content: {
-                                Button(action: {
-                                    withAnimation{
-                                        self.playerMode = .small
-                                    }
-                                }, label: {
-                                    Image(systemName: "chevron.down").padding()
-                                })
-                            })
-                            RoutinePlayingView(routine: self.$routine, factory: self.factory)
-                                .padding()
-                        }).transition(.scale)
+        
+        VStack(alignment: .center, spacing: nil, content: {
+            switch playing {
+            case .none:
+                StandbyView(routines: $routines, targetRoutine: $targetRoutine){
+                    self.targetRoutine = RoutineTreeInteractor().start(tree: targetRoutine)
+                    withAnimation(){
+                        self.playing = .playing
                     }
                 }
+            case .playing:
+                VStack(alignment: .center, spacing: nil, content: {
+                    ChevronUpDownBar(state: $playerMode)
+                    RoutinePlayingView(
+                        routine: self.$targetRoutine,
+                        factory: self.factory){
+                            RoutineTreeInteractor().forceFinished(tree: &targetRoutine)
+                            withAnimation{
+                                self.playing = .none
+                            }
+                        }
+                        .frame(height: self.playerMode == .small ? 200 : nil)
+                        .padding()
+                }).transition(.scale)
+            case .completed:
+//                CompletedView(){
+//                    withAnimation{
+//                        RoutineTreeInteractor().forceFinished(tree: &targetRoutine)
+//                        self.playing = .none
+//                    }
+//                }
+                EmptyView()
             }
-        }
+        }).onChange(of: targetRoutine, perform: {r in
+//            if(self.playing == .playing){
+//                if(RoutineTreeInteractor().allDone(tree:r)){
+//                    withAnimation{
+//                        self.playing = .completed
+//                    }
+//                }
+//            }
+        }).transition(.scale)
     }
     
     struct RoutinePlayer_Previews: PreviewProvider {
         static var previews: some View {
-            RoutinePlayer(playerMode: .constant(.hidden) , routine: .constant(tutorialRoutine), routines: .constant([tutorialRoutine]), factory: taskViewFactory)
+            RoutinePlayer(
+                routines: .constant([tutorialRoutine]),
+                targetId: .constant(tutorialRoutine.id),
+                factory: taskViewFactory)
                 .border(.gray)
         }
     }

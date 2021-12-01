@@ -8,19 +8,20 @@
 import SwiftUI
 
 struct TaskPlayingView: View {
-    @Binding var task:RoutineTask
+    @Binding var task:PlayableRoutineTask
     let factory:TaskViewFactory
     
     var body: some View {
         VStack(alignment: .center, spacing: nil){
             if(task.doing == .Doing){
                 HStack{
-                    factory.generatePlayView(task: $task).transition(.asymmetric(insertion: .move(edge: .leading), removal: .move(edge: .trailing)))
+                    factory.generatePlayView(task: $task)
+                        .transition(.asymmetric(insertion: .move(edge: .leading), removal: .move(edge: .trailing)))
                         .transition(.asymmetric(insertion: .move(edge: .leading), removal: .move(edge: .trailing)))
                     Spacer()
                     Button(action: {
                         withAnimation{
-                            self.task.markAsDone()
+                            self.task = RoutineTreeInteractor().markAsDone(task: self.task)
                         }
                     }, label: {
                         Text("Done")
@@ -37,8 +38,7 @@ struct TaskPlayingView: View {
 
 struct TaskPlayingView_Previews: PreviewProvider {
     static var previews: some View {
-        var task:RoutineTask = tutorialRoutine.tasks[0]
-        TaskPlayingView(task: .constant(task), factory: taskViewFactory)
-            .onAppear(perform: {task.visit()})
+        let task:RoutineTask = tutorialRoutine.tasks[0]
+        TaskPlayingView(task: .constant(task.makePlayable()), factory: taskViewFactory)
     }
 }

@@ -9,11 +9,11 @@ import SwiftUI
 import Combine
 struct TimeSpanTaskPlayItemView: View {
 
-    @Binding var task:RoutineTask
+    @Binding var task:PlayableRoutineTask
     @State private var progress:Double = 0
     @State private var complete:Bool = false
     let timer = Timer.publish(every: 1, tolerance: nil, on: .main, in: .common, options: .none).autoconnect()
-    init(task:Binding<RoutineTask>){
+    init(task:Binding<PlayableRoutineTask>){
         self._task = task
     }
     
@@ -61,6 +61,6 @@ struct TimeSpanTaskPlayItemView_Previews: PreviewProvider {
         ],children: .init())
         
         
-        TimeSpanTaskPlayItemView(task: .constant(task))
+        TimeSpanTaskPlayItemView(task: .constant(task.makePlayable()))
     }
 }

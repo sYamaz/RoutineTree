@@ -8,13 +8,20 @@
 import SwiftUI
 
 struct RoutinePlayingView: View {
-    @Binding var routine:RoutineTree
+    @Binding var routine:PlayableRoutineTree
     let factory:TaskViewFactory
-    
+    let onCompleted:() -> Void
     var body: some View {
-        ScrollView(){
-            ForEach($routine.tasks, id: \.id){t in
-                TaskPlayingView(task: t, factory: factory)
+        if(RoutineTreeInteractor().allDone(tree: routine) == false){
+            ScrollView(){
+                ForEach($routine.tasks, id: \.id){t in
+                    TaskPlayingView(task: t, factory: factory)
+                }
+            }
+        } else {
+            VStack{
+                Spacer()
+                CompletedView(onClick: onCompleted)
             }
         }
     }
@@ -22,9 +29,10 @@ struct RoutinePlayingView: View {
 
 struct RoutinePlayingView_Previews: PreviewProvider {
     static var previews: some View {
-        var routine = makeStarted(routine: tutorialRoutine)
-        RoutinePlayingView(routine: .constant(routine), factory: taskViewFactory)
-            .onAppear(perform: {routine.start()})
+        let routine = tutorialRoutine
+        RoutinePlayingView(routine: .constant(routine.makePlayable()), factory: taskViewFactory){
+            
+        }
     }
-        
+    
 }

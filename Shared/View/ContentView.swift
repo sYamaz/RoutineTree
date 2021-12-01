@@ -8,30 +8,39 @@
 import SwiftUI
 
 enum PlayerMode{
-    case hidden
     case small
     case middle
 }
 
+enum PlayingState{
+    case none
+    case playing
+    case completed
+}
+
 struct ContentView: View  {
-    
-    
-    @ObservedObject private var vm:RoutineListViewModel
-    @State private var playerMode:PlayerMode = .hidden
-    @State private var playing:Bool = false
-    @State private var playingRoutine:RoutineTree = tutorialRoutine
-    private let router:RoutineViewFactory
-    
-    init(vm: RoutineListViewModel, router:RoutineViewFactory){
-        self.vm = vm
+    @Binding var targetId:RoutineId
+    @Binding var routines:[RoutineTree]
+    let router:RoutineViewFactory
+
+    init(routines:Binding<[RoutineTree]>,
+         router:RoutineViewFactory,
+         targetId:Binding<RoutineId>){
+        self._routines = routines
         self.router = router
+        self._targetId = targetId
+        
+        if(self.routines.isEmpty){
+            self.routines.append(tutorialRoutine)
+        }
     }
+    
     var body: some View {
         ZStack(alignment: .center){
+            // リスト表示部分
             NavigationView(content: {
                 List{
-                    ForEach(vm.routines.indices, id: \.self){i in
-                        let r = $vm.routines[i]
+                    ForEach(self.$routines, id: \.id){r in
                         NavigationLink(destination: {
                             router.getRoutineView(routine: r)
                         }, label: {
@@ -40,24 +49,32 @@ struct ContentView: View  {
                     }
                     .onDelete(perform: {idxs in
                         // 削除
-                        let target = vm.routines[idxs.first!]
-                        vm.delete(target.id)
+                        routines.remove(at: idxs.first!)
                     })
                 }
+                .listStyle(.plain)
                 .navigationTitle(Text("Routines"))
                 .toolbar(content: {
                     Button(action: {
-                        let _ = vm.add()
+                        let newId = RoutineId(id: .init())
+                        let newTitle = "New routine"
+                        let newTasks:[RoutineTask] = .init()
+                        let newRoutine = RoutineTree(id: newId, title: newTitle, tasks: newTasks)
+                        self.routines.append(newRoutine)
                     }, label: {
                         Image(systemName: "plus")
                     })
                 })
             }).background(.regularMaterial)
-            
+            // プレイヤー部分
             VStack(alignment: .center, spacing: nil, content: {
                 Spacer()
-                RoutinePlayer(playerMode: $playerMode, routine: self.$playingRoutine, routines: $vm.routines, factory: taskViewFactory)
+                RoutinePlayer(
+                    routines: self.$routines,
+                    targetId: $targetId,
+                    factory: taskViewFactory)
                     .background(.ultraThinMaterial)
+                
                 
             })
         }
@@ -67,11 +84,12 @@ struct ContentView: View  {
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         
-        let routineDb:RoutineDatabase = .init(routines: [
-            tutorialRoutine
-        ])
+        let routines = [
+        tutorialRoutine
+        ]
+
         let router = RoutineViewFactory()
         
-        ContentView(vm: RoutineListViewModel(routineDb: routineDb), router: router)
+        ContentView(routines: .constant(routines), router: router, targetId: .constant(tutorialRoutine.id))
     }
 }
