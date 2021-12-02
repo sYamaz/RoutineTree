@@ -255,7 +255,7 @@
 			isa = PBXGroup;
 			children = (
 				931235752756DFC30042EF70 /* PlayerParts */,
-				9337A28B27564CCD004D10D5 /* Utils */,
+				9337A28B27564CCD004D10D5 /* UIGVIews */,
 				9337A28A27564C88004D10D5 /* TreeParts */,
 				930F7A592754456C00B91597 /* Modifiers */,
 				931891D727369926007E2C5E /* ContentView.swift */,
@@ -308,13 +308,13 @@
 			path = TreeParts;
 			sourceTree = "<group>";
 		};
-		9337A28B27564CCD004D10D5 /* Utils */ = {
+		9337A28B27564CCD004D10D5 /* UIGVIews */ = {
 			isa = PBXGroup;
 			children = (
 				9337A28C27564CFB004D10D5 /* UIGTextField.swift */,
 				93091EBB275981EB009D08D0 /* UIGCheckBox.swift */,
 			);
-			path = Utils;
+			path = UIGVIews;
 			sourceTree = "<group>";
 		};
 		934D8C70273E9C6700BF507E /* TimeSpanTask */ = {
