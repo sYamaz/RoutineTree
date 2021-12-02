@@ -50,7 +50,7 @@ struct TimeSpanTaskEditView_Previews: PreviewProvider {
         let task:RoutineTask = .init(id: .init(id: .init()), type: .TimeSpan, title: "Task", description: "Description", properties: [
             "minutes":"1",
             "seconds":"20"
-        ], children: .init())
+        ], tasks: .init())
         
         TimeSpanTaskEditView(task: .constant(task), editing: .constant(nil))
     }

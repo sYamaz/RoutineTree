@@ -24,9 +24,11 @@ struct TimeSpanTaskPlayItemView: View {
                 Text(self.task.title)
                     .font(.body)
                     .foregroundColor(.primary)
+                    .multilineTextAlignment(.leading)
                 Text(self.task.description)
                     .font(.caption)
                     .foregroundColor(.secondary)
+                    .multilineTextAlignment(.leading)
                 Text("\(self.task.getMinutes()) min \(self.task.getSeconds()) sec")
                     .font(.caption)
                     .foregroundColor(.secondary)
@@ -58,7 +60,7 @@ struct TimeSpanTaskPlayItemView_Previews: PreviewProvider {
         let task = RoutineTask(id: taskId, type: .TimeSpan, title: "Title", description: "Description",  properties: [
             "minutes":"5",
             "seconds":"30"
-        ],children: .init())
+        ],tasks: .init())
         
         
         TimeSpanTaskPlayItemView(task: .constant(task.makePlayable()))

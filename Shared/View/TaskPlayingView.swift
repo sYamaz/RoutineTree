@@ -15,18 +15,26 @@ struct TaskPlayingView: View {
         VStack(alignment: .center, spacing: nil){
             if(task.doing == .Doing){
                 HStack{
-                    factory.generatePlayView(task: $task)
-                        .transition(.asymmetric(insertion: .move(edge: .leading), removal: .move(edge: .trailing)))
-                        .transition(.asymmetric(insertion: .move(edge: .leading), removal: .move(edge: .trailing)))
-                    Spacer()
-                    Button(action: {
-                        withAnimation{
-                            self.task = RoutineTreeInteractor().markAsDone(task: self.task)
+                    UIGCheckBox(label: {
+                        HStack(alignment: .center, spacing: nil){
+                            factory.generatePlayView(task: $task)
+                            Spacer()
                         }
-                    }, label: {
-                        Text("Done")
+                    }, checkedChanged: {
+                        if($0){
+                            withAnimation(Animation.easeInOut.delay(0.2)){
+                                self.task = RoutineTreeInteractor().markAsDone(task: self.task)
+                            }
+                        }
                     })
-                }.padding(4)
+                    
+                }
+                    .transition(
+                        .asymmetric(
+                            insertion: .move(edge: .trailing),
+                            removal: .move(edge: .leading)))
+                    .padding(4)
+                Divider()
             }else{
                 ForEach($task.children, id:\.id){t in
                     TaskPlayingView(task: t, factory: self.factory)

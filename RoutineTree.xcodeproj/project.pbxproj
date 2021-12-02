@@ -11,6 +11,7 @@
 		9306ACFE275838AE00D86719 /* PlayableRoutineTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9306ACFD275838AE00D86719 /* PlayableRoutineTask.swift */; };
 		9306AD002758399D00D86719 /* PlayableRoutineTree.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9306ACFF2758399D00D86719 /* PlayableRoutineTree.swift */; };
 		9306AD0227583A2B00D86719 /* TaskExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9306AD0127583A2B00D86719 /* TaskExtension.swift */; };
+		93091EBC275981EB009D08D0 /* UIGCheckBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93091EBB275981EB009D08D0 /* UIGCheckBox.swift */; };
 		93095FBA27428AF500FD21A6 /* SyncTaskPlayItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93095FB927428AF500FD21A6 /* SyncTaskPlayItemView.swift */; };
 		93095FBC27428C8D00FD21A6 /* TimeSpanTaskPlayItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93095FBB27428C8D00FD21A6 /* TimeSpanTaskPlayItemView.swift */; };
 		930E5E89274880FA0028B41E /* StartTaskEditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 930E5E88274880FA0028B41E /* StartTaskEditView.swift */; };
@@ -32,8 +33,6 @@
 		9318920327369927007E2C5E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 931891D827369927007E2C5E /* Assets.xcassets */; };
 		9318921C27369BB2007E2C5E /* ContentWireframe.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9318921B27369BB2007E2C5E /* ContentWireframe.swift */; };
 		9318921E27369BCE007E2C5E /* RoutineViewFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9318921D27369BCE007E2C5E /* RoutineViewFactory.swift */; };
-		9318922227369CB0007E2C5E /* RoutineListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9318922127369CB0007E2C5E /* RoutineListViewModel.swift */; };
-		9318922427369CC0007E2C5E /* RoutineListViewModelDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9318922327369CC0007E2C5E /* RoutineListViewModelDelegate.swift */; };
 		9318922827369EC6007E2C5E /* RoutineTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9318922727369EC6007E2C5E /* RoutineTask.swift */; };
 		9318922A2736A04B007E2C5E /* TaskId.swift in Sources */ = {isa = PBXBuildFile; fileRef = 931892292736A04B007E2C5E /* TaskId.swift */; };
 		9318922E2736B82C007E2C5E /* RoutineTree.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9318922D2736B82C007E2C5E /* RoutineTree.swift */; };
@@ -54,7 +53,6 @@
 		9340AA53274EFABC0030C766 /* DashRoundedRectangleStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9340AA52274EFABC0030C766 /* DashRoundedRectangleStyle.swift */; };
 		934D8C78273EAD0D00BF507E /* TimeSpanTaskNodeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 934D8C77273EAD0D00BF507E /* TimeSpanTaskNodeView.swift */; };
 		9367A1D8273BE61300ED54E2 /* RoutineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9367A1D7273BE61300ED54E2 /* RoutineView.swift */; };
-		9367A1DA273BE70100ED54E2 /* RoutineViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9367A1D9273BE70100ED54E2 /* RoutineViewModel.swift */; };
 		9373390427468EB3006C76C5 /* TimeSpanTaskEditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9373390327468EB3006C76C5 /* TimeSpanTaskEditView.swift */; };
 		93876D0A274530C300201CF8 /* TaskTreeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93876D09274530C300201CF8 /* TaskTreeView.swift */; };
 		93B72875273C034F00121435 /* TaskViewFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93B72874273C034F00121435 /* TaskViewFactory.swift */; };
@@ -84,6 +82,7 @@
 		9306ACFD275838AE00D86719 /* PlayableRoutineTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayableRoutineTask.swift; sourceTree = "<group>"; };
 		9306ACFF2758399D00D86719 /* PlayableRoutineTree.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayableRoutineTree.swift; sourceTree = "<group>"; };
 		9306AD0127583A2B00D86719 /* TaskExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskExtension.swift; sourceTree = "<group>"; };
+		93091EBB275981EB009D08D0 /* UIGCheckBox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIGCheckBox.swift; sourceTree = "<group>"; };
 		93095FB927428AF500FD21A6 /* SyncTaskPlayItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SyncTaskPlayItemView.swift; sourceTree = "<group>"; };
 		93095FBB27428C8D00FD21A6 /* TimeSpanTaskPlayItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeSpanTaskPlayItemView.swift; sourceTree = "<group>"; };
 		930E5E88274880FA0028B41E /* StartTaskEditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartTaskEditView.swift; sourceTree = "<group>"; };
@@ -107,8 +106,6 @@
 		931891FC27369927007E2C5E /* Tests_macOSLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tests_macOSLaunchTests.swift; sourceTree = "<group>"; };
 		9318921B27369BB2007E2C5E /* ContentWireframe.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentWireframe.swift; sourceTree = "<group>"; };
 		9318921D27369BCE007E2C5E /* RoutineViewFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutineViewFactory.swift; sourceTree = "<group>"; };
-		9318922127369CB0007E2C5E /* RoutineListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutineListViewModel.swift; sourceTree = "<group>"; };
-		9318922327369CC0007E2C5E /* RoutineListViewModelDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutineListViewModelDelegate.swift; sourceTree = "<group>"; };
 		9318922727369EC6007E2C5E /* RoutineTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutineTask.swift; sourceTree = "<group>"; };
 		931892292736A04B007E2C5E /* TaskId.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskId.swift; sourceTree = "<group>"; };
 		9318922D2736B82C007E2C5E /* RoutineTree.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutineTree.swift; sourceTree = "<group>"; };
@@ -129,7 +126,6 @@
 		9340AA52274EFABC0030C766 /* DashRoundedRectangleStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashRoundedRectangleStyle.swift; sourceTree = "<group>"; };
 		934D8C77273EAD0D00BF507E /* TimeSpanTaskNodeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeSpanTaskNodeView.swift; sourceTree = "<group>"; };
 		9367A1D7273BE61300ED54E2 /* RoutineView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutineView.swift; sourceTree = "<group>"; };
-		9367A1D9273BE70100ED54E2 /* RoutineViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutineViewModel.swift; sourceTree = "<group>"; };
 		9373390327468EB3006C76C5 /* TimeSpanTaskEditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeSpanTaskEditView.swift; sourceTree = "<group>"; };
 		93876D09274530C300201CF8 /* TaskTreeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskTreeView.swift; sourceTree = "<group>"; };
 		93B72874273C034F00121435 /* TaskViewFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskViewFactory.swift; sourceTree = "<group>"; };
@@ -211,7 +207,6 @@
 				931891D827369927007E2C5E /* Assets.xcassets */,
 				93B72871273BFF7400121435 /* ViewTemplate */,
 				9318921227369982007E2C5E /* View */,
-				931892132736998B007E2C5E /* ViewModel */,
 				9318921A27369B70007E2C5E /* Router */,
 				93189214273699AC007E2C5E /* Usecase */,
 				93189215273699C2007E2C5E /* Entity */,
@@ -274,16 +269,6 @@
 			path = View;
 			sourceTree = "<group>";
 		};
-		931892132736998B007E2C5E /* ViewModel */ = {
-			isa = PBXGroup;
-			children = (
-				9318922127369CB0007E2C5E /* RoutineListViewModel.swift */,
-				9318922327369CC0007E2C5E /* RoutineListViewModelDelegate.swift */,
-				9367A1D9273BE70100ED54E2 /* RoutineViewModel.swift */,
-			);
-			path = ViewModel;
-			sourceTree = "<group>";
-		};
 		93189214273699AC007E2C5E /* Usecase */ = {
 			isa = PBXGroup;
 			children = (
@@ -327,6 +312,7 @@
 			isa = PBXGroup;
 			children = (
 				9337A28C27564CFB004D10D5 /* UIGTextField.swift */,
+				93091EBB275981EB009D08D0 /* UIGCheckBox.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -545,7 +531,6 @@
 				93095FBC27428C8D00FD21A6 /* TimeSpanTaskPlayItemView.swift in Sources */,
 				9306AD0227583A2B00D86719 /* TaskExtension.swift in Sources */,
 				9318920027369927007E2C5E /* ContentView.swift in Sources */,
-				9318922427369CC0007E2C5E /* RoutineListViewModelDelegate.swift in Sources */,
 				931235792756E0960042EF70 /* StandbyView.swift in Sources */,
 				9320D6D8273DD1F800C0D40B /* SyncTaskListItemView.swift in Sources */,
 				93066020273F890A00E2E8A6 /* TimeSpanTaskViewGenerator.swift in Sources */,
@@ -565,7 +550,6 @@
 				9340AA53274EFABC0030C766 /* DashRoundedRectangleStyle.swift in Sources */,
 				9318921E27369BCE007E2C5E /* RoutineViewFactory.swift in Sources */,
 				930E5E8B274886460028B41E /* AddNewTaskButton.swift in Sources */,
-				9318922227369CB0007E2C5E /* RoutineListViewModel.swift in Sources */,
 				9340AA4D274EFA1A0030C766 /* Line.swift in Sources */,
 				932C30BE274CF51600D2DBA0 /* TaskPlayingView.swift in Sources */,
 				9312357B2756E20B0042EF70 /* ChevronUpDownBar.swift in Sources */,
@@ -578,12 +562,12 @@
 				931892302736B835007E2C5E /* RoutineId.swift in Sources */,
 				9320D6DC273DD48C00C0D40B /* SyncTaskEditView.swift in Sources */,
 				9306ACFE275838AE00D86719 /* PlayableRoutineTask.swift in Sources */,
-				9367A1DA273BE70100ED54E2 /* RoutineViewModel.swift in Sources */,
 				931892372736BCFC007E2C5E /* SyncTaskViewGenerator.swift in Sources */,
 				930E5E89274880FA0028B41E /* StartTaskEditView.swift in Sources */,
 				9306AD002758399D00D86719 /* PlayableRoutineTree.swift in Sources */,
 				932624A22748D1030078FA02 /* TaskTreeRootView.swift in Sources */,
 				930E5E8D2748C8D40028B41E /* AddNewTaskButtonFactory.swift in Sources */,
+				93091EBC275981EB009D08D0 /* UIGCheckBox.swift in Sources */,
 				93876D0A274530C300201CF8 /* TaskTreeView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

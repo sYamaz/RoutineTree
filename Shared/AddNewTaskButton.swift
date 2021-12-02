@@ -8,7 +8,7 @@
 import SwiftUI
 
 
-struct AddNewTaskButton<Content:View, T:TaskAppendable>: View {
+struct AddNewTaskButton<Content:View, T>: View {
     @Binding var appendable:T
     @State var mode = false
     @ViewBuilder var content:(Binding<T>) -> Content
@@ -37,7 +37,7 @@ struct AddNewTaskButton<Content:View, T:TaskAppendable>: View {
 
 struct AddNewTaskButton_Previews: PreviewProvider {
     static var previews: some View {
-        AddNewTaskButton(appendable: .constant(RoutineTask(id: .createStartTaskId(), type: .Start, title: "start", description: "description", properties: .init(), children: .init()))){ t in
+        AddNewTaskButton(appendable: .constant(RoutineTask(id: .createStartTaskId(), type: .Start, title: "start", description: "description", properties: .init(), tasks: .init()))){ t in
             Button("aaa"){
                 
             }

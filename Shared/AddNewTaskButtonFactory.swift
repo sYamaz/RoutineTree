@@ -12,13 +12,16 @@ struct AddNewTaskButtonFactory{
         
         return AddNewTaskButton(appendable: appendable, content: {t in
             Button("sync"){
-                t.wrappedValue.append(.init(id: .init(id: .init()), type: .Sync, title: "New Task", description: "Description", properties: .init(), children: .init()))
+                
+                let newTask = RoutineTask(id: .init(id: .init()), type: .Sync, title: "New Task", description: "", properties: .init(), tasks: .init())
+                t.wrappedValue.tasks.append(newTask)
+                
             }
             Button("timespan"){
-                var newTask:RoutineTask = .init(id: .init(id: .init()), type: .TimeSpan, title: "New Task", description: "Description", properties: .init(), children: .init())
+                var newTask:RoutineTask = .init(id: .init(id: .init()), type: .TimeSpan, title: "New Task", description: "Description", properties: .init(), tasks: .init())
                 newTask.setMinutes(1)
                 newTask.setSeconds(0)
-                t.wrappedValue.append(newTask)
+                t.wrappedValue.tasks.append(newTask)
             }
         })
     }
@@ -26,13 +29,13 @@ struct AddNewTaskButtonFactory{
     func generate(appendable:Binding<RoutineTree>) -> some View{
         return AddNewTaskButton(appendable: appendable, content: {t in
             Button("sync"){
-                t.wrappedValue.append(.init(id: .init(id: .init()), type: .Sync, title: "New Task", description: "Description", properties: .init(), children: .init()))
+                t.wrappedValue.tasks.append(.init(id: .init(id: .init()), type: .Sync, title: "New Task", description: "Description", properties: .init(), tasks: .init()))
             }
             Button("timespan"){
-                var newTask:RoutineTask = .init(id: .init(id: .init()), type: .TimeSpan, title: "New Task", description: "Description", properties: .init(), children: .init())
+                var newTask:RoutineTask = .init(id: .init(id: .init()), type: .TimeSpan, title: "New Task", description: "Description", properties: .init(), tasks: .init())
                 newTask.setMinutes(1)
                 newTask.setSeconds(0)
-                t.wrappedValue.append(newTask)
+                t.wrappedValue.tasks.append(newTask)
             }
         })
     }

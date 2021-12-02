@@ -6,12 +6,7 @@
 //
 
 import Foundation
-protocol TaskAppendable{
-    mutating func append(_ newTask:RoutineTask) -> Void
-}
-
-
-struct RoutineTask: Hashable, Identifiable, TaskAppendable{
+struct RoutineTask: Hashable, Identifiable, Codable{
     /// このタスクを識別するためのID
     public let id:TaskId
     /// このタスクのタイプ
@@ -23,30 +18,13 @@ struct RoutineTask: Hashable, Identifiable, TaskAppendable{
     /// このタスクに関するその他の情報
     public var properties:Dictionary<String, String>
     
-    public var children:[RoutineTask]
+    public var tasks:[RoutineTask]
     
-    init(id:TaskId,
-                 type:TaskType,
-                 title:String,
-                 description:String,
-                 properties:Dictionary<String,String>,
-                 children:[RoutineTask]){
-        self.id = id
-        self.type = type
-        self.title = title
-        self.description = description
-        self.properties = properties
-        self.children = children
-    }
 
     public func makePlayable() -> PlayableRoutineTask{
-        let cs = self.children.map{ch in ch.makePlayable()}
+        let cs = self.tasks.map{ch in ch.makePlayable()}
         
         return .init(id: self.id, type: self.type, title: self.title, description: self.description, properties: self.properties, children: cs, doing: .None, lastStartAt: nil)
-    }
-
-    public mutating func append(_ newTask:RoutineTask) -> Void{
-        self.children.append(newTask)
     }
 }
 

@@ -22,7 +22,7 @@ struct SyncTaskEditView: View {
 struct SyncTaskEditView_Previews: PreviewProvider {
     static var previews: some View {
         
-        let task = RoutineTask(id: .init(id: .init()), type: .Sync, title: "Title", description: "Description", properties: .init(), children: .init())
+        let task = RoutineTask(id: .init(id: .init()), type: .Sync, title: "Title", description: "Description", properties: .init(), tasks: .init())
         
 
             SyncTaskEditView(task: .constant(task), editing: .constant(nil))

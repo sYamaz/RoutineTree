@@ -25,14 +25,14 @@ struct TaskTreeView<Node:View>: View {
                     [self.task.id: center]
                 })
             HStack(alignment: .top, spacing: nil){
-                ForEach($task.children, id: \.id){t in
+                ForEach($task.tasks, id: \.id){t in
                     TaskTreeView(task:  t, node: self.node)
                 }
             }
         }
         .backgroundPreferenceValue(CollectDict.self, {(centers:[TaskId:Anchor<CGPoint>]) in
             GeometryReader{g in
-                ForEach(self.task.children, id: \.id, content:{child in
+                ForEach(self.task.tasks, id: \.id, content:{child in
                     // taskの中心位置をSingletonなコレクションから取得
                     if let taskStartCenter = centers[self.task.id] {
                         let start = g[taskStartCenter]

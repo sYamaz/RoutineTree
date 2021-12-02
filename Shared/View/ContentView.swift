@@ -15,25 +15,12 @@ enum PlayerMode{
 enum PlayingState{
     case none
     case playing
-    case completed
 }
 
 struct ContentView: View  {
-    @Binding var targetId:RoutineId
     @Binding var routines:[RoutineTree]
+    @Binding var routineId:RoutineId
     let router:RoutineViewFactory
-
-    init(routines:Binding<[RoutineTree]>,
-         router:RoutineViewFactory,
-         targetId:Binding<RoutineId>){
-        self._routines = routines
-        self.router = router
-        self._targetId = targetId
-        
-        if(self.routines.isEmpty){
-            self.routines.append(tutorialRoutine)
-        }
-    }
     
     var body: some View {
         ZStack(alignment: .center){
@@ -71,11 +58,9 @@ struct ContentView: View  {
                 Spacer()
                 RoutinePlayer(
                     routines: self.$routines,
-                    targetId: $targetId,
+                    routineId: self.$routineId,
                     factory: taskViewFactory)
                     .background(.ultraThinMaterial)
-                
-                
             })
         }
     }
@@ -90,6 +75,8 @@ struct ContentView_Previews: PreviewProvider {
 
         let router = RoutineViewFactory()
         
-        ContentView(routines: .constant(routines), router: router, targetId: .constant(tutorialRoutine.id))
+        ContentView(routines: .constant(routines),
+                    routineId: .constant(routines[0].id),
+                    router: router)
     }
 }

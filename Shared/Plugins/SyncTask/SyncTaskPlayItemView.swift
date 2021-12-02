@@ -15,9 +15,11 @@ struct SyncTaskPlayItemView: View {
                 Text(self.task.title)
                     .font(.body)
                     .foregroundColor(.primary)
+                    .multilineTextAlignment(.leading)
                 Text(self.task.description)
                     .font(.caption)
                     .foregroundColor(.secondary)
+                    .multilineTextAlignment(.leading)
             }
         }
     }
@@ -25,7 +27,7 @@ struct SyncTaskPlayItemView: View {
 
 struct SyncTaskPlayItemView_Previews: PreviewProvider {
     static var previews: some View {
-        let task = RoutineTask(id: .init(id: .init()), type: .Sync, title: "Title", description: "Description", properties: .init(), children:.init())
+        let task = RoutineTask(id: .init(id: .init()), type: .Sync, title: "Title", description: "Description", properties: .init(), tasks:.init())
 
         SyncTaskPlayItemView(task: .constant(task.makePlayable()))
     }

@@ -40,14 +40,14 @@ struct RoutineEditView<Content:View>: View {
                 
                 // next routines
                 Section(content: {
-                    if(self.$task.children.isEmpty){
+                    if(self.$task.tasks.isEmpty){
                         HStack{
                             Spacer()
                             Text("No routines")
                             Spacer()
                         }
                     } else {
-                        ForEach(self.$task.children, id:\.id){t in
+                        ForEach(self.$task.tasks, id:\.id){t in
                             Button(t.title.wrappedValue){
                                 withAnimation{
                                     self.editingTaskId = nil
@@ -56,7 +56,7 @@ struct RoutineEditView<Content:View>: View {
                             }
                         }.onDelete(perform: {index in
                             for i in index{
-                                self.task.children.remove(at: i)
+                                self.task.tasks.remove(at: i)
                             }
                         })
                     }

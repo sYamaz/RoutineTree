@@ -55,7 +55,7 @@ struct TimeSpanTaskNodeView_Previews: PreviewProvider {
         let task = RoutineTask(id: taskId, type: .TimeSpan, title: "Title", description: "Description",  properties: [
             "minutes":"5",
             "seconds":"30"
-        ], children: .init())
+        ], tasks: .init())
 
         TimeSpanTaskNodeView(task: .constant(task), editing: .constant(nil))
     }
