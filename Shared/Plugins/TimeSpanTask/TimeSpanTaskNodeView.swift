@@ -27,6 +27,7 @@ struct TimeSpanTaskNodeView: View {
                     .font(.caption)
                     .foregroundColor(.secondary)
             }
+            
         }
         .sheet(isPresented: .init(
             get: {
@@ -44,6 +45,7 @@ struct TimeSpanTaskNodeView: View {
             TimeSpanTaskEditView(task: $task, editing: $editing)
         })
         .modifier(RoundedRectangleStyle(focused: false))
+        
     }
 }
 

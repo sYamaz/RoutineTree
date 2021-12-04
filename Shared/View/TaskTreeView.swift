@@ -24,11 +24,12 @@ struct TaskTreeView<Node:View>: View {
                 .anchorPreference(key: CollectDict.self, value: .center, transform: {center in
                     [self.task.id: center]
                 })
-            HStack(alignment: .top, spacing: nil){
+            HStack(alignment: .top, spacing: 4){
                 ForEach($task.tasks, id: \.id){t in
                     TaskTreeView(task:  t, node: self.node)
                 }
             }
+            .padding(0)
         }
         .backgroundPreferenceValue(CollectDict.self, {(centers:[TaskId:Anchor<CGPoint>]) in
             GeometryReader{g in
@@ -40,7 +41,8 @@ struct TaskTreeView<Node:View>: View {
                         if let taskEndCenter = centers[child.id] {
                             let end = g[taskEndCenter]
                             
-                            Line(start: start, end: end).stroke()
+                            //Line(start: start, end: end).stroke()
+                            RightAngleLine(start: start, end: end).stroke()
                         }
                     }
                 })

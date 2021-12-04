@@ -39,7 +39,9 @@ struct SyncTaskNodeView: View {
                 Text(self.task.description)
                     .font(.caption)
                     .foregroundColor(.secondary)
+
             }
+            
         }
         .sheet(isPresented: .init(
             get: { editingToBool(self.editing)},
@@ -50,6 +52,7 @@ struct SyncTaskNodeView: View {
             SyncTaskEditView(task: $task, editing: $editing)
         })
         .modifier(RoundedRectangleStyle(focused: false))
+        
     }
 }
 

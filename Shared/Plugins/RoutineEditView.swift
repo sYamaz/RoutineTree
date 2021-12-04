@@ -30,7 +30,7 @@ struct RoutineEditView<Content:View>: View {
                 // title and description
                 Section("Title / Description"){
                     // title
-                    UIGTextField(text: $task.title)
+                    UIGTextField(text: $task.title, prompt: "Title")
                     // description
                     TextEditor(text: $task.description)
                 }

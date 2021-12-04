@@ -26,3 +26,16 @@ extension Line {
         set { (start.animatableData, end.animatableData) = (newValue.first, newValue.second) }
     }
 }
+
+struct RightAngleLine : Shape{
+    var start, end: CGPoint
+    
+    func path(in rect:CGRect) -> Path{
+        Path{p in
+            let corner = CGPoint(x: end.x, y: start.y)
+            p.move(to: start)
+            p.addLine(to: corner)
+            p.addLine(to: end)
+        }
+    }
+}

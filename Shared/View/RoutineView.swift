@@ -24,13 +24,10 @@ struct RoutineView: View {
                     set: {r in self.$routine.wrappedValue = r}),
                 node: {t in
                     factory.generateNodeView(task: t, editing: $editingTaskId)
-                        .frame(maxWidth:150, maxHeight: 100)
-                        .padding(8)
+                        .frame(minWidth:100, maxWidth:150, minHeight: 50, maxHeight: 100)
                 },
                 root: {r in
                     StartTaskNodeView(routine: $routine, editing: $editingTaskId)
-                        .frame(maxWidth:150)
-                        .padding(8)
                 })
             
             // ボタンで隠れた部分をスクロールで移動できるようにするためのスペース
@@ -38,27 +35,7 @@ struct RoutineView: View {
             
         }
         .sheet(isPresented: $settingMode, onDismiss: nil, content: {
-            VStack(alignment: .leading, spacing: nil){
-                HStack{
-                    Text("Routine settings").font(.title)
-                    Spacer()
-                }.padding()
-                
-                List{
-                    
-                    HStack{
-                        Text("Title")
-                        TextField("ルーティンの名前", text: $routine.title, prompt: Text("title")).multilineTextAlignment(.trailing)
-                    }
-                    
-                    Toggle(isOn: $simpleMode, label: {Text("Simple tree mode")})
-                    
-                    Text("Theme color")
-                    
-                }
-                Spacer()
-            }
-            .background(.regularMaterial)
+            RoutinePreferenceView(routine: $routine)
         })
         .toolbar(content: {
             Button(action: {

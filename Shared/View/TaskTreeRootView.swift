@@ -24,7 +24,7 @@ struct TaskTreeRootView<Root:View, Node:View>: View {
                     transform: {center in
                         [TaskId.createStartTaskId(): center]
                 })
-            HStack(alignment: .top, spacing: nil){
+            HStack(alignment: .top, spacing: 4){
                 ForEach(self.$routine.tasks, id:\.id){t in
                     TaskTreeView(task: t, node: self.node)
                 }
@@ -40,7 +40,7 @@ struct TaskTreeRootView<Root:View, Node:View>: View {
                         // childの中心位置をSingletonなコレクションから取得
                         if let taskEndCenter = centers[child.id] {
                             let end = g[taskEndCenter]
-                            Line(start: start, end: end).stroke()
+                            RightAngleLine(start: start, end: end).stroke()
                         }
                     }
                 })
@@ -53,7 +53,7 @@ struct TaskTreeRootView_Previews: PreviewProvider {
     static var previews: some View {
         TaskTreeRootView(
             routine: .constant(tutorialRoutine),
-            node: {rt in Text(rt.wrappedValue.title).modifier(RoundedRectangleStyle(focused: false)).padding()},
+            node: {rt in Text(rt.wrappedValue.title).modifier(RoundedRectangleStyle(focused: false)).padding(4)},
             root: {r in Text(r.wrappedValue.title).modifier(DashRoundedRectangleStyle())
             
         })

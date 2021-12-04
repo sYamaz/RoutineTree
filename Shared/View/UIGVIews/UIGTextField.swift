@@ -11,6 +11,7 @@ import SwiftUI
 /// TextField according to iOS user interface guidelines
 struct UIGTextField: View {
     @Binding public var text:String
+    let prompt:String
     @State private var editing:Bool = false
     
     var body: some View {
@@ -19,7 +20,7 @@ struct UIGTextField: View {
             // TextField("title", text: $task.title, prompt:Text("Routine name"))
             //                            .focused($titleFocused)
             //
-            TextField("title", text: $text, onEditingChanged: {editing in
+            TextField(prompt, text: $text, onEditingChanged: {editing in
                 withAnimation{
                     self.editing = editing
                 }
@@ -39,7 +40,7 @@ struct UIGTextField: View {
 struct UIGTextField_Previews: PreviewProvider {
     static var previews: some View {
         List{
-            UIGTextField(text: .constant("eee"))
+            UIGTextField(text: .constant("eee"), prompt: "Title")
         }
     }
 }
