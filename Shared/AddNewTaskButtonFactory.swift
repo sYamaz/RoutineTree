@@ -19,8 +19,8 @@ struct AddNewTaskButtonFactory{
             }
             Button("timespan"){
                 var newTask:RoutineTask = .init(id: .init(id: .init()), type: .TimeSpan, title: "New Task", description: "Description", properties: .init(), tasks: .init())
-                newTask.setMinutes(1)
-                newTask.setSeconds(0)
+                newTask.minutes = 1
+                newTask.seconds = 0
                 t.wrappedValue.tasks.append(newTask)
             }
         })
@@ -33,8 +33,8 @@ struct AddNewTaskButtonFactory{
             }
             Button("timespan"){
                 var newTask:RoutineTask = .init(id: .init(id: .init()), type: .TimeSpan, title: "New Task", description: "Description", properties: .init(), tasks: .init())
-                newTask.setMinutes(1)
-                newTask.setSeconds(0)
+                newTask.minutes = 1
+                newTask.seconds = 0
                 t.wrappedValue.tasks.append(newTask)
             }
         })

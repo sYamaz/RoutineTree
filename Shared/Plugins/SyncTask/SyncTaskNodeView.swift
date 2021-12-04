@@ -1,122 +1,66 @@
 //
-//  ImmediateTaskNodeView.swift
+//  SyncTaskListItemView.swift
 //  RoutineTree (iOS)
 //
-//  Created by Shun Yamazaki on 2021/11/06.
+//  Created by Shun Yamazaki on 2021/11/12.
 //
 
 import SwiftUI
 
 struct SyncTaskNodeView: View {
-    private let color:Color
-    private let checked:Bool
-    private let showTips:Bool
-    @ObservedObject private var vm:SyncTaskNodeViewModel
+  
+    @Binding var task:RoutineTask
+    @Binding var editing:TaskId?
     
-    @State private var editMode:Bool = false
-    @State private var editingTitle:String = ""
-    @State private var editingDescription:String = ""
-    
-    public init(vm:SyncTaskNodeViewModel){
-        self.vm = vm
-        self.showTips = false
-        self.color = .primary
-        self.checked = false
+    private func editingToBool(_ val:TaskId?) -> Bool{
+        if let id = val{
+            return id.id == task.id.id
+        }
+        return false
     }
     
-    private init(vm:SyncTaskNodeViewModel, color:Color, checked:Bool, showTips:Bool){
-        self.vm = vm
-        self.color = color
-        self.checked = checked
-        self.showTips = showTips
+    private func boolToEditing(_ val:Bool) -> TaskId?{
+        if(val){
+            return task.id
+        } else {
+            return nil
+        }
     }
     
     var body: some View {
-        GeometryReader{g in
-            let l:Double = min(g.size.width, g.size.height)
-            let curveRadius:Double = l / 4
-            let checkThickness = l / 8
-            let checkOffsetX = l / 8
-            let xOffset = g.size.width > g.size.height ? (g.size.width - g.size.height) / 2 : 0
-            Path{path in
-                path.addRoundedRect(in: .init(x: 0 + xOffset, y: 0, width: l, height: l), cornerSize: .init(width: curveRadius, height: curveRadius))
-                
-                if(self.checked){
-                    path.addLines([
-                        // 下線
-                        .init(x: xOffset +  0 - checkOffsetX, y: l * 2 / 5),
-                        .init(x: xOffset + l / 3, y: l * 9 / 10),
-                        .init(x: xOffset + l + checkOffsetX, y: l * 1 / 5),
-                        // 上線
-                        .init(x: xOffset + l / 3, y: l * 9 / 10 - checkThickness),
-                            
-                    ])
-                }
+        
+        Button(action: {
+            self.editing = task.id
+        }){
+            VStack(alignment: .leading, spacing: nil){
+                Text(self.task.title)
+                    .font(.body)
+                    .foregroundColor(.primary)
+                Text(self.task.description)
+                    .font(.caption)
+                    .foregroundColor(.secondary)
+
             }
-            .fill(self.color)
-            .onLongPressGesture{
-                editMode = true
-            }
-            .sheet(isPresented: $editMode, onDismiss: {
-                
-            }, content: {
-                VStack(alignment: .leading, spacing: nil){
-                    HStack{
-                        Spacer()
-                        Button("Done(Save)"){
-                            vm.updateTitle(self.editingTitle)
-                            vm.updateDescription(self.editingDescription)
-                            editMode = false
-                        }
-                    }
-                    TextField("", text: $editingTitle, prompt: nil)
-                        .font(.title)
-                    TextEditor(text: $editingDescription)
-                    Spacer()
-                }
-                .onAppear(perform: {
-                    self.editingTitle = vm.task.title
-                    self.editingDescription = vm.task.description
-                })
-                .padding()
-            })
             
-            if(showTips){
-                Path{ path in
-                    path.addRect(.init(x: xOffset + l + 8, y: l / 2, width: 100, height: 100))
-                    
-                }
-                .fill(self.color)
-            }
         }
+        .sheet(isPresented: .init(
+            get: { editingToBool(self.editing)},
+            set: { self.editing = boolToEditing($0)}
+        ), onDismiss: {
+            
+        }, content: {
+            SyncTaskEditView(task: $task, editing: $editing)
+        })
+        .modifier(RoundedRectangleStyle(focused: false))
+        
     }
 }
 
-extension SyncTaskNodeView{
-    public func check(_ isChecked:Bool) -> Self{
-        return .init(vm:self.vm, color: self.color, checked: isChecked, showTips: self.showTips)
-    }
-    
-    public func color(_ val:Color) -> Self{
-        return .init(vm:self.vm, color:val, checked: self.checked, showTips: self.showTips)
-    }
-    
-    public func showTips(_ val:Bool) -> Self{
-        return .init(vm: self.vm, color: self.color, checked: self.checked, showTips: val)
-    }
-}
-
-struct ImmediateTaskNodeView_Previews: PreviewProvider {
+struct SyncTaskNodeView_Previews: PreviewProvider {
     static var previews: some View {
+        let task = RoutineTask(id: .init(id: .init()), type: .Sync, title: "Title", description: "Description",  properties: .init(),
+                               tasks: .init())
         
-        let task = RoutineTask(owner:.init(id: .init()), id: .init(id: .init()), type: .Sync, title: "Title", description: "Description", previousTaskId: .createAddNewTaskId(), properties: .init())
-        
-        let vm = SyncTaskNodeViewModel(id: task.id, ps: .init(), db: TaskDatabase(tasks: [task]))
-        
-        SyncTaskNodeView(vm:vm)
-            .color(.green)
-            .check(false)
-            .showTips(true)
-            .frame(width: 128, height: 64)
+        SyncTaskNodeView(task: .constant(task), editing: .constant(nil))
     }
 }

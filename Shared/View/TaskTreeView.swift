@@ -29,7 +29,7 @@ struct TaskTreeView<Node:View>: View {
                     TaskTreeView(task:  t, node: self.node)
                 }
             }
-            .padding(0)
+            Spacer()
         }
         .backgroundPreferenceValue(CollectDict.self, {(centers:[TaskId:Anchor<CGPoint>]) in
             GeometryReader{g in

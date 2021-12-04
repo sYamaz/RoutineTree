@@ -8,33 +8,30 @@
 import SwiftUI
 import Combine
 struct TimeSpanTaskPlayItemView: View {
-
+    
     @Binding var task:PlayableRoutineTask
     @State private var progress:Double = 0
     @State private var complete:Bool = false
+    
+    
     let timer = Timer.publish(every: 1, tolerance: nil, on: .main, in: .common, options: .none).autoconnect()
     init(task:Binding<PlayableRoutineTask>){
         self._task = task
+        
     }
     
     var body: some View {
         
-        HStack(alignment: .center, spacing: nil){
-            VStack(alignment: .leading, spacing: nil){
-                Text(self.task.title)
-                    .font(.body)
-                    .foregroundColor(.primary)
-                    .multilineTextAlignment(.leading)
-                Text(self.task.description)
-                    .font(.caption)
-                    .foregroundColor(.secondary)
-                    .multilineTextAlignment(.leading)
-                Text("\(self.task.getMinutes()) min \(self.task.getSeconds()) sec")
+        VStack(alignment: .leading, spacing: nil){
+            RoutinePlayItemView(task: $task)
+            HStack(alignment: .center, spacing: nil, content: {
+                Image(systemName: "clock")
+                Text(self.task.formattedTime)
                     .font(.caption)
                     .foregroundColor(.secondary)
                 ProgressView(value: progress)
                     .progressViewStyle(.linear)
-            }
+            })
         }
         .onReceive(timer, perform: {(now:Date) in
             guard let start = self.task.lastStartAt else {
@@ -43,7 +40,7 @@ struct TimeSpanTaskPlayItemView: View {
             if(complete){
                 return
             }
-            let max = Double(self.task.getMinutes()) * 60 + Double(self.task.getSeconds())
+            let max = Double(self.task.minutes) * 60 + Double(self.task.seconds)
             let distance = start.distance(to: now)
             self.progress = distance / max
             if(self.progress >= 1){

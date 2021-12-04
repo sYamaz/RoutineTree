@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct TimeSpanTaskNodeView: View {
-
+    
     @Binding var task:RoutineTask
     @Binding var editing:TaskId?
     
@@ -16,18 +16,15 @@ struct TimeSpanTaskNodeView: View {
         Button(action:{
             self.editing = task.id
         }){
-            VStack(alignment: .leading, spacing: nil){
-                Text(self.task.title)
-                    .font(.body)
-                    .foregroundColor(.primary)
-                Text(self.task.description)
-                    .font(.caption)
-                    .foregroundColor(.secondary)
-                Text("\(self.task.getMinutes()) min \(self.task.getSeconds()) sec")
-                    .font(.caption)
-                    .foregroundColor(.secondary)
+            RoutineNodeView(task: $task){t in
+                HStack(alignment: .center, spacing: nil, content: {
+                    Image(systemName: "clock")
+                    Text(self.task.formattedTime)
+                        .font(.caption)
+                        .foregroundColor(.secondary)
+                })
+                
             }
-            
         }
         .sheet(isPresented: .init(
             get: {
@@ -58,7 +55,7 @@ struct TimeSpanTaskNodeView_Previews: PreviewProvider {
             "minutes":"5",
             "seconds":"30"
         ], tasks: .init())
-
+        
         TimeSpanTaskNodeView(task: .constant(task), editing: .constant(nil))
     }
 }

@@ -40,7 +40,10 @@
 		931892302736B835007E2C5E /* RoutineId.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9318922F2736B835007E2C5E /* RoutineId.swift */; };
 		931892322736BC5A007E2C5E /* RoutineDatabaseDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 931892312736BC5A007E2C5E /* RoutineDatabaseDelegate.swift */; };
 		931892372736BCFC007E2C5E /* SyncTaskViewGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 931892362736BCFC007E2C5E /* SyncTaskViewGenerator.swift */; };
-		9320D6D8273DD1F800C0D40B /* SyncTaskListItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9320D6D7273DD1F800C0D40B /* SyncTaskListItemView.swift */; };
+		931CCDBD275B6E9B00114A77 /* RoutineNodeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 931CCDBC275B6E9B00114A77 /* RoutineNodeView.swift */; };
+		931CCDBF275B784000114A77 /* RoutinePlayItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 931CCDBE275B784000114A77 /* RoutinePlayItemView.swift */; };
+		931CCDC1275BA1DB00114A77 /* ReminderLikeColorPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 931CCDC0275BA1DB00114A77 /* ReminderLikeColorPicker.swift */; };
+		9320D6D8273DD1F800C0D40B /* SyncTaskNodeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9320D6D7273DD1F800C0D40B /* SyncTaskNodeView.swift */; };
 		9320D6DC273DD48C00C0D40B /* SyncTaskEditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9320D6DB273DD48C00C0D40B /* SyncTaskEditView.swift */; };
 		932624A22748D1030078FA02 /* TaskTreeRootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 932624A12748D1030078FA02 /* TaskTreeRootView.swift */; };
 		932C30BC274CD81500D2DBA0 /* StartTaskNodeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 932C30BB274CD81500D2DBA0 /* StartTaskNodeView.swift */; };
@@ -114,7 +117,10 @@
 		9318922F2736B835007E2C5E /* RoutineId.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutineId.swift; sourceTree = "<group>"; };
 		931892312736BC5A007E2C5E /* RoutineDatabaseDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutineDatabaseDelegate.swift; sourceTree = "<group>"; };
 		931892362736BCFC007E2C5E /* SyncTaskViewGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SyncTaskViewGenerator.swift; sourceTree = "<group>"; };
-		9320D6D7273DD1F800C0D40B /* SyncTaskListItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SyncTaskListItemView.swift; sourceTree = "<group>"; };
+		931CCDBC275B6E9B00114A77 /* RoutineNodeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutineNodeView.swift; sourceTree = "<group>"; };
+		931CCDBE275B784000114A77 /* RoutinePlayItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutinePlayItemView.swift; sourceTree = "<group>"; };
+		931CCDC0275BA1DB00114A77 /* ReminderLikeColorPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReminderLikeColorPicker.swift; sourceTree = "<group>"; };
+		9320D6D7273DD1F800C0D40B /* SyncTaskNodeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SyncTaskNodeView.swift; sourceTree = "<group>"; };
 		9320D6DB273DD48C00C0D40B /* SyncTaskEditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SyncTaskEditView.swift; sourceTree = "<group>"; };
 		932624A12748D1030078FA02 /* TaskTreeRootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskTreeRootView.swift; sourceTree = "<group>"; };
 		932C30BB274CD81500D2DBA0 /* StartTaskNodeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartTaskNodeView.swift; sourceTree = "<group>"; };
@@ -316,6 +322,7 @@
 			children = (
 				9337A28C27564CFB004D10D5 /* UIGTextField.swift */,
 				93091EBB275981EB009D08D0 /* UIGCheckBox.swift */,
+				931CCDC0275BA1DB00114A77 /* ReminderLikeColorPicker.swift */,
 			);
 			path = UIGVIews;
 			sourceTree = "<group>";
@@ -347,6 +354,8 @@
 				934D8C70273E9C6700BF507E /* TimeSpanTask */,
 				93B72873273C00FD00121435 /* SyncTask */,
 				93CEFBE32754FE5600F9F76E /* RoutineEditView.swift */,
+				931CCDBC275B6E9B00114A77 /* RoutineNodeView.swift */,
+				931CCDBE275B784000114A77 /* RoutinePlayItemView.swift */,
 			);
 			path = Plugins;
 			sourceTree = "<group>";
@@ -355,7 +364,7 @@
 			isa = PBXGroup;
 			children = (
 				931892362736BCFC007E2C5E /* SyncTaskViewGenerator.swift */,
-				9320D6D7273DD1F800C0D40B /* SyncTaskListItemView.swift */,
+				9320D6D7273DD1F800C0D40B /* SyncTaskNodeView.swift */,
 				9320D6DB273DD48C00C0D40B /* SyncTaskEditView.swift */,
 				93095FB927428AF500FD21A6 /* SyncTaskPlayItemView.swift */,
 			);
@@ -535,10 +544,11 @@
 				9306AD0227583A2B00D86719 /* TaskExtension.swift in Sources */,
 				9318920027369927007E2C5E /* ContentView.swift in Sources */,
 				931235792756E0960042EF70 /* StandbyView.swift in Sources */,
-				9320D6D8273DD1F800C0D40B /* SyncTaskListItemView.swift in Sources */,
+				9320D6D8273DD1F800C0D40B /* SyncTaskNodeView.swift in Sources */,
 				93066020273F890A00E2E8A6 /* TimeSpanTaskViewGenerator.swift in Sources */,
 				931892322736BC5A007E2C5E /* RoutineDatabaseDelegate.swift in Sources */,
 				9337A28D27564CFB004D10D5 /* UIGTextField.swift in Sources */,
+				931CCDBF275B784000114A77 /* RoutinePlayItemView.swift in Sources */,
 				93095FBA27428AF500FD21A6 /* SyncTaskPlayItemView.swift in Sources */,
 				9318922E2736B82C007E2C5E /* RoutineTree.swift in Sources */,
 				9318922827369EC6007E2C5E /* RoutineTask.swift in Sources */,
@@ -546,6 +556,7 @@
 				931891FE27369927007E2C5E /* RoutineTreeApp.swift in Sources */,
 				93FF6DD62747216B00A2A210 /* RoutinePlayingView.swift in Sources */,
 				93B72875273C034F00121435 /* TaskViewFactory.swift in Sources */,
+				931CCDC1275BA1DB00114A77 /* ReminderLikeColorPicker.swift in Sources */,
 				9340AA4F274EFA530030C766 /* CollectDict.swift in Sources */,
 				9318922A2736A04B007E2C5E /* TaskId.swift in Sources */,
 				932C30C0274D0C0900D2DBA0 /* RoutinePlayer.swift in Sources */,
@@ -553,6 +564,7 @@
 				9340AA53274EFABC0030C766 /* DashRoundedRectangleStyle.swift in Sources */,
 				9318921E27369BCE007E2C5E /* RoutineViewFactory.swift in Sources */,
 				930E5E8B274886460028B41E /* AddNewTaskButton.swift in Sources */,
+				931CCDBD275B6E9B00114A77 /* RoutineNodeView.swift in Sources */,
 				9340AA4D274EFA1A0030C766 /* Line.swift in Sources */,
 				932C30BE274CF51600D2DBA0 /* TaskPlayingView.swift in Sources */,
 				93091EBE27598E2D009D08D0 /* RoutinePreferenceView.swift in Sources */,

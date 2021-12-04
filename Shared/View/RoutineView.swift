@@ -17,22 +17,21 @@ struct RoutineView: View {
     
     var body: some View {
         // tree view
-        ScrollView([.horizontal, .vertical], showsIndicators: true){
-            TaskTreeRootView(
-                routine: .init(
-                    get: {self.routine},
-                    set: {r in self.$routine.wrappedValue = r}),
-                node: {t in
-                    factory.generateNodeView(task: t, editing: $editingTaskId)
-                        .frame(minWidth:100, maxWidth:150, minHeight: 50, maxHeight: 100)
-                },
-                root: {r in
-                    StartTaskNodeView(routine: $routine, editing: $editingTaskId)
-                })
-            
-            // ボタンで隠れた部分をスクロールで移動できるようにするためのスペース
-            Divider().padding(100).hidden()
-            
+        ScrollViewReader{proxy in
+            ScrollView([.horizontal, .vertical], showsIndicators: true){
+                VStack{
+                TaskTreeRootView(
+                    routine: $routine,
+                    node: {
+                        factory.generateNodeView(task: $0, editing: $editingTaskId)
+                            .frame(minWidth:100, maxWidth:150, minHeight: 50, maxHeight: 100)
+                    },
+                    root: {StartTaskNodeView(routine: $0, editing: $editingTaskId)})
+                }
+                // ボタンで隠れた部分をスクロールで移動できるようにするためのスペース
+                Divider().padding(100)
+                
+            }
         }
         .sheet(isPresented: $settingMode, onDismiss: nil, content: {
             RoutinePreferenceView(routine: $routine)

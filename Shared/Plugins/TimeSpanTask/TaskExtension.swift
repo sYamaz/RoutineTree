@@ -7,39 +7,77 @@
 
 import Foundation
 extension RoutineTask{
-    
-    func getMinutes() -> Int{
-        return Int( self.properties["minutes"]! )!
+    var formattedTime:String{
+        get{
+            let min = self.minutes
+            let sec = self.seconds
+            return "\(min)min \(sec)sec"
+        }
     }
     
-    mutating func setMinutes(_ val:Int) -> Void{
-        self.properties["minutes"] = String(val)
+    var minutes:Int{
+        get{
+            if let str = self.properties["minutes"]{
+                if let ret = Int(str) {
+                    return ret
+                }
+            }
+            return 0
+        }
+        set{
+            self.properties["minutes"] = String(newValue)
+        }
     }
     
-    func getSeconds() -> Int{
-        return Int(self.properties["seconds"]!)!
-    }
-    
-    mutating func setSeconds(_ val:Int) -> Void{
-        self.properties["seconds"] = String(val)
+    var seconds:Int{
+        get{
+            if let str = self.properties["seconds"]{
+                if let ret = Int(str) {
+                    return ret
+                }
+            }
+            return 0
+        }
+        set{
+            self.properties["seconds"] = String(newValue)
+        }
     }
 }
 
 extension PlayableRoutineTask{
-    
-    func getMinutes() -> Int{
-        return Int( self.properties["minutes"]! )!
+    var formattedTime:String{
+        get{
+            let min = self.minutes
+            let sec = self.seconds
+            
+            return "\(min)min \(sec)sec"
+        }
+    }
+    var minutes:Int{
+        get{
+            if let str = self.properties["minutes"]{
+                if let ret = Int(str) {
+                    return ret
+                }
+            }
+            return 0
+        }
+        set{
+            self.properties["minutes"] = String(newValue)
+        }
     }
     
-    mutating func setMinutes(_ val:Int) -> Void{
-        self.properties["minutes"] = String(val)
-    }
-    
-    func getSeconds() -> Int{
-        return Int(self.properties["seconds"]!)!
-    }
-    
-    mutating func setSeconds(_ val:Int) -> Void{
-        self.properties["seconds"] = String(val)
+    var seconds:Int{
+        get{
+            if let str = self.properties["seconds"]{
+                if let ret = Int(str) {
+                    return ret
+                }
+            }
+            return 0
+        }
+        set{
+            self.properties["seconds"] = String(newValue)
+        }
     }
 }

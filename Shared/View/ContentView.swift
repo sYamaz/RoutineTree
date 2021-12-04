@@ -31,7 +31,11 @@ struct ContentView: View  {
                         NavigationLink(destination: {
                             router.getRoutineView(routine: r)
                         }, label: {
-                            Text(r.wrappedValue.title)
+                            HStack{
+                                Image(systemName: "flowchart.fill")
+                                    .foregroundColor(.yellow)
+                                Text(r.wrappedValue.title)
+                            }
                         })
                     }
                     .onDelete(perform: {idxs in
@@ -40,7 +44,7 @@ struct ContentView: View  {
                     })
                 }
                 .listStyle(.plain)
-                .navigationTitle(Text("Routines"))
+                .navigationTitle(Text("Routine trees"))
                 .toolbar(content: {
                     Button(action: {
                         let newId = RoutineId(id: .init())

@@ -17,7 +17,7 @@ struct TimeSpanTaskEditView: View {
             Section("timer"){
                 HStack(alignment: .center, spacing: nil){
                     Spacer()
-                    Picker("min", selection: .init(get: {t.wrappedValue.getMinutes()}, set: {t.wrappedValue.setMinutes($0)})){
+                    Picker("min", selection: $task.minutes){
                         ForEach(0..<60){m in
                             Text(String(m)).tag(m)
                         }
@@ -29,7 +29,7 @@ struct TimeSpanTaskEditView: View {
                     
                     Text("min")
                     
-                    Picker("sec", selection: .init(get: {t.wrappedValue.getSeconds()}, set: {t.wrappedValue.setSeconds($0)})){
+                    Picker("sec", selection: $task.seconds){
                         ForEach(0..<60){Text(String($0)).tag($0)}
                     }
                     .pickerStyle(.wheel)
