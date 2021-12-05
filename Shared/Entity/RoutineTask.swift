@@ -10,7 +10,7 @@ struct RoutineTask: Hashable, Identifiable, Codable{
     /// このタスクを識別するためのID
     public let id:TaskId
     /// このタスクのタイプ
-    public let type:TaskType
+    public var type:TaskType
     /// タイトルまたはタスク名
     public var title:String
     /// このタスクの詳細な説明

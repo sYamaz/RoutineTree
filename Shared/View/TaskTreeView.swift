@@ -18,18 +18,16 @@ struct TaskTreeView<Node:View>: View {
     
     var body: some View {
         VStack(alignment: .leading, spacing: nil){
-            node(self.$task)
-                .id($task.id)
+            node(self.$task).id($task.id)
                 // Singletonなコレクション（PreferenceKey）にViewの中心座標を登録する
                 .anchorPreference(key: CollectDict.self, value: .center, transform: {center in
                     [self.task.id: center]
                 })
-            HStack(alignment: .top, spacing: 4){
+            HStack(alignment: .top, spacing: nil){
                 ForEach($task.tasks, id: \.id){t in
                     TaskTreeView(task:  t, node: self.node)
                 }
             }
-            Spacer()
         }
         .backgroundPreferenceValue(CollectDict.self, {(centers:[TaskId:Anchor<CGPoint>]) in
             GeometryReader{g in

@@ -68,31 +68,8 @@ struct RoutineEditView<Content:View>: View {
                         factory.generate(appendable: $task)
                     }
                 })
-                
-//                // deletebutton
-//                Button(action: {
-//                    deleteConfirming = true
-//                }, label: {
-//                    HStack(alignment: .center, spacing: nil, content: {
-//                        Spacer()
-//                        Text("Delete routine")
-//                        Spacer()
-//                    })
-//                }).foregroundColor(.red)
-//                    .confirmationDialog("Are you sure you want to delete this routine and all next routines?", isPresented: $deleteConfirming, titleVisibility: Visibility.visible, actions: {
-//                        Button("Delete", role: .destructive, action: {
-//
-//                        })
-//                    })
             }
-        })
-            .background(.background)
-            .onAppear(perform: {
-                UITextView.appearance().backgroundColor = .clear
-            })
-            .onDisappear(perform: {
-                UITextView.appearance().backgroundColor = nil
-            })
+        }).background(.background)
     }
 }
 

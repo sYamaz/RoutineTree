@@ -8,23 +8,39 @@
 import SwiftUI
 
 struct RoutinePreferenceView: View {
-    @State private var simpleMode:Bool = false
-    @Binding var routine:RoutineTree
-    @State var color:Color = .blue
+    @State var preference:RoutineTreePreference
+    @Binding var editing:Bool
+    let onCompleted:(RoutineTreePreference) -> Void
+    let onCanceled:() -> Void
     
     var body: some View {
         VStack(alignment: .leading, spacing: nil){
-            HStack{Spacer()}
+            HStack{
+                Button(role: .cancel, action: {
+                    onCanceled()
+                    editing = false
+                }, label: {
+                    Text("Cancel")
+                })
+                Spacer()
+                Button(action: {
+                    onCompleted(preference)
+                    editing = false
+                }, label: {
+                    Text("Done")
+                }).disabled(preference.title == "")
+            }
             
-            UIGTextField(text: $routine.title, prompt: "Title")
+            UIGTextField(text: $preference.title, prompt: "Title")
                 .font(.title).padding()
                 .multilineTextAlignment(.center)
                 .background(RoundedRectangle(cornerRadius: 8).fill(.regularMaterial))
-                .foregroundColor(colorTable[routine.colorId])
-            
-            ReminderLikeColorPicker(selection: $routine.colorId)
+                .foregroundColor(colorTable[preference.colorId])
                 .padding()
-                .background(RoundedRectangle(cornerRadius: 8).fill(.regularMaterial))
+            
+//            ReminderLikeColorPicker(selection: $routine.colorId)
+//                .padding()
+//                .background(RoundedRectangle(cornerRadius: 8).fill(.regularMaterial))
 
             Spacer()
         }
@@ -34,7 +50,7 @@ struct RoutinePreferenceView: View {
 
 struct RoutinePreferenceView_Previews: PreviewProvider {
     static var previews: some View {
-        RoutinePreferenceView(routine: .constant(tutorialRoutine))
+        RoutinePreferenceView(preference: .init(title: ""), editing: .constant(true), onCompleted: {r in }, onCanceled: {})
             .preferredColorScheme(.dark)
     }
 }

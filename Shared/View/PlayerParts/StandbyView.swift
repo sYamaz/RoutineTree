@@ -22,11 +22,17 @@ struct StandbyView: View {
                 Text("no routines exist")
                 Spacer()
             }else{
-                Picker("routine", selection: self.$routineId, content: {
-                    ForEach(self.routines, id: \.id){r in
-                        Text(r.title).tag(r.id)
-                    }
-                })
+                HStack(alignment: .center, spacing: nil, content: {
+                    Picker("routine", selection: self.$routineId, content: {
+                        ForEach(self.routines, id: \.id){r in
+                            Text(r.preference.title).tag(r.id)
+                        }
+                    }).pickerStyle(.menu)
+                    Image(systemName: "chevron.down")
+                        .foregroundColor(.accentColor)
+                }).padding(8)
+                    .background(RoundedRectangle(cornerRadius: 8).stroke(Color.accentColor))
+                
                 Spacer()
                 
                 let r = routines.first(where: {r in r.id == routineId})
@@ -58,7 +64,7 @@ struct StandbyView_Previews: PreviewProvider {
         let routines = [tutorialRoutine]
         StandbyView(routines: .constant(routines), routineId: .constant(tutorialRoutine.id))
         {
-            r in print(r.title)
+            r in print(r.preference.title)
         }
     }
 }

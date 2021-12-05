@@ -11,13 +11,17 @@ import SwiftUI
 
 struct RoutineTree: Hashable, Identifiable, Codable{
     public let id: RoutineId
-    public var title:String
+    public var preference:RoutineTreePreference
     public var tasks:[RoutineTask]
-    public var colorId:Int = 0
     
     public func makePlayable() -> PlayableRoutineTree{
         let cs = self.tasks.map{t in t.makePlayable()}
-        let ret = PlayableRoutineTree(id: self.id, title: self.title, tasks: cs)
+        let ret = PlayableRoutineTree(id: self.id, title: self.preference.title, tasks: cs)
         return ret
     }
+}
+
+struct RoutineTreePreference: Hashable, Codable{
+    var title:String
+    var colorId:Int = 5
 }

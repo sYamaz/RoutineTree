@@ -24,12 +24,11 @@ struct TaskTreeRootView<Root:View, Node:View>: View {
                     transform: {center in
                         [TaskId.createStartTaskId(): center]
                 })
-            HStack(alignment: .top, spacing: 4){
+            HStack(alignment: .top, spacing: nil){
                 ForEach(self.$routine.tasks, id:\.id){t in
                     TaskTreeView(task: t, node: self.node)
                 }
             }
-            Spacer()
         }
         .backgroundPreferenceValue(CollectDict.self, {(centers:[TaskId:Anchor<CGPoint>]) in
             GeometryReader{g in
@@ -55,7 +54,7 @@ struct TaskTreeRootView_Previews: PreviewProvider {
         TaskTreeRootView(
             routine: .constant(tutorialRoutine),
             node: {rt in Text(rt.wrappedValue.title).modifier(RoundedRectangleStyle(focused: false)).padding(4)},
-            root: {r in Text(r.wrappedValue.title).modifier(DashRoundedRectangleStyle())
+            root: {r in Text(r.wrappedValue.preference.title).modifier(DashRoundedRectangleStyle())
             
         })
     }

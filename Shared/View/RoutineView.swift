@@ -17,24 +17,25 @@ struct RoutineView: View {
     
     var body: some View {
         // tree view
-        ScrollViewReader{proxy in
-            ScrollView([.horizontal, .vertical], showsIndicators: true){
-                VStack{
-                TaskTreeRootView(
-                    routine: $routine,
-                    node: {
-                        factory.generateNodeView(task: $0, editing: $editingTaskId)
-                            .frame(minWidth:100, maxWidth:150, minHeight: 50, maxHeight: 100)
-                    },
-                    root: {StartTaskNodeView(routine: $0, editing: $editingTaskId)})
-                }
-                // ボタンで隠れた部分をスクロールで移動できるようにするためのスペース
-                Divider().padding(100)
-                
-            }
+        ScrollView([.horizontal, .vertical], showsIndicators: true){
+            
+            TaskTreeRootView(
+                routine: $routine,
+                node: {
+                    factory.generateNodeView(task: $0, editing: $editingTaskId)
+                        .frame(minWidth:100, maxWidth:150, minHeight: 50, maxHeight: 100)
+                        .padding(4)
+                },
+                root: {
+                    StartTaskNodeView(routine: $0, editing: $editingTaskId)
+                })
+            
+            // ボタンで隠れた部分をスクロールで移動できるようにするためのスペース
+            Divider().padding(100)
+            
         }
         .sheet(isPresented: $settingMode, onDismiss: nil, content: {
-            RoutinePreferenceView(routine: $routine)
+            RoutinePreferenceView(preference: routine.preference, editing: $settingMode, onCompleted: {p in routine.preference = p}, onCanceled: {})
         })
         .toolbar(content: {
             Button(action: {
@@ -43,7 +44,7 @@ struct RoutineView: View {
                 }
             }, label: {Image(systemName: "ellipsis")})
         })
-        .navigationTitle(Text(self.routine.title).foregroundColor(colorTable[routine.colorId]))
+        .navigationTitle(Text(self.routine.preference.title))
     }
 }
 

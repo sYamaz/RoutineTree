@@ -52,16 +52,11 @@ struct RoutineTreeApp: App {
     }
 }
 
-let tutorialRoutine:RoutineTree = .init(id: .init(id: .init()), title: "Tutorial", tasks: [
-    .init(id: .init(id: .init()), type: .Sync, title: "RoutineTreeについて", description: "RoutineTreeはあなたの日々のルーチンの達成を補助するタスク管理アプリです", properties: .init(), tasks: [
-        .init(id: .init(id: .init()), type: .Sync, title: "RoutineTreeの特徴", description: "RoutineTreeを使うことでタスクの実行順について強く意識することができるようになります。\n例えばタイマーをセットしてから次のタスクをする。あなたの部屋のエアコンをつけてから次のタスクをするなどです。", properties: .init(), tasks: [
-            .init(id: .init(id: .init()), type: .Sync, title: "サポートしているタスクの種類", description: "RoutineTreeでサポートしているタスクの種類について説明します", properties: .init(), tasks: [
-                .init(id: .init(id: .init()), type: .Sync, title: "シンプルなタスク", description: "タスクの開始/完了をあなたが完全にコントロールできるタスクです。例えばコーヒーを飲む、腕立て伏せを30回行うなどです。", properties: .init(), tasks: [
-                ]),
-                .init(id: .init(id: .init()), type: .TimeSpan, title: "時間経過を待つタスク", description: "一定時間経過するまで完了できないタスクです。例えば電子レンジで3分間温める、2分間スクワットを続けるなどです。", properties: ["minutes":"2", "seconds":"10"], tasks: [
-                ])
-            ]),
-            .init(id: .init(id: .init()), type: .Sync, title: "ルーチンの開始", description: "ルーチンを開始するには、画面下のボタンをタップします。タスクが完了した時はDoneボタンをタップしてください。", properties: .init(), tasks: [
+let tutorialRoutine:RoutineTree = .init(id: .init(id: .init()), preference: .init(title: "Tutorial"), tasks: [
+    .init(id: .init(id: .init()), type: .Sync, title: "About RoutineTree", description: "RoutineTree is a task management application that helps you accomplish your daily routine tasks.", properties: .init(), tasks: [
+        .init(id: .init(id: .init()), type: .Sync, title: "Features", description: "The RoutineTree will help you to be strongly aware of the order in which tasks are executed. For example, \"Turn on the air conditioner in your room before doing the next task\".", properties: .init(), tasks: [
+            .init(id: .init(id: .init()), type: .Sync, title: "Tree", description: "Tasks that do not have priority in the order can be defined by branching the Tree.", properties: .init(), tasks: .init()),
+            .init(id: .init(id: .init()), type: .Sync, title: "Starting a routine", description: "To start a routine, select the routine in the area at the bottom of the screen and tap the Start button.", properties: .init(), tasks: [
             ])
         ])
     ])

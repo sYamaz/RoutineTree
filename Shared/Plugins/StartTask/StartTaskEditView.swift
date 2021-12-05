@@ -32,7 +32,7 @@ struct StartTaskEditView: View {
 
 struct StartTaskEditView_Previews: PreviewProvider {
     static var previews: some View {
-        let r = RoutineTree(id: .init(id: .init()), title: "RoutineName", tasks: .init())
+        let r = RoutineTree(id: .init(id: .init()), preference: .init(title: "routine name"), tasks: .init())
         
         StartTaskEditView(appendable: .constant(r), editing: .constant(nil))
     }

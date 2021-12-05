@@ -45,7 +45,7 @@ struct RoutinePlayer: View {
                                 self.playing = false
                             }
                         })
-                        .frame(height: self.playerMode == .small ? 200 : nil)
+                        .frame(height: self.playerMode == .small ? 200 : 500)
                         .padding()
                         .transition(.scale)
                 })

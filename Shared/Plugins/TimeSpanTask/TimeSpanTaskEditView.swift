@@ -15,30 +15,8 @@ struct TimeSpanTaskEditView: View {
     var body: some View {
         RoutineEditView(task: $task, editingTaskId: $editing){t in
             Section("timer"){
-                HStack(alignment: .center, spacing: nil){
-                    Spacer()
-                    Picker("min", selection: $task.minutes){
-                        ForEach(0..<60){m in
-                            Text(String(m)).tag(m)
-                        }
-                    }
-                    .pickerStyle(.wheel)
-                    .frame(width:70)
-                    .compositingGroup()
-                    .clipped()
-                    
-                    Text("min")
-                    
-                    Picker("sec", selection: $task.seconds){
-                        ForEach(0..<60){Text(String($0)).tag($0)}
-                    }
-                    .pickerStyle(.wheel)
-                    .frame(width:70)
-                    .compositingGroup()
-                    .clipped()
-                    
-                    Text("sec")
-                    Spacer()
+                VStack{
+                    MinSecPicker(min: $task.minutes, sec: $task.seconds)
                 }
             }
         }

@@ -20,10 +20,12 @@ enum PlayingState{
 struct ContentView: View  {
     @Binding var routines:[RoutineTree]
     @Binding var routineId:RoutineId
+    
+    @State var adding:Bool = false
     let router:RoutineViewFactory
     
     var body: some View {
-        ZStack(alignment: .center){
+        VStack(alignment: .center, spacing:0){
             // リスト表示部分
             NavigationView(content: {
                 List{
@@ -32,9 +34,7 @@ struct ContentView: View  {
                             router.getRoutineView(routine: r)
                         }, label: {
                             HStack{
-                                Image(systemName: "flowchart.fill")
-                                    .foregroundColor(colorTable[r.wrappedValue.colorId])
-                                Text(r.wrappedValue.title)
+                                Text(r.wrappedValue.preference.title)
                             }
                         })
                     }
@@ -44,31 +44,34 @@ struct ContentView: View  {
                     })
                 }
                 .listStyle(.plain)
-                .navigationTitle(Text("Routine trees"))
+                .navigationTitle(Text("My Lists"))
                 .toolbar(content: {
                     ToolbarItem(placement: .navigationBarTrailing, content: {
                         Button(action: {
-                            let newId = RoutineId(id: .init())
-                            let newTitle = "New routine"
-                            let newTasks:[RoutineTask] = .init()
-                            let newRoutine = RoutineTree(id: newId, title: newTitle, tasks: newTasks)
-                            self.routines.append(newRoutine)
+                            self.adding = true
                         }, label: {
                             Image(systemName: "plus")
                         })
+                            .sheet(isPresented: $adding, onDismiss: {
+                                
+                            }, content: {
+                                RoutinePreferenceView(preference: .init(title: ""), editing: $adding,onCompleted: {rtp in
+                                    let newRoutine = RoutineTree(id: .init(id: .init()), preference: rtp, tasks: .init())
+                                    self.routines.append(newRoutine)
+                                    self.adding = false
+                                },onCanceled: {self.adding = false})
+                            })
                     })
                 })
             }).background(.regularMaterial)
             // プレイヤー部分
             
-            VStack(alignment: .center, spacing: nil, content: {
-                Spacer()
-                RoutinePlayer(
-                    routines: self.$routines,
-                    routineId: self.$routineId,
-                    factory: taskViewFactory)
-                    .background(.ultraThinMaterial)
-            })
+            RoutinePlayer(
+                routines: self.$routines,
+                routineId: self.$routineId,
+                factory: taskViewFactory)
+                .background(.ultraThinMaterial)
+            
         }
     }
 }
@@ -77,9 +80,9 @@ struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         
         let routines = [
-        tutorialRoutine
+            tutorialRoutine
         ]
-
+        
         let router = RoutineViewFactory()
         
         ContentView(routines: .constant(routines),

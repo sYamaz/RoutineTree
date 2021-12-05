@@ -9,35 +9,15 @@ import Foundation
 import SwiftUI
 struct AddNewTaskButtonFactory{
     func generate(appendable:Binding<RoutineTask>) -> some View{
-        
-        return AddNewTaskButton(appendable: appendable, content: {t in
-            Button("sync"){
-                
-                let newTask = RoutineTask(id: .init(id: .init()), type: .Sync, title: "New Task", description: "", properties: .init(), tasks: .init())
-                t.wrappedValue.tasks.append(newTask)
-                
-            }
-            Button("timespan"){
-                var newTask:RoutineTask = .init(id: .init(id: .init()), type: .TimeSpan, title: "New Task", description: "Description", properties: .init(), tasks: .init())
-                newTask.minutes = 1
-                newTask.seconds = 0
-                t.wrappedValue.tasks.append(newTask)
-            }
-        })
+        return AddNewTaskButton(){t in
+            appendable.wrappedValue.tasks.append(t)
+        }
     }
     
     func generate(appendable:Binding<RoutineTree>) -> some View{
-        return AddNewTaskButton(appendable: appendable, content: {t in
-            Button("sync"){
-                t.wrappedValue.tasks.append(.init(id: .init(id: .init()), type: .Sync, title: "New Task", description: "Description", properties: .init(), tasks: .init()))
-            }
-            Button("timespan"){
-                var newTask:RoutineTask = .init(id: .init(id: .init()), type: .TimeSpan, title: "New Task", description: "Description", properties: .init(), tasks: .init())
-                newTask.minutes = 1
-                newTask.seconds = 0
-                t.wrappedValue.tasks.append(newTask)
-            }
-        })
+        return AddNewTaskButton() {t in
+            appendable.wrappedValue.tasks.append(t)
+        }
     }
 
 }
