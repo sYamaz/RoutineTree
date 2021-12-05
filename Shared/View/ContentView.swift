@@ -46,14 +46,16 @@ struct ContentView: View  {
                 .listStyle(.plain)
                 .navigationTitle(Text("Routine trees"))
                 .toolbar(content: {
-                    Button(action: {
-                        let newId = RoutineId(id: .init())
-                        let newTitle = "New routine"
-                        let newTasks:[RoutineTask] = .init()
-                        let newRoutine = RoutineTree(id: newId, title: newTitle, tasks: newTasks)
-                        self.routines.append(newRoutine)
-                    }, label: {
-                        Image(systemName: "plus")
+                    ToolbarItem(placement: .navigationBarTrailing, content: {
+                        Button(action: {
+                            let newId = RoutineId(id: .init())
+                            let newTitle = "New routine"
+                            let newTasks:[RoutineTask] = .init()
+                            let newRoutine = RoutineTree(id: newId, title: newTitle, tasks: newTasks)
+                            self.routines.append(newRoutine)
+                        }, label: {
+                            Image(systemName: "plus")
+                        })
                     })
                 })
             }).background(.regularMaterial)
