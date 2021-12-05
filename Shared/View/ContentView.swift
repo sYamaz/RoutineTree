@@ -33,7 +33,7 @@ struct ContentView: View  {
                         }, label: {
                             HStack{
                                 Image(systemName: "flowchart.fill")
-                                    .foregroundColor(.yellow)
+                                    .foregroundColor(colorTable[r.wrappedValue.colorId])
                                 Text(r.wrappedValue.title)
                             }
                         })
@@ -58,6 +58,7 @@ struct ContentView: View  {
                 })
             }).background(.regularMaterial)
             // プレイヤー部分
+            
             VStack(alignment: .center, spacing: nil, content: {
                 Spacer()
                 RoutinePlayer(

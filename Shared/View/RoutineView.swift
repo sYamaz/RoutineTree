@@ -43,7 +43,7 @@ struct RoutineView: View {
                 }
             }, label: {Image(systemName: "ellipsis")})
         })
-        .navigationTitle(Text(self.routine.title))
+        .navigationTitle(Text(self.routine.title).foregroundColor(colorTable[routine.colorId]))
     }
 }
 

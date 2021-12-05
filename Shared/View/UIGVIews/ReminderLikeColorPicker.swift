@@ -7,42 +7,44 @@
 
 import SwiftUI
 
-struct ReminderLikeColorPicker: View {
+let colorTable:[Color] = [
+    .red,
+    .orange,
+    .yellow,
+    .green,
+    .teal,
+    .blue,
+    .indigo,
+    .pink,
+    .purple,
+    .brown,
+    .gray,
+    .mint
+]
 
-    let selectables:Dictionary<String,Color> = [
-        "red":.red,
-        "orange":.orange,
-        "yellow":.yellow,
-        "green":.green,
-        "teal":.teal,
-        "blue":.blue,
-        "indigo":.indigo,
-        "pink":.pink,
-        "purple":.purple,
-        "brown":.brown,
-        "gray":.gray,
-        "mint":.mint
-    ]
-    @State private var color:Color = .blue
-    @Binding var selection:String
+struct ReminderLikeColorPicker: View {
+    typealias ColorId = Int
     
-    init(selection:Binding<String>){
+    @State private var color:Color = .blue
+    @Binding var selection:ColorId
+    
+    init(selection:Binding<ColorId>){
         self._selection = selection
     }
     
     var body: some View {
         LazyVGrid(columns: Array(repeating: GridItem(), count: 6), content: {
-            ForEach(Array(selectables.keys), id: \.self){key in
+            ForEach(colorTable.indices){i in
                 
-                let c = selectables[key]!
+                let c = colorTable[i]
                 Button(action: {
-                    self.selection = key
+                    self.selection = i
                 }, label: {
                     HStack{Spacer()}
                         .frame(width: 40, height: 40)
                         .background(Circle().fill(c))
                         .padding(8)
-                        .background(Circle().stroke(.secondary, lineWidth: key == selection ? 4 : 0))
+                        .background(Circle().stroke(.secondary, lineWidth: i == selection ? 4 : 0))
                 })
                     .buttonStyle(.plain)
             }
@@ -52,7 +54,7 @@ struct ReminderLikeColorPicker: View {
 
 struct ReminderLikeColorPicker_Previews: PreviewProvider {
     static var previews: some View {
-        ReminderLikeColorPicker(selection: .constant("blue"))
+        ReminderLikeColorPicker(selection: .constant(0))
             .preferredColorScheme(.dark)
     }
 }

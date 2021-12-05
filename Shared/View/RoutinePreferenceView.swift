@@ -12,21 +12,6 @@ struct RoutinePreferenceView: View {
     @Binding var routine:RoutineTree
     @State var color:Color = .blue
     
-    let colorTable:[Color] = [
-        .blue,
-        .gray,
-        .yellow,
-        .red,
-        .brown,
-        .cyan,
-        .green,
-        .indigo,
-        .mint,
-        .orange,
-        .pink,
-        .purple
-    ]
-    
     var body: some View {
         VStack(alignment: .leading, spacing: nil){
             HStack{Spacer()}
@@ -35,26 +20,12 @@ struct RoutinePreferenceView: View {
                 .font(.title).padding()
                 .multilineTextAlignment(.center)
                 .background(RoundedRectangle(cornerRadius: 8).fill(.regularMaterial))
+                .foregroundColor(colorTable[routine.colorId])
             
-            VStack(alignment: .center, spacing: nil, content: {
-                HStack(alignment: .center, spacing: nil, content: {
-                    Button(""){
-                        color = .blue
-                    }
-                    .frame(width:50, height:50)
-                    .background(Circle().fill(.mint))
-                    .padding(4)
-                    .background(Circle().stroke(.primary))
-                })
-            })
-            
-            List{
-                
-                
-                Toggle(isOn: $simpleMode, label: {Text("Simple tree mode")})
-                
-                
-            }
+            ReminderLikeColorPicker(selection: $routine.colorId)
+                .padding()
+                .background(RoundedRectangle(cornerRadius: 8).fill(.regularMaterial))
+
             Spacer()
         }
         .padding()
