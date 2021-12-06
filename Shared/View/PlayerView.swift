@@ -29,7 +29,7 @@ struct PlayerView: View {
                             routineId: $routineId){selected in
                     self.targetRoutine = selected.makePlayable()
                     
-                    self.targetRoutine = RoutineTreeInteractor().start(tree: targetRoutine)
+                    self.targetRoutine = PlayableTreeInteractor().start(tree: targetRoutine)
                     withAnimation(){
                         self.playing = true
                     }
@@ -40,7 +40,7 @@ struct PlayerView: View {
                     TreePlayingView(
                         routine: self.$targetRoutine,
                         onCompleted: {
-                            RoutineTreeInteractor().forceFinished(tree: &targetRoutine)
+                            PlayableTreeInteractor().forceFinished(tree: &targetRoutine)
                             withAnimation{
                                 self.playing = false
                             }

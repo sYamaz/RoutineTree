@@ -11,7 +11,7 @@ struct TreePlayingView: View {
     @Binding var routine:PlayableTree
     let onCompleted:() -> Void
     var body: some View {
-        if(RoutineTreeInteractor().allDone(tree: routine) == false){
+        if(PlayableTreeInteractor().allDone(tree: routine) == false){
             ScrollView(){
                 ForEach($routine.tasks, id: \.id){t in
                     RoutinePlayingView(task: t)

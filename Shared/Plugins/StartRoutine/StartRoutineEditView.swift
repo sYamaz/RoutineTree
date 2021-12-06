@@ -41,7 +41,7 @@ struct StartRoutineEditView: View {
                     HStack{
                         Text("Next routine")
                         Spacer()
-                        AddNewTaskButton(onSubmit: {t in
+                        AddNewRoutineButton(onSubmit: {t in
                             self.appendable.tasks.append(t)
                         })
                     }

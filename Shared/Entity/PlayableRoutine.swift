@@ -8,7 +8,7 @@
 import Foundation
 struct PlayableRoutine: Equatable{
     var id:RoutineId
-    var type:TaskType
+    var type:RoutineType
     var title:String
     var description:String
     var properties:Dictionary<String,String>

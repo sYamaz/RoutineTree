@@ -24,13 +24,13 @@ struct TreeView: View {
                 routine: $routine,
                 node: {
                     RoutineNodeView(task: $0, editing: $editingTaskId)
-                        .modifier(TaskNodeStyle(color:themeColor))
+                        .modifier(NodeStyle(color:themeColor))
                         .frame(width:colWidth)
                         .padding(8)
                 },
                 root: {
                     StartRoutineNodeView(routine: $0, editing: $editingTaskId)
-                        .modifier(TaskNodeStyle(color: themeColor))
+                        .modifier(NodeStyle(color: themeColor))
                         .frame(width:colWidth)
                         .padding(8)
                 })

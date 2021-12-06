@@ -7,7 +7,7 @@
 
 import Foundation
 
-enum TaskType: String, Codable{
+enum RoutineType: String, Codable{
     case Start = "start"
     case Sync = "sync"
     case TimeSpan = "TimeSpan"

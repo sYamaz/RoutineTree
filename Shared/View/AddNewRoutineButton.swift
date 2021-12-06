@@ -8,7 +8,7 @@
 import SwiftUI
 
 
-struct AddNewTaskButton: View {
+struct AddNewRoutineButton: View {
     @State private var mode = false
     let onSubmit:(Routine) -> Void
     
@@ -38,8 +38,8 @@ struct AddNewTaskButton: View {
     }
 }
 
-struct AddNewTaskButton_Previews: PreviewProvider {
+struct AddNewRoutineButton_Previews: PreviewProvider {
     static var previews: some View {
-        AddNewTaskButton(onSubmit: {t in })
+        AddNewRoutineButton(onSubmit: {t in })
     }
 }

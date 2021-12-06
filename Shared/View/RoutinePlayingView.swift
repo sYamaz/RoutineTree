@@ -21,7 +21,7 @@ struct RoutinePlayingView: View {
                     }, checkedChanged: {
                         if($0){
                             withAnimation(Animation.easeInOut.delay(0.2)){
-                                self.task = RoutineTreeInteractor().markAsDone(task: self.task)
+                                self.task = PlayableRoutineInteractor().markAsDone(task: self.task)
                             }
                         }
                     })

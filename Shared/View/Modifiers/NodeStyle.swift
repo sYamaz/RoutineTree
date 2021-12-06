@@ -7,7 +7,7 @@
 
 import Foundation
 import SwiftUI
-struct TaskNodeStyle: ViewModifier{
+struct NodeStyle: ViewModifier{
     let color:Color
     func body(content: Content) -> some View {
         content
