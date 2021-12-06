@@ -6,13 +6,13 @@
 //
 
 import Foundation
-struct PlayableRoutineTask: Equatable{
+struct PlayableRoutine: Equatable{
     var id:RoutineId
     var type:TaskType
     var title:String
     var description:String
     var properties:Dictionary<String,String>
-    var children:[PlayableRoutineTask]
+    var children:[PlayableRoutine]
     var doing:PlayState
     var lastStartAt:Date?
 }

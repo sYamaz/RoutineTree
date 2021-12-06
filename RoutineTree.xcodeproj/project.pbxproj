@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		9306ACFE275838AE00D86719 /* PlayableRoutineTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9306ACFD275838AE00D86719 /* PlayableRoutineTask.swift */; };
+		9306ACFE275838AE00D86719 /* PlayableRoutine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9306ACFD275838AE00D86719 /* PlayableRoutine.swift */; };
 		9306AD002758399D00D86719 /* PlayableRoutineTree.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9306ACFF2758399D00D86719 /* PlayableRoutineTree.swift */; };
 		9306AD0227583A2B00D86719 /* RoutineExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9306AD0127583A2B00D86719 /* RoutineExtension.swift */; };
 		93091EBC275981EB009D08D0 /* UIGCheckBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93091EBB275981EB009D08D0 /* UIGCheckBox.swift */; };
@@ -71,7 +71,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		9306ACFD275838AE00D86719 /* PlayableRoutineTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayableRoutineTask.swift; sourceTree = "<group>"; };
+		9306ACFD275838AE00D86719 /* PlayableRoutine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayableRoutine.swift; sourceTree = "<group>"; };
 		9306ACFF2758399D00D86719 /* PlayableRoutineTree.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayableRoutineTree.swift; sourceTree = "<group>"; };
 		9306AD0127583A2B00D86719 /* RoutineExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutineExtension.swift; sourceTree = "<group>"; };
 		93091EBB275981EB009D08D0 /* UIGCheckBox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIGCheckBox.swift; sourceTree = "<group>"; };
@@ -267,7 +267,7 @@
 				9318922D2736B82C007E2C5E /* Tree.swift */,
 				9318922F2736B835007E2C5E /* TreeId.swift */,
 				9306ACFF2758399D00D86719 /* PlayableRoutineTree.swift */,
-				9306ACFD275838AE00D86719 /* PlayableRoutineTask.swift */,
+				9306ACFD275838AE00D86719 /* PlayableRoutine.swift */,
 			);
 			path = Entity;
 			sourceTree = "<group>";
@@ -502,7 +502,7 @@
 				9312357B2756E20B0042EF70 /* ChevronUpDownBar.swift in Sources */,
 				932C30BC274CD81500D2DBA0 /* StartRoutineNodeView.swift in Sources */,
 				931892302736B835007E2C5E /* TreeId.swift in Sources */,
-				9306ACFE275838AE00D86719 /* PlayableRoutineTask.swift in Sources */,
+				9306ACFE275838AE00D86719 /* PlayableRoutine.swift in Sources */,
 				930E5E89274880FA0028B41E /* StartRoutineEditView.swift in Sources */,
 				9306AD002758399D00D86719 /* PlayableRoutineTree.swift in Sources */,
 				932624A22748D1030078FA02 /* TreeRootView.swift in Sources */,

@@ -44,7 +44,7 @@ extension Routine{
     }
 }
 
-extension PlayableRoutineTask{
+extension PlayableRoutine{
     var formattedTime:String{
         get{
             let min = self.minutes

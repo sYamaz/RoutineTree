@@ -9,8 +9,8 @@ import SwiftUI
 
 struct StartRoutineEditView: View {
     
-    @Binding var appendable:RoutineTree
-    @Binding var editing:TaskId?
+    @Binding var appendable:Tree
+    @Binding var editing:RoutineId?
     var body: some View {
         VStack(alignment: .leading, spacing: nil){
             List{
@@ -27,9 +27,7 @@ struct StartRoutineEditView: View {
                             Button(t.title.wrappedValue){
                                 withAnimation{
                                     self.editing = nil
-                                    print("nil")
                                     self.editing = t.id
-                                    print(t.id.id)
                                 }
                             }.buttonStyle(.plain)
                         }.onDelete(perform: {index in
@@ -56,7 +54,7 @@ struct StartRoutineEditView: View {
 
 struct StartRoutineEditView_Previews: PreviewProvider {
     static var previews: some View {
-        let r = RoutineTree(id: .init(id: .init()), preference: .init(title: "routine name"), tasks: .init())
+        let r = Tree(id: .init(id: .init()), preference: .init(title: "routine name"), tasks: .init())
         
         StartRoutineEditView(appendable: .constant(r), editing: .constant(nil))
     }

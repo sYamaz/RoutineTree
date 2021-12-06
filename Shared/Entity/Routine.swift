@@ -21,7 +21,7 @@ struct Routine: Hashable, Identifiable, Codable{
     public var tasks:[Routine]
     
 
-    public func makePlayable() -> PlayableRoutineTask{
+    public func makePlayable() -> PlayableRoutine{
         let cs = self.tasks.map{ch in ch.makePlayable()}
         
         return .init(id: self.id, type: self.type, title: self.title, description: self.description, properties: self.properties, children: cs, doing: .None, lastStartAt: nil)

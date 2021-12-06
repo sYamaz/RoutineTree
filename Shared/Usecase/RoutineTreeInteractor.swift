@@ -18,7 +18,7 @@ struct RoutineTreeInteractor{
     }
     
     func forceFinished( tree:inout PlayableRoutineTree) -> Void{
-        func recurse(task:inout PlayableRoutineTask) -> Void{
+        func recurse(task:inout PlayableRoutine) -> Void{
             task.doing = .None
             for i in task.children.indices{
                 recurse(task: &task.children[i])
@@ -30,7 +30,7 @@ struct RoutineTreeInteractor{
         }
     }
     
-    func markAsDone(task: PlayableRoutineTask) -> PlayableRoutineTask{
+    func markAsDone(task: PlayableRoutine) -> PlayableRoutine{
         var t = task
         t.doing = .Done
         for i in t.children.indices{
@@ -50,7 +50,7 @@ struct RoutineTreeInteractor{
         return true
     }
     
-    func allDone(task:PlayableRoutineTask) -> Bool{
+    func allDone(task:PlayableRoutine) -> Bool{
         if(task.doing != .Done){
             return false
         }

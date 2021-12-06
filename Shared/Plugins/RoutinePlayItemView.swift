@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct RoutinePlayItemView: View {
-    @Binding var task:PlayableRoutineTask
+    @Binding var task:PlayableRoutine
     
     // for type == .TimeSpan
     @State private var progress:Double = 0

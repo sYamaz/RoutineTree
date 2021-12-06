@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct StartRoutineNodeView: View {
-    @Binding var routine:RoutineTree
+    @Binding var routine:Tree
     @Binding var editing:RoutineId?
     var body: some View {
         Button(action: {editing = .createStartTaskId()}){

@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct RoutinePlayingView: View {
-    @Binding var task:PlayableRoutineTask
+    @Binding var task:PlayableRoutine
     var body: some View {
         VStack(alignment: .center, spacing: nil){
             if(task.doing == .Doing){
