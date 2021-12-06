@@ -7,7 +7,7 @@
 
 import Foundation
 struct RoutineTreeInteractor{
-    func start( tree: PlayableRoutineTree) -> PlayableRoutineTree{
+    func start( tree: PlayableTree) -> PlayableTree{
         var tr = tree
         for i in tree.tasks.indices{
             tr.tasks[i].doing = .Doing
@@ -17,7 +17,7 @@ struct RoutineTreeInteractor{
         return tr
     }
     
-    func forceFinished( tree:inout PlayableRoutineTree) -> Void{
+    func forceFinished( tree:inout PlayableTree) -> Void{
         func recurse(task:inout PlayableRoutine) -> Void{
             task.doing = .None
             for i in task.children.indices{
@@ -40,7 +40,7 @@ struct RoutineTreeInteractor{
         return t
     }
     
-    func allDone(tree:PlayableRoutineTree) -> Bool{
+    func allDone(tree:PlayableTree) -> Bool{
         for i in tree.tasks.indices{
             if(allDone(task: tree.tasks[i]) == false){
                 return false

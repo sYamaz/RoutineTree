@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct TreePlayingView: View {
-    @Binding var routine:PlayableRoutineTree
+    @Binding var routine:PlayableTree
     let onCompleted:() -> Void
     var body: some View {
         if(RoutineTreeInteractor().allDone(tree: routine) == false){

@@ -14,9 +14,9 @@ struct Tree: Hashable, Identifiable, Codable{
     public var preference:TreePreference
     public var tasks:[Routine]
     
-    public func makePlayable() -> PlayableRoutineTree{
+    public func makePlayable() -> PlayableTree{
         let cs = self.tasks.map{t in t.makePlayable()}
-        let ret = PlayableRoutineTree(id: self.id, title: self.preference.title, tasks: cs, colorId: preference.colorId)
+        let ret = PlayableTree(id: self.id, title: self.preference.title, tasks: cs, colorId: preference.colorId)
         return ret
     }
 }

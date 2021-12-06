@@ -6,7 +6,7 @@
 //
 
 import Foundation
-struct PlayableRoutineTree:Equatable{
+struct PlayableTree:Equatable{
     var id:TreeId
     var title:String
     var tasks:[PlayableRoutine]

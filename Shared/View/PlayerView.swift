@@ -14,7 +14,7 @@ struct PlayerView: View {
 
     
     // 実行対象のルーティン
-    @State private var targetRoutine:PlayableRoutineTree = .init(id: .init(id: .init()), title: "empty", tasks: [], colorId: 5)
+    @State private var targetRoutine:PlayableTree = .init(id: .init(id: .init()), title: "empty", tasks: [], colorId: 5)
     
     
     // プレイヤーの表示モード
