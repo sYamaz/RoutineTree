@@ -12,27 +12,24 @@ struct StartTaskNodeView: View {
     @Binding var editing:TaskId?
     var body: some View {
         Button(action: {editing = .createStartTaskId()}){
-            VStack(alignment: .center, spacing: nil, content: {
-                Text("start")
-            })
-            .foregroundColor(.primary)
-            .modifier(DashRoundedRectangleStyle())
-        }
-        .sheet(isPresented: .init(
-            get: {
-                if let id = editing {
-                    return id.isStartTaskId()
+            Text("start")
+                .padding(8)
+        }.buttonStyle(.plain)
+            .sheet(isPresented: .init(
+                get: {
+                    if let id = editing {
+                        return id.isStartTaskId()
+                    }
+                    return false
+                },
+                set: {b in
+                    self.editing = b ? .createStartTaskId() : nil
                 }
-                return false
-            },
-            set: {b in
-                self.editing = b ? .createStartTaskId() : nil
-            }
-        ), onDismiss: {
-            
-        }, content: {
-            StartTaskEditView(appendable: $routine, editing: $editing)
-        })
+            ), onDismiss: {
+                
+            }, content: {
+                StartTaskEditView(appendable: $routine, editing: $editing)
+            })
     }
 }
 

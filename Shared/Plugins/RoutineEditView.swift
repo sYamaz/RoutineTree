@@ -7,23 +7,10 @@
 
 import SwiftUI
 
-struct RoutineEditView<Content:View>: View {
+struct RoutineEditView: View {
     @Binding var task:RoutineTask
     @Binding var editingTaskId:TaskId?
-    //// for future iOS
-    //@FocusState private var titleFocused:Bool
-    @State private var titleClearEnabled:Bool = false
-    @State private var deleteConfirming:Bool = false
-    let factory:AddNewTaskButtonFactory = .init()
-    typealias SectionBuilder = (Binding<RoutineTask>) -> Content
     
-    private let content:Content?
-    init(task:Binding<RoutineTask>, editingTaskId:Binding<TaskId?>, @ViewBuilder specific: SectionBuilder){
-        self._task = task
-        self._editingTaskId = editingTaskId
-        self.content = specific(task)
-    }
-
     var body: some View {
         VStack(alignment: .center, spacing: nil, content: {
             List{
@@ -33,10 +20,29 @@ struct RoutineEditView<Content:View>: View {
                     UIGTextField(text: $task.title, prompt: "Title")
                     // description
                     TextEditor(text: $task.description)
+                        .frame(height:128)
                 }
                 
-                // from builder
-                content
+                Section("Timer"){
+                    Toggle("Timer", isOn: .init(get: {task.type == .TimeSpan}, set: {task.type = $0 ? .TimeSpan : .Sync}))
+                    if(task.type == .TimeSpan){
+                        HStack(alignment: .center, spacing: nil, content: {
+                            Text("Minute")
+                            Spacer()
+                            NumberField(v: $task.minutes, name: "minute", prompt: "minute")
+                                .frame(width:70)
+                                .textFieldStyle(.roundedBorder)
+                        })
+                        HStack(alignment: .center, spacing: nil, content: {
+                            Text("Second")
+                            Spacer()
+                            NumberField(v: $task.seconds, name: "second", prompt: "second")
+                                .frame(width:70)
+                                .textFieldStyle(.roundedBorder)
+                        })
+                        
+                    }
+                }.textCase(nil)
                 
                 // next routines
                 Section(content: {
@@ -50,10 +56,10 @@ struct RoutineEditView<Content:View>: View {
                         ForEach(self.$task.tasks, id:\.id){t in
                             Button(t.title.wrappedValue){
                                 withAnimation{
-                                    self.editingTaskId = nil
+                                    //self.editingTaskId = nil
                                     self.editingTaskId = t.id
                                 }
-                            }
+                            }.buttonStyle(.plain)
                         }.onDelete(perform: {index in
                             for i in index{
                                 self.task.tasks.remove(at: i)
@@ -65,7 +71,9 @@ struct RoutineEditView<Content:View>: View {
                     HStack{
                         Text("Next routine")
                         Spacer()
-                        factory.generate(appendable: $task)
+                        AddNewTaskButton(onSubmit: {t in
+                            task.tasks.append(t)
+                        })
                     }
                 })
             }
@@ -77,8 +85,7 @@ struct RoutineEditView_Previews: PreviewProvider {
     static var previews: some View {
         RoutineEditView(
             task: .constant(tutorialRoutine.tasks[0]),
-            editingTaskId: .constant(nil)){_ in
-            EmptyView()
-        }
+            editingTaskId: .constant(nil))
+        
     }
 }

@@ -11,11 +11,12 @@ struct RoutinePlayer: View {
     // 再生可能なルーティンリスト
     @Binding var routines:[RoutineTree]
     @Binding var routineId:RoutineId
-    // タスクごとのUI生成器
-    let factory:TaskViewFactory
+
     
     // 実行対象のルーティン
-    @State private var targetRoutine:PlayableRoutineTree = .init(id: .init(id: .init()), title: "empty", tasks: [])
+    @State private var targetRoutine:PlayableRoutineTree = .init(id: .init(id: .init()), title: "empty", tasks: [], colorId: 5)
+    
+    
     // プレイヤーの表示モード
     @State private var playerMode:PlayerMode = .small
     // プレイヤーの再生状態
@@ -35,17 +36,16 @@ struct RoutinePlayer: View {
                 }
             } else {
                 VStack(alignment: .center, spacing: nil, content: {
-                    ChevronUpDownBar(state: $playerMode)
+                    ChevronUpDownBar(state: $playerMode).foregroundColor(colorTable[targetRoutine.colorId])
                     RoutinePlayingView(
                         routine: self.$targetRoutine,
-                        factory: self.factory,
                         onCompleted: {
                             RoutineTreeInteractor().forceFinished(tree: &targetRoutine)
                             withAnimation{
                                 self.playing = false
                             }
                         })
-                        .frame(height: self.playerMode == .small ? 200 : 500)
+                        .frame(height: self.playerMode == .small ? 200 : nil)
                         .padding()
                         .transition(.scale)
                 })
@@ -57,8 +57,7 @@ struct RoutinePlayer: View {
         static var previews: some View {
             RoutinePlayer(
                 routines: .constant([tutorialRoutine]),
-                routineId: .constant(tutorialRoutine.id),
-                factory: taskViewFactory)
+                routineId: .constant(tutorialRoutine.id))
                 .border(.gray)
         }
     }

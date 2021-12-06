@@ -9,25 +9,34 @@ import SwiftUI
 
 /// TODO : TabコンテンツのViewを独立させる
 struct RoutineView: View {
-    @State var editingTaskId:TaskId? = nil
+    @State private var editingTaskId:TaskId? = nil
     @State private var settingMode:Bool = false
     @State private var simpleMode:Bool = false
     @Binding var routine:RoutineTree
-    let factory:TaskViewFactory
     
     var body: some View {
         // tree view
         ScrollView([.horizontal, .vertical], showsIndicators: true){
+            let colWidth:Double = 128
+            let themeColor:Color = colorTable[routine.preference.colorId]
             
             TaskTreeRootView(
                 routine: $routine,
                 node: {
-                    factory.generateNodeView(task: $0, editing: $editingTaskId)
-                        .frame(minWidth:100, maxWidth:150, minHeight: 50, maxHeight: 100)
+                    RoutineNodeView(task: $0, editing: $editingTaskId)
                         .padding(4)
+                        .background(RoundedRectangle(cornerRadius: 8).fill(.regularMaterial))
+                        .background(RoundedRectangle(cornerRadius: 8).stroke(themeColor, lineWidth: 2))
+                        .frame(width:colWidth)
+                        .padding(8)
                 },
                 root: {
+                    
                     StartTaskNodeView(routine: $0, editing: $editingTaskId)
+                        .background(RoundedRectangle(cornerRadius: 8).stroke(themeColor))
+                        .background(RoundedRectangle(cornerRadius: 8).fill(.regularMaterial))
+                        .frame(width:colWidth)
+                        .padding(8)
                 })
             
             // ボタンで隠れた部分をスクロールで移動できるようにするためのスペース
@@ -51,7 +60,7 @@ struct RoutineView: View {
 struct RoutineView_Previews: PreviewProvider {
     static var previews: some View {
         NavigationView(){
-            RoutineView(routine: .constant(tutorialRoutine), factory: taskViewFactory)
+            RoutineView(routine: .constant(tutorialRoutine))
         }
         .preferredColorScheme(.dark)
     }

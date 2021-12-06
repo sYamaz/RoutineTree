@@ -24,6 +24,7 @@ struct UIGCheckBox<Content:View>: View {
         }).onChange(of: checked, perform: {b in
             self.checkedChanged(checked)
         })
+            .buttonStyle(.plain)
     }
 }
 

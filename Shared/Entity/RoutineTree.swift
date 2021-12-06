@@ -16,7 +16,7 @@ struct RoutineTree: Hashable, Identifiable, Codable{
     
     public func makePlayable() -> PlayableRoutineTree{
         let cs = self.tasks.map{t in t.makePlayable()}
-        let ret = PlayableRoutineTree(id: self.id, title: self.preference.title, tasks: cs)
+        let ret = PlayableRoutineTree(id: self.id, title: self.preference.title, tasks: cs, colorId: preference.colorId)
         return ret
     }
 }

@@ -14,28 +14,42 @@ struct StandbyView: View {
     @Binding var routineId:RoutineId
     let onStarted:(RoutineTree) -> Void
     
-
+    @State private var confirming:Bool = false
+    
     
     var body: some View {
         HStack(alignment: .center, spacing: nil, content: {
+            let r = routines.first(where: {r in r.id == routineId})
+            let color:Color = r == nil ? .primary : colorTable[r!.preference.colorId]
+            let name:String = r == nil ? "none" : r!.preference.title
+            
             if(routines.isEmpty){
                 Text("no routines exist")
                 Spacer()
             }else{
-                HStack(alignment: .center, spacing: nil, content: {
-                    Picker("routine", selection: self.$routineId, content: {
-                        ForEach(self.routines, id: \.id){r in
-                            Text(r.preference.title).tag(r.id)
+                Button(action: {
+                    confirming = true
+                }, label: {
+                    HStack(alignment: .center, spacing: nil, content: {
+                        Text(name).frame(minWidth:70, maxWidth:128)
+                        Image(systemName: "chevron.down")
+                    })
+                }).buttonStyle(.plain)
+                    .confirmationDialog("Select routine.", isPresented: $confirming, actions: {
+                        ForEach(routines, id: \.id){r in
+                            Button(r.preference.title){
+                                routineId = r.id
+                            }.buttonStyle(.plain)
                         }
-                    }).pickerStyle(.menu)
-                    Image(systemName: "chevron.down")
-                        .foregroundColor(.accentColor)
-                }).padding(8)
-                    .background(RoundedRectangle(cornerRadius: 8).stroke(Color.accentColor))
+                    })
+                    .padding(8)
+                    .foregroundColor(color)
+                    .background(RoundedRectangle(cornerRadius: 8).stroke(color))
+                
                 
                 Spacer()
                 
-                let r = routines.first(where: {r in r.id == routineId})
+                
                 if(r == nil){
                     Text("Routine does not exist")
                 }
@@ -45,17 +59,11 @@ struct StandbyView: View {
                     Button(action: {
                         onStarted(r!)
                     }, label: {
-                        Image(systemName: "play.fill").imageScale(.large)
+                        Image(systemName: "play.fill").foregroundColor(color).imageScale(.large)
                     })
                 }
             }
         }).padding()
-            .onAppear(perform: {
-                
-            })
-            .onChange(of: routines, perform: {rs in
-
-            })
     }
 }
 

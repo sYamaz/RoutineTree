@@ -9,7 +9,7 @@ import SwiftUI
 
 
 struct AddNewTaskButton: View {
-    @State var mode = false
+    @State private var mode = false
     let onSubmit:(RoutineTask) -> Void
     
     var body: some View {
@@ -31,7 +31,7 @@ struct AddNewTaskButton: View {
                         task: .init(id: .init(id: .init()), type: .Sync, title: "", description: "", properties: .init(), tasks: .init()),
                         onSubmit: onSubmit,
                         onCanceled: {},
-                        shown: $mode)
+                        shown: $mode).textCase(nil)
                 })
         }
         

@@ -9,15 +9,13 @@ import SwiftUI
 
 struct TaskPlayingView: View {
     @Binding var task:PlayableRoutineTask
-    let factory:TaskViewFactory
-    
     var body: some View {
         VStack(alignment: .center, spacing: nil){
             if(task.doing == .Doing){
                 HStack{
                     UIGCheckBox(label: {
                         HStack(alignment: .center, spacing: nil){
-                            factory.generatePlayView(task: $task)
+                            RoutinePlayItemView(task: $task)
                             Spacer()
                         }
                     }, checkedChanged: {
@@ -37,7 +35,7 @@ struct TaskPlayingView: View {
                 Divider()
             }else{
                 ForEach($task.children, id:\.id){t in
-                    TaskPlayingView(task: t, factory: self.factory)
+                    TaskPlayingView(task: t)
                 }
             }
         }
@@ -47,6 +45,6 @@ struct TaskPlayingView: View {
 struct TaskPlayingView_Previews: PreviewProvider {
     static var previews: some View {
         let task:RoutineTask = tutorialRoutine.tasks[0]
-        TaskPlayingView(task: .constant(task.makePlayable()), factory: taskViewFactory)
+        TaskPlayingView(task: .constant(task.makePlayable()))
     }
 }

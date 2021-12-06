@@ -7,29 +7,50 @@
 
 import SwiftUI
 
-struct RoutineNodeView<Content:View>: View {
+struct RoutineNodeView: View {
     @Binding var task:RoutineTask
-    let content:(Binding<RoutineTask>) -> Content
+    @Binding var editing:TaskId?
+    
+    @State private var edit:Bool = false
     
     var body: some View {
-        VStack(alignment: .leading, spacing: nil){
-            Text(self.task.title)
-                .font(.body)
-                .foregroundColor(.primary)
-            Text(self.task.description)
-                .font(.caption)
-                .foregroundColor(.secondary)
-            
-            content($task)
+        Button(action:{
+            edit = true
+        }){
+            VStack(alignment: .leading, spacing: nil){
+                Text(self.task.title)
+                    .font(.body)
+                    .lineLimit(1)
+                    .foregroundColor(.primary)
+                Text(self.task.description)
+                    .font(.caption)
+                    .lineLimit(1)
+                    .foregroundColor(.secondary)
+                if(self.task.type == .TimeSpan){
+                    HStack(alignment: .center, spacing: nil, content: {
+                        Image(systemName: "clock")
+                        Text(self.task.formattedTime)
+                            .font(.caption)
+                            .foregroundColor(.secondary)
+                    })
+                }else{
+                    Text("")
+                }
+            }
         }
+        .buttonStyle(.plain)
+        .sheet(isPresented: $edit, onDismiss: {
+            
+        }, content: {
+            RoutineEditView(task: $task, editingTaskId: $editing).textCase(nil)
+        })
     }
 }
 
 struct RoutineNodeView_Previews: PreviewProvider {
     static var previews: some View {
-        RoutineNodeView(task: .constant( tutorialRoutine.tasks[0])){_ in
-            
-            Text("additional")
-        }
+        RoutineNodeView(task: .constant( tutorialRoutine.tasks[0]),
+                        editing: .constant(nil))
+        
     }
 }

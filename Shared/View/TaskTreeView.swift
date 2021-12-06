@@ -10,20 +10,16 @@ import SwiftUI
 struct TaskTreeView<Node:View>: View {
     @Binding var task:RoutineTask
     let node:(Binding<RoutineTask>) -> Node
-    
-    init(task:Binding<RoutineTask>, node:@escaping (Binding<RoutineTask>) -> Node){
-        self._task = task
-        self.node = node
-    }
-    
+
     var body: some View {
-        VStack(alignment: .leading, spacing: nil){
-            node(self.$task).id($task.id)
+        VStack(alignment: .leading, spacing: 0){
+            node(self.$task)
+                .id($task.id)
                 // Singletonなコレクション（PreferenceKey）にViewの中心座標を登録する
                 .anchorPreference(key: CollectDict.self, value: .center, transform: {center in
                     [self.task.id: center]
                 })
-            HStack(alignment: .top, spacing: nil){
+            HStack(alignment: .top, spacing: 0){
                 ForEach($task.tasks, id: \.id){t in
                     TaskTreeView(task:  t, node: self.node)
                 }

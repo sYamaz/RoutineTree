@@ -10,4 +10,5 @@ struct PlayableRoutineTree:Equatable{
     var id:RoutineId
     var title:String
     var tasks:[PlayableRoutineTask]
+    var colorId:Int
 }

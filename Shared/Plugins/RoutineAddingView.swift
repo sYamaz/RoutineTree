@@ -26,24 +26,37 @@ struct RoutineAddingView: View {
                     shown = false
                 }.disabled(task.title == "")
             }).padding()
-            VStack(alignment: .leading, spacing: nil, content: {
-                Text("Title").font(.caption).foregroundColor(.secondary)
-                UIGTextField(text: $task.title, prompt: "Title")
-                Divider()
+            List{
                 
-                Text("Description").font(.caption).foregroundColor(.secondary)
-                TextEditor(text: $task.description).frame(height: 128)
-                Divider()
-                Toggle("Timer", isOn: .init(get: {task.type == .TimeSpan}, set: {task.type = $0 ? .TimeSpan : .Sync}))
-                if(task.type == .TimeSpan){
-                    MinSecPicker(min: $task.minutes, sec: $task.seconds)
-                }
-                Divider()
-            }).padding()
+                Section("Title / Description", content: {
+                    UIGTextField(text: $task.title, prompt: "Title")
+                    TextEditor(text: $task.description).frame(height: 128)
+                }).textCase(nil)
+                
+                
+                Section("Timer"){
+                    Toggle("Timer", isOn: .init(get: {task.type == .TimeSpan}, set: {task.type = $0 ? .TimeSpan : .Sync}))
+                    if(task.type == .TimeSpan){
+                        HStack(alignment: .center, spacing: nil, content: {
+                            Text("Minute")
+                            Spacer()
+                            NumberField(v: $task.minutes, name: "minute", prompt: "minute")
+                                .frame(width:70)
+                                .textFieldStyle(.roundedBorder)
+                        })
+                        HStack(alignment: .center, spacing: nil, content: {
+                            Text("Second")
+                            Spacer()
+                            NumberField(v: $task.seconds, name: "second", prompt: "second")
+                                .frame(width:70)
+                                .textFieldStyle(.roundedBorder)
+                        })
+                        
+                    }
+                }.textCase(nil)
+            }
             
-            Spacer()
         }
-        .padding()
         .background(.background)
     }
 }

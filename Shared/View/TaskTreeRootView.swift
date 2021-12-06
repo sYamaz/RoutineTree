@@ -14,7 +14,7 @@ struct TaskTreeRootView<Root:View, Node:View>: View {
     let root:(Binding<RoutineTree>) -> Root
     
     var body: some View {
-        VStack(alignment: .leading, spacing: nil){
+        VStack(alignment: .leading, spacing: 0){
             // Singletonなコレクション（PreferenceKey）にViewの中心座標を登録する
             root($routine)
                 .id(TaskId.createStartTaskId())
@@ -24,7 +24,7 @@ struct TaskTreeRootView<Root:View, Node:View>: View {
                     transform: {center in
                         [TaskId.createStartTaskId(): center]
                 })
-            HStack(alignment: .top, spacing: nil){
+            HStack(alignment: .top, spacing: 0){
                 ForEach(self.$routine.tasks, id:\.id){t in
                     TaskTreeView(task: t, node: self.node)
                 }
@@ -53,7 +53,7 @@ struct TaskTreeRootView_Previews: PreviewProvider {
     static var previews: some View {
         TaskTreeRootView(
             routine: .constant(tutorialRoutine),
-            node: {rt in Text(rt.wrappedValue.title).modifier(RoundedRectangleStyle(focused: false)).padding(4)},
+            node: {rt in Text(rt.wrappedValue.title).modifier(RoundedRectangleStyle(focused: false)).padding(8)},
             root: {r in Text(r.wrappedValue.preference.title).modifier(DashRoundedRectangleStyle())
             
         })

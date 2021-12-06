@@ -11,13 +11,11 @@ import SwiftUI
 struct RoutineTreeApp: App {
     @State var routines:[RoutineTree] = [tutorialRoutine]
     @State var routineId:RoutineId = tutorialRoutine.id
-    let router = RoutineViewFactory()
-    
+
     var body: some Scene {
         WindowGroup {
             ContentView(routines: $routines,
-                        routineId: $routineId,
-                        router: router)
+                        routineId: $routineId)
                 .onAppear(perform: {
                     routines = load(key: "routines") ?? [tutorialRoutine]
                     routineId = load(key: "routineId") ?? tutorialRoutine.id
@@ -61,9 +59,4 @@ let tutorialRoutine:RoutineTree = .init(id: .init(id: .init()), preference: .ini
         ])
     ])
     
-])
-
-let taskViewFactory :TaskViewFactory = .init(plugins: [
-    SyncTaskViewGenerator(),
-    TimeSpanTaskViewGenerator()
 ])

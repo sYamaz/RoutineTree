@@ -38,9 +38,22 @@ struct RoutinePreferenceView: View {
                 .foregroundColor(colorTable[preference.colorId])
                 .padding()
             
-//            ReminderLikeColorPicker(selection: $routine.colorId)
-//                .padding()
-//                .background(RoundedRectangle(cornerRadius: 8).fill(.regularMaterial))
+            VStack(alignment: .center, spacing: nil, content: {
+                HStack{Spacer()}
+                RoutineNodeView(task: .constant(.init(id: .init(id: .init()), type: .Sync, title: "Preview", description: "color preview", properties: .init(), tasks: .init())), editing: .constant(nil))
+                    .padding(4)
+                    .background(RoundedRectangle(cornerRadius: 8).fill(.regularMaterial))
+                    .background(RoundedRectangle(cornerRadius: 8).stroke(colorTable[preference.colorId]))
+                    .padding()
+                
+                ReminderLikeColorPicker(selection: $preference.colorId)
+                    .padding()
+                    .background(RoundedRectangle(cornerRadius: 8).fill(.regularMaterial))
+                    .padding()
+            }).background(RoundedRectangle(cornerRadius: 8).fill(.regularMaterial))
+                .padding()
+            
+            
 
             Spacer()
         }

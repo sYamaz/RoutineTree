@@ -22,16 +22,15 @@ struct ContentView: View  {
     @Binding var routineId:RoutineId
     
     @State var adding:Bool = false
-    let router:RoutineViewFactory
-    
+
     var body: some View {
-        VStack(alignment: .center, spacing:0){
+        ZStack(alignment: .center){
             // リスト表示部分
             NavigationView(content: {
                 List{
                     ForEach(self.$routines, id: \.id){r in
                         NavigationLink(destination: {
-                            router.getRoutineView(routine: r)
+                            RoutineView(routine: r)
                         }, label: {
                             HStack{
                                 Text(r.wrappedValue.preference.title)
@@ -65,13 +64,13 @@ struct ContentView: View  {
                 })
             }).background(.regularMaterial)
             // プレイヤー部分
-            
+            VStack(alignment: .center, spacing: nil){
+                Spacer()
             RoutinePlayer(
                 routines: self.$routines,
-                routineId: self.$routineId,
-                factory: taskViewFactory)
+                routineId: self.$routineId)
                 .background(.ultraThinMaterial)
-            
+            }
         }
     }
 }
@@ -82,11 +81,8 @@ struct ContentView_Previews: PreviewProvider {
         let routines = [
             tutorialRoutine
         ]
-        
-        let router = RoutineViewFactory()
-        
+
         ContentView(routines: .constant(routines),
-                    routineId: .constant(routines[0].id),
-                    router: router)
+                    routineId: .constant(routines[0].id))
     }
 }

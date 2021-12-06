@@ -8,23 +8,45 @@
 import SwiftUI
 
 struct StartTaskEditView: View {
-    let factory:AddNewTaskButtonFactory = .init()
+    
     @Binding var appendable:RoutineTree
     @Binding var editing:TaskId?
     var body: some View {
         VStack(alignment: .leading, spacing: nil){
-            Text("Next tasks")
             List{
-                ForEach(appendable.tasks, id: \.id){t in
-                    Button(t.title){
-                        editing = nil
-                        editing = t.id
+                // next routines
+                Section(content: {
+                    if(self.$appendable.tasks.isEmpty){
+                        HStack{
+                            Spacer()
+                            Text("No routines")
+                            Spacer()
+                        }
+                    } else {
+                        ForEach(self.$appendable.tasks, id:\.id){t in
+                            Button(t.title.wrappedValue){
+                                withAnimation{
+                                    //self.editing = nil
+                                    self.editing = t.id
+                                }
+                            }.buttonStyle(.plain)
+                        }.onDelete(perform: {index in
+                            for i in index{
+                                self.appendable.tasks.remove(at: i)
+                            }
+                        })
                     }
-                }
+                }, header: {
+                    // add button
+                    HStack{
+                        Text("Next routine")
+                        Spacer()
+                        AddNewTaskButton(onSubmit: {t in
+                            self.appendable.tasks.append(t)
+                        })
+                    }
+                })
             }
-            
-            Spacer()
-            factory.generate(appendable: $appendable)
         }
         .padding()
     }
