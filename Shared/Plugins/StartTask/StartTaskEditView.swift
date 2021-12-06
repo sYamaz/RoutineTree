@@ -26,8 +26,10 @@ struct StartTaskEditView: View {
                         ForEach(self.$appendable.tasks, id:\.id){t in
                             Button(t.title.wrappedValue){
                                 withAnimation{
-                                    //self.editing = nil
+                                    self.editing = nil
+                                    print("nil")
                                     self.editing = t.id
+                                    print(t.id.id)
                                 }
                             }.buttonStyle(.plain)
                         }.onDelete(perform: {index in

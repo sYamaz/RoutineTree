@@ -42,11 +42,10 @@
 		932C30BE274CF51600D2DBA0 /* TaskPlayingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 932C30BD274CF51600D2DBA0 /* TaskPlayingView.swift */; };
 		932C30C0274D0C0900D2DBA0 /* RoutinePlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 932C30BF274D0C0900D2DBA0 /* RoutinePlayer.swift */; };
 		932D6C622757AA8F00048D80 /* RoutineTreeInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 932D6C612757AA8F00048D80 /* RoutineTreeInteractor.swift */; };
+		93328029275E139100C3F4DD /* TaskNodeStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93328028275E139100C3F4DD /* TaskNodeStyle.swift */; };
 		9337A28D27564CFB004D10D5 /* UIGTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9337A28C27564CFB004D10D5 /* UIGTextField.swift */; };
 		9340AA4D274EFA1A0030C766 /* Line.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9340AA4C274EFA1A0030C766 /* Line.swift */; };
 		9340AA4F274EFA530030C766 /* CollectDict.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9340AA4E274EFA530030C766 /* CollectDict.swift */; };
-		9340AA51274EFA920030C766 /* RoundedRectangleStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9340AA50274EFA920030C766 /* RoundedRectangleStyle.swift */; };
-		9340AA53274EFABC0030C766 /* DashRoundedRectangleStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9340AA52274EFABC0030C766 /* DashRoundedRectangleStyle.swift */; };
 		9367A1D8273BE61300ED54E2 /* RoutineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9367A1D7273BE61300ED54E2 /* RoutineView.swift */; };
 		93876D0A274530C300201CF8 /* TaskTreeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93876D09274530C300201CF8 /* TaskTreeView.swift */; };
 		93B72875273C034F00121435 /* TaskType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93B72874273C034F00121435 /* TaskType.swift */; };
@@ -109,11 +108,10 @@
 		932C30BD274CF51600D2DBA0 /* TaskPlayingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskPlayingView.swift; sourceTree = "<group>"; };
 		932C30BF274D0C0900D2DBA0 /* RoutinePlayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutinePlayer.swift; sourceTree = "<group>"; };
 		932D6C612757AA8F00048D80 /* RoutineTreeInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutineTreeInteractor.swift; sourceTree = "<group>"; };
+		93328028275E139100C3F4DD /* TaskNodeStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskNodeStyle.swift; sourceTree = "<group>"; };
 		9337A28C27564CFB004D10D5 /* UIGTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIGTextField.swift; sourceTree = "<group>"; };
 		9340AA4C274EFA1A0030C766 /* Line.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Line.swift; sourceTree = "<group>"; };
 		9340AA4E274EFA530030C766 /* CollectDict.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectDict.swift; sourceTree = "<group>"; };
-		9340AA50274EFA920030C766 /* RoundedRectangleStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundedRectangleStyle.swift; sourceTree = "<group>"; };
-		9340AA52274EFABC0030C766 /* DashRoundedRectangleStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashRoundedRectangleStyle.swift; sourceTree = "<group>"; };
 		9367A1D7273BE61300ED54E2 /* RoutineView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutineView.swift; sourceTree = "<group>"; };
 		93876D09274530C300201CF8 /* TaskTreeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskTreeView.swift; sourceTree = "<group>"; };
 		93B72874273C034F00121435 /* TaskType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskType.swift; sourceTree = "<group>"; };
@@ -156,8 +154,7 @@
 		930F7A592754456C00B91597 /* Modifiers */ = {
 			isa = PBXGroup;
 			children = (
-				9340AA50274EFA920030C766 /* RoundedRectangleStyle.swift */,
-				9340AA52274EFABC0030C766 /* DashRoundedRectangleStyle.swift */,
+				93328028275E139100C3F4DD /* TaskNodeStyle.swift */,
 			);
 			path = Modifiers;
 			sourceTree = "<group>";
@@ -484,6 +481,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				93328029275E139100C3F4DD /* TaskNodeStyle.swift in Sources */,
 				9367A1D8273BE61300ED54E2 /* RoutineView.swift in Sources */,
 				932D6C622757AA8F00048D80 /* RoutineTreeInteractor.swift in Sources */,
 				9306AD0227583A2B00D86719 /* TaskExtension.swift in Sources */,
@@ -504,14 +502,12 @@
 				9318922A2736A04B007E2C5E /* TaskId.swift in Sources */,
 				932C30C0274D0C0900D2DBA0 /* RoutinePlayer.swift in Sources */,
 				93CEFBE42754FE5600F9F76E /* RoutineEditView.swift in Sources */,
-				9340AA53274EFABC0030C766 /* DashRoundedRectangleStyle.swift in Sources */,
 				930E5E8B274886460028B41E /* AddNewTaskButton.swift in Sources */,
 				931CCDBD275B6E9B00114A77 /* RoutineNodeView.swift in Sources */,
 				9340AA4D274EFA1A0030C766 /* Line.swift in Sources */,
 				932C30BE274CF51600D2DBA0 /* TaskPlayingView.swift in Sources */,
 				93091EBE27598E2D009D08D0 /* RoutinePreferenceView.swift in Sources */,
 				9312357B2756E20B0042EF70 /* ChevronUpDownBar.swift in Sources */,
-				9340AA51274EFA920030C766 /* RoundedRectangleStyle.swift in Sources */,
 				932C30BC274CD81500D2DBA0 /* StartTaskNodeView.swift in Sources */,
 				931892302736B835007E2C5E /* RoutineId.swift in Sources */,
 				9306ACFE275838AE00D86719 /* PlayableRoutineTask.swift in Sources */,

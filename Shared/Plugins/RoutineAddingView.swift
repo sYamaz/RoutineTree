@@ -28,8 +28,12 @@ struct RoutineAddingView: View {
             }).padding()
             List{
                 
-                Section("Title / Description", content: {
-                    UIGTextField(text: $task.title, prompt: "Title")
+                Section("Title"){
+                    UIGTextField(text: $task.title, prompt: "Title").font(.title)
+                        .multilineTextAlignment(.center)
+                }
+                
+                Section("Description", content: {
                     TextEditor(text: $task.description).frame(height: 128)
                 }).textCase(nil)
                 

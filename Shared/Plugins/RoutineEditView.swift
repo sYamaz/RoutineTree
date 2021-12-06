@@ -14,10 +14,14 @@ struct RoutineEditView: View {
     var body: some View {
         VStack(alignment: .center, spacing: nil, content: {
             List{
-                // title and description
-                Section("Title / Description"){
-                    // title
+                Section("Title"){
                     UIGTextField(text: $task.title, prompt: "Title")
+                        .font(.title)
+                        .multilineTextAlignment(.center)
+                }
+                
+                // title and description
+                Section("Description"){
                     // description
                     TextEditor(text: $task.description)
                         .frame(height:128)
@@ -56,8 +60,10 @@ struct RoutineEditView: View {
                         ForEach(self.$task.tasks, id:\.id){t in
                             Button(t.title.wrappedValue){
                                 withAnimation{
-                                    //self.editingTaskId = nil
+                                    self.editingTaskId = nil
+                                    print("nil")
                                     self.editingTaskId = t.id
+                                    print(t.id.id)
                                 }
                             }.buttonStyle(.plain)
                         }.onDelete(perform: {index in
@@ -86,6 +92,7 @@ struct RoutineEditView_Previews: PreviewProvider {
         RoutineEditView(
             task: .constant(tutorialRoutine.tasks[0]),
             editingTaskId: .constant(nil))
+            .preferredColorScheme(.dark)
         
     }
 }

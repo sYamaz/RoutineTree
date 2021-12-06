@@ -53,9 +53,12 @@ struct TaskTreeRootView_Previews: PreviewProvider {
     static var previews: some View {
         TaskTreeRootView(
             routine: .constant(tutorialRoutine),
-            node: {rt in Text(rt.wrappedValue.title).modifier(RoundedRectangleStyle(focused: false)).padding(8)},
-            root: {r in Text(r.wrappedValue.preference.title).modifier(DashRoundedRectangleStyle())
-            
-        })
+            node: {rt in
+                Text(rt.wrappedValue.title)
+                    .padding(8)
+                
+            },
+            root: {r in Text(r.wrappedValue.preference.title)}
+        )
     }
 }

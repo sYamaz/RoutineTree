@@ -27,6 +27,7 @@ struct RoutineTreeApp: App {
                     save(key: "routines", obj: rs)
                 })
         }
+        
     }
     
     private func save<T:Codable>(key:String, obj:T) -> Void{

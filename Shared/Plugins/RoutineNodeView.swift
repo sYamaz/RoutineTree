@@ -11,11 +11,20 @@ struct RoutineNodeView: View {
     @Binding var task:RoutineTask
     @Binding var editing:TaskId?
     
-    @State private var edit:Bool = false
-    
     var body: some View {
+        let showBinding = Binding<Bool>.init(
+            get: {
+                if(editing == nil){
+                    return false
+                }
+                
+                return editing!.id == task.id.id
+            }, set: {
+                editing = $0 ? task.id : nil
+            })
+        
         Button(action:{
-            edit = true
+            editing = task.id
         }){
             VStack(alignment: .leading, spacing: nil){
                 Text(self.task.title)
@@ -39,7 +48,7 @@ struct RoutineNodeView: View {
             }
         }
         .buttonStyle(.plain)
-        .sheet(isPresented: $edit, onDismiss: {
+        .sheet(isPresented: showBinding, onDismiss: {
             
         }, content: {
             RoutineEditView(task: $task, editingTaskId: $editing).textCase(nil)

@@ -48,7 +48,7 @@ struct TaskTreeView<Node:View>: View {
 struct TaskTreeView_Previews: PreviewProvider {
     static var previews: some View {
         VStack(alignment: .center, spacing: nil){
-            TaskTreeView(task: .constant(tutorialRoutine.tasks[0]), node: {rt in Text(rt.wrappedValue.title).modifier(RoundedRectangleStyle(focused: false))})
+            TaskTreeView(task: .constant(tutorialRoutine.tasks[0]), node: {rt in Text(rt.wrappedValue.title).border(.gray)})
         }
     }
 }

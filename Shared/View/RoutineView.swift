@@ -24,17 +24,13 @@ struct RoutineView: View {
                 routine: $routine,
                 node: {
                     RoutineNodeView(task: $0, editing: $editingTaskId)
-                        .padding(4)
-                        .background(RoundedRectangle(cornerRadius: 8).fill(.regularMaterial))
-                        .background(RoundedRectangle(cornerRadius: 8).stroke(themeColor, lineWidth: 2))
+                        .modifier(TaskNodeStyle(color:themeColor))
                         .frame(width:colWidth)
                         .padding(8)
                 },
                 root: {
-                    
                     StartTaskNodeView(routine: $0, editing: $editingTaskId)
-                        .background(RoundedRectangle(cornerRadius: 8).stroke(themeColor))
-                        .background(RoundedRectangle(cornerRadius: 8).fill(.regularMaterial))
+                        .modifier(TaskNodeStyle(color: themeColor))
                         .frame(width:colWidth)
                         .padding(8)
                 })
