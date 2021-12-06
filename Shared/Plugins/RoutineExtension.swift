@@ -6,7 +6,7 @@
 //
 
 import Foundation
-extension RoutineTask{
+extension Routine{
     var formattedTime:String{
         get{
             let min = self.minutes

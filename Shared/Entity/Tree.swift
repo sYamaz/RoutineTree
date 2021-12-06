@@ -9,10 +9,10 @@ import Foundation
 import SwiftUI
 
 
-struct RoutineTree: Hashable, Identifiable, Codable{
-    public let id: RoutineId
-    public var preference:RoutineTreePreference
-    public var tasks:[RoutineTask]
+struct Tree: Hashable, Identifiable, Codable{
+    public let id: TreeId
+    public var preference:TreePreference
+    public var tasks:[Routine]
     
     public func makePlayable() -> PlayableRoutineTree{
         let cs = self.tasks.map{t in t.makePlayable()}
@@ -21,7 +21,7 @@ struct RoutineTree: Hashable, Identifiable, Codable{
     }
 }
 
-struct RoutineTreePreference: Hashable, Codable{
+struct TreePreference: Hashable, Codable{
     var title:String
     var colorId:Int = 5
 }

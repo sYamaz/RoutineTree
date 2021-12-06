@@ -6,11 +6,11 @@
 //
 
 import SwiftUI
-struct RoutinePlayer: View {
+struct PlayerView: View {
     
     // 再生可能なルーティンリスト
-    @Binding var routines:[RoutineTree]
-    @Binding var routineId:RoutineId
+    @Binding var routines:[Tree]
+    @Binding var routineId:TreeId
 
     
     // 実行対象のルーティン
@@ -37,7 +37,7 @@ struct RoutinePlayer: View {
             } else {
                 VStack(alignment: .center, spacing: nil, content: {
                     ChevronUpDownBar(state: $playerMode).foregroundColor(colorTable[targetRoutine.colorId])
-                    RoutinePlayingView(
+                    TreePlayingView(
                         routine: self.$targetRoutine,
                         onCompleted: {
                             RoutineTreeInteractor().forceFinished(tree: &targetRoutine)
@@ -53,9 +53,9 @@ struct RoutinePlayer: View {
         }).transition(.scale)
     }
     
-    struct RoutinePlayer_Previews: PreviewProvider {
+    struct PlayerView_Previews: PreviewProvider {
         static var previews: some View {
-            RoutinePlayer(
+            PlayerView(
                 routines: .constant([tutorialRoutine]),
                 routineId: .constant(tutorialRoutine.id))
                 .border(.gray)

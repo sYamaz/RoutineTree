@@ -8,11 +8,11 @@
 import SwiftUI
 
 /// TODO : TabコンテンツのViewを独立させる
-struct RoutineView: View {
-    @State private var editingTaskId:TaskId? = nil
+struct TreeView: View {
+    @State private var editingTaskId:RoutineId? = nil
     @State private var settingMode:Bool = false
     @State private var simpleMode:Bool = false
-    @Binding var routine:RoutineTree
+    @Binding var routine:Tree
     
     var body: some View {
         // tree view
@@ -20,7 +20,7 @@ struct RoutineView: View {
             let colWidth:Double = 128
             let themeColor:Color = colorTable[routine.preference.colorId]
             
-            TaskTreeRootView(
+            TreeRootView(
                 routine: $routine,
                 node: {
                     RoutineNodeView(task: $0, editing: $editingTaskId)
@@ -29,7 +29,7 @@ struct RoutineView: View {
                         .padding(8)
                 },
                 root: {
-                    StartTaskNodeView(routine: $0, editing: $editingTaskId)
+                    StartRoutineNodeView(routine: $0, editing: $editingTaskId)
                         .modifier(TaskNodeStyle(color: themeColor))
                         .frame(width:colWidth)
                         .padding(8)
@@ -40,7 +40,7 @@ struct RoutineView: View {
             
         }
         .sheet(isPresented: $settingMode, onDismiss: nil, content: {
-            RoutinePreferenceView(preference: routine.preference, editing: $settingMode, onCompleted: {p in routine.preference = p}, onCanceled: {})
+            TreePreferenceView(preference: routine.preference, editing: $settingMode, onCompleted: {p in routine.preference = p}, onCanceled: {})
         })
         .toolbar(content: {
             Button(action: {
@@ -53,10 +53,10 @@ struct RoutineView: View {
     }
 }
 
-struct RoutineView_Previews: PreviewProvider {
+struct TreeView_Previews: PreviewProvider {
     static var previews: some View {
         NavigationView(){
-            RoutineView(routine: .constant(tutorialRoutine))
+            TreeView(routine: .constant(tutorialRoutine))
         }
         .preferredColorScheme(.dark)
     }

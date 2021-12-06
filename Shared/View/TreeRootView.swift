@@ -7,35 +7,35 @@
 
 import SwiftUI
 
-struct TaskTreeRootView<Root:View, Node:View>: View {
+struct TreeRootView<Root:View, Node:View>: View {
     
-    @Binding var routine:RoutineTree
-    let node:(Binding<RoutineTask>) -> Node
-    let root:(Binding<RoutineTree>) -> Root
+    @Binding var routine:Tree
+    let node:(Binding<Routine>) -> Node
+    let root:(Binding<Tree>) -> Root
     
     var body: some View {
         VStack(alignment: .leading, spacing: 0){
             // Singletonなコレクション（PreferenceKey）にViewの中心座標を登録する
             root($routine)
-                .id(TaskId.createStartTaskId())
+                .id(RoutineId.createStartTaskId())
                 .anchorPreference(
                     key: CollectDict.self,
                     value: .center,
                     transform: {center in
-                        [TaskId.createStartTaskId(): center]
+                        [RoutineId.createStartTaskId(): center]
                 })
             HStack(alignment: .top, spacing: 0){
                 ForEach(self.$routine.tasks, id:\.id){t in
-                    TaskTreeView(task: t, node: self.node)
+                    TreeNodeView(task: t, node: self.node)
                 }
             }
         }
-        .backgroundPreferenceValue(CollectDict.self, {(centers:[TaskId:Anchor<CGPoint>]) in
+        .backgroundPreferenceValue(CollectDict.self, {(centers:[RoutineId:Anchor<CGPoint>]) in
             GeometryReader{g in
                 ForEach(self.routine.tasks.indices, id: \.self, content:{index in
                     let child = self.routine.tasks[index]
                     // taskの中心位置をSingletonなコレクションから取得
-                    if let taskStartCenter = centers[TaskId.createStartTaskId()] {
+                    if let taskStartCenter = centers[RoutineId.createStartTaskId()] {
                         let start = g[taskStartCenter]
                         // childの中心位置をSingletonなコレクションから取得
                         if let taskEndCenter = centers[child.id] {
@@ -49,9 +49,9 @@ struct TaskTreeRootView<Root:View, Node:View>: View {
     }
 }
 
-struct TaskTreeRootView_Previews: PreviewProvider {
+struct TreeRootView_Previews: PreviewProvider {
     static var previews: some View {
-        TaskTreeRootView(
+        TreeRootView(
             routine: .constant(tutorialRoutine),
             node: {rt in
                 Text(rt.wrappedValue.title)

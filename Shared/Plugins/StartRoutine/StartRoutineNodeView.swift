@@ -7,9 +7,9 @@
 
 import SwiftUI
 
-struct StartTaskNodeView: View {
+struct StartRoutineNodeView: View {
     @Binding var routine:RoutineTree
-    @Binding var editing:TaskId?
+    @Binding var editing:RoutineId?
     var body: some View {
         Button(action: {editing = .createStartTaskId()}){
             Text("start")
@@ -28,13 +28,13 @@ struct StartTaskNodeView: View {
             ), onDismiss: {
                 
             }, content: {
-                StartTaskEditView(appendable: $routine, editing: $editing)
+                StartRoutineEditView(appendable: $routine, editing: $editing)
             })
     }
 }
 
-struct StartTaskNodeView_Previews: PreviewProvider {
+struct StartRoutineNodeView_Previews: PreviewProvider {
     static var previews: some View {
-        StartTaskNodeView(routine: .constant(tutorialRoutine), editing: .constant(nil))
+        StartRoutineNodeView(routine: .constant(tutorialRoutine), editing: .constant(nil))
     }
 }

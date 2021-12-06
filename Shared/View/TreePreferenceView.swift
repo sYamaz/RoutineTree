@@ -7,10 +7,10 @@
 
 import SwiftUI
 
-struct RoutinePreferenceView: View {
-    @State var preference:RoutineTreePreference
+struct TreePreferenceView: View {
+    @State var preference:TreePreference
     @Binding var editing:Bool
-    let onCompleted:(RoutineTreePreference) -> Void
+    let onCompleted:(TreePreference) -> Void
     let onCanceled:() -> Void
     
     var body: some View {
@@ -61,9 +61,9 @@ struct RoutinePreferenceView: View {
     }
 }
 
-struct RoutinePreferenceView_Previews: PreviewProvider {
+struct TreePreferenceView_Previews: PreviewProvider {
     static var previews: some View {
-        RoutinePreferenceView(preference: .init(title: ""), editing: .constant(true), onCompleted: {r in }, onCanceled: {})
+        TreePreferenceView(preference: .init(title: ""), editing: .constant(true), onCompleted: {r in }, onCanceled: {})
             .preferredColorScheme(.dark)
     }
 }

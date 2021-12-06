@@ -9,10 +9,10 @@ import SwiftUI
 
 struct StandbyView: View {
     
-    @Binding var routines:[RoutineTree]
+    @Binding var routines:[Tree]
     
-    @Binding var routineId:RoutineId
-    let onStarted:(RoutineTree) -> Void
+    @Binding var routineId:TreeId
+    let onStarted:(Tree) -> Void
     
     @State private var confirming:Bool = false
     

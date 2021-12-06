@@ -18,8 +18,8 @@ enum PlayingState{
 }
 
 struct ContentView: View  {
-    @Binding var routines:[RoutineTree]
-    @Binding var routineId:RoutineId
+    @Binding var routines:[Tree]
+    @Binding var routineId:TreeId
     
     @State var adding:Bool = false
 
@@ -30,7 +30,7 @@ struct ContentView: View  {
                 List{
                     ForEach(self.$routines, id: \.id){r in
                         NavigationLink(destination: {
-                            RoutineView(routine: r)
+                            TreeView(routine: r)
                         }, label: {
                             HStack{
                                 Text(r.wrappedValue.preference.title)
@@ -54,8 +54,8 @@ struct ContentView: View  {
                             .sheet(isPresented: $adding, onDismiss: {
                                 
                             }, content: {
-                                RoutinePreferenceView(preference: .init(title: ""), editing: $adding,onCompleted: {rtp in
-                                    let newRoutine = RoutineTree(id: .init(id: .init()), preference: rtp, tasks: .init())
+                                TreePreferenceView(preference: .init(title: ""), editing: $adding,onCompleted: {rtp in
+                                    let newRoutine = Tree(id: .init(id: .init()), preference: rtp, tasks: .init())
                                     self.routines.append(newRoutine)
                                     self.adding = false
                                 },onCanceled: {self.adding = false})
@@ -66,7 +66,7 @@ struct ContentView: View  {
             // プレイヤー部分
             VStack(alignment: .center, spacing: nil){
                 Spacer()
-            RoutinePlayer(
+            PlayerView(
                 routines: self.$routines,
                 routineId: self.$routineId)
                 .background(.ultraThinMaterial)

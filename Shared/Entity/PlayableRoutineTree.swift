@@ -7,7 +7,7 @@
 
 import Foundation
 struct PlayableRoutineTree:Equatable{
-    var id:RoutineId
+    var id:TreeId
     var title:String
     var tasks:[PlayableRoutineTask]
     var colorId:Int

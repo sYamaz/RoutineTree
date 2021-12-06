@@ -8,8 +8,8 @@
 import SwiftUI
 
 struct RoutineNodeView: View {
-    @Binding var task:RoutineTask
-    @Binding var editing:TaskId?
+    @Binding var task:Routine
+    @Binding var editing:RoutineId?
     
     var body: some View {
         let showBinding = Binding<Bool>.init(

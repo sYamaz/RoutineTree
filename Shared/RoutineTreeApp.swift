@@ -9,8 +9,8 @@ import SwiftUI
 
 @main
 struct RoutineTreeApp: App {
-    @State var routines:[RoutineTree] = [tutorialRoutine]
-    @State var routineId:RoutineId = tutorialRoutine.id
+    @State var routines:[Tree] = [tutorialRoutine]
+    @State var routineId:TreeId = tutorialRoutine.id
 
     var body: some Scene {
         WindowGroup {
@@ -51,7 +51,7 @@ struct RoutineTreeApp: App {
     }
 }
 
-let tutorialRoutine:RoutineTree = .init(id: .init(id: .init()), preference: .init(title: "Tutorial"), tasks: [
+let tutorialRoutine:Tree = .init(id: .init(id: .init()), preference: .init(title: "Tutorial"), tasks: [
     .init(id: .init(id: .init()), type: .Sync, title: "About RoutineTree", description: "RoutineTree is a task management application that helps you accomplish your daily routine tasks.", properties: .init(), tasks: [
         .init(id: .init(id: .init()), type: .Sync, title: "Features", description: "The RoutineTree will help you to be strongly aware of the order in which tasks are executed. For example, \"Turn on the air conditioner in your room before doing the next task\".", properties: .init(), tasks: [
             .init(id: .init(id: .init()), type: .Sync, title: "Tree", description: "Tasks that do not have priority in the order can be defined by branching the Tree.", properties: .init(), tasks: .init()),

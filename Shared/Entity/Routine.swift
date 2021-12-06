@@ -6,9 +6,9 @@
 //
 
 import Foundation
-struct RoutineTask: Hashable, Identifiable, Codable{
+struct Routine: Hashable, Identifiable, Codable{
     /// このタスクを識別するためのID
-    public let id:TaskId
+    public let id:RoutineId
     /// このタスクのタイプ
     public var type:TaskType
     /// タイトルまたはタスク名
@@ -18,7 +18,7 @@ struct RoutineTask: Hashable, Identifiable, Codable{
     /// このタスクに関するその他の情報
     public var properties:Dictionary<String, String>
     
-    public var tasks:[RoutineTask]
+    public var tasks:[Routine]
     
 
     public func makePlayable() -> PlayableRoutineTask{

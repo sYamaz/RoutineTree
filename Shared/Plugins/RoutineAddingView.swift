@@ -8,8 +8,8 @@
 import SwiftUI
 
 struct RoutineAddingView: View {
-    @State var task:RoutineTask
-    let onSubmit:(RoutineTask) -> Void
+    @State var task:Routine
+    let onSubmit:(Routine) -> Void
     let onCanceled:() -> Void
     @Binding var shown:Bool
     

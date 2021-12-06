@@ -7,9 +7,9 @@
 
 import SwiftUI
 
-struct TaskTreeView<Node:View>: View {
-    @Binding var task:RoutineTask
-    let node:(Binding<RoutineTask>) -> Node
+struct TreeNodeView<Node:View>: View {
+    @Binding var task:Routine
+    let node:(Binding<Routine>) -> Node
 
     var body: some View {
         VStack(alignment: .leading, spacing: 0){
@@ -21,11 +21,11 @@ struct TaskTreeView<Node:View>: View {
                 })
             HStack(alignment: .top, spacing: 0){
                 ForEach($task.tasks, id: \.id){t in
-                    TaskTreeView(task:  t, node: self.node)
+                    TreeNodeView(task:  t, node: self.node)
                 }
             }
         }
-        .backgroundPreferenceValue(CollectDict.self, {(centers:[TaskId:Anchor<CGPoint>]) in
+        .backgroundPreferenceValue(CollectDict.self, {(centers:[RoutineId:Anchor<CGPoint>]) in
             GeometryReader{g in
                 ForEach(self.task.tasks, id: \.id, content:{child in
                     // taskの中心位置をSingletonなコレクションから取得
@@ -45,10 +45,10 @@ struct TaskTreeView<Node:View>: View {
     }
 }
 
-struct TaskTreeView_Previews: PreviewProvider {
+struct TreeNodeView_Previews: PreviewProvider {
     static var previews: some View {
         VStack(alignment: .center, spacing: nil){
-            TaskTreeView(task: .constant(tutorialRoutine.tasks[0]), node: {rt in Text(rt.wrappedValue.title).border(.gray)})
+            TreeNodeView(task: .constant(tutorialRoutine.tasks[0]), node: {rt in Text(rt.wrappedValue.title).border(.gray)})
         }
     }
 }

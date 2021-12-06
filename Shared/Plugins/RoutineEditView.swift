@@ -8,8 +8,8 @@
 import SwiftUI
 
 struct RoutineEditView: View {
-    @Binding var task:RoutineTask
-    @Binding var editingTaskId:TaskId?
+    @Binding var task:Routine
+    @Binding var editingTaskId:RoutineId?
     
     var body: some View {
         VStack(alignment: .center, spacing: nil, content: {

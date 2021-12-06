@@ -10,7 +10,7 @@ import SwiftUI
 
 struct AddNewTaskButton: View {
     @State private var mode = false
-    let onSubmit:(RoutineTask) -> Void
+    let onSubmit:(Routine) -> Void
     
     var body: some View {
         

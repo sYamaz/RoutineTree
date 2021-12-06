@@ -7,7 +7,7 @@
 
 import Foundation
 struct PlayableRoutineTask: Equatable{
-    var id:TaskId
+    var id:RoutineId
     var type:TaskType
     var title:String
     var description:String
