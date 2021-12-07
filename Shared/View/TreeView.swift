@@ -11,7 +11,7 @@ import SwiftUI
 struct TreeView: View {
     @State private var editingTaskId:RoutineId? = nil
     @State private var settingMode:Bool = false
-    @State private var simpleMode:Bool = false
+
     @Binding var routine:Tree
     
     var body: some View {
