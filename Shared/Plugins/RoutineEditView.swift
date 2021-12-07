@@ -15,7 +15,7 @@ struct RoutineEditView: View {
         VStack(alignment: .center, spacing: nil, content: {
             List{
                 Section("Title"){
-                    UIGTextField(text: $task.title, prompt: "Title")
+                    HIGTextField(text: $task.title, prompt: "Title")
                         .font(.title)
                         .multilineTextAlignment(.center)
                 }

@@ -31,7 +31,7 @@ struct TreePreferenceView: View {
                 }).disabled(preference.title == "")
             }
             
-            UIGTextField(text: $preference.title, prompt: "Title")
+            HIGTextField(text: $preference.title, prompt: "Title")
                 .font(.title).padding()
                 .multilineTextAlignment(.center)
                 .background(RoundedRectangle(cornerRadius: 8).fill(.regularMaterial))

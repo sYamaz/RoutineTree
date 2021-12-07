@@ -29,7 +29,7 @@ struct RoutineAddingView: View {
             List{
                 
                 Section("Title"){
-                    UIGTextField(text: $task.title, prompt: "Title").font(.title)
+                    HIGTextField(text: $task.title, prompt: "Title").font(.title)
                         .multilineTextAlignment(.center)
                 }
                 
