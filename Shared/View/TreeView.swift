@@ -10,7 +10,7 @@ import SwiftUI
 /// TODO : TabコンテンツのViewを独立させる
 struct TreeView: View {
     @State private var editingTaskId:RoutineId? = nil
-    @State private var settingMode:Bool = false
+    @State private var editMode:Bool = false
 
     @Binding var routine:Tree
     
@@ -39,13 +39,13 @@ struct TreeView: View {
             Divider().padding(100)
             
         }
-        .sheet(isPresented: $settingMode, onDismiss: nil, content: {
-            TreePreferenceView(preference: routine.preference, editing: $settingMode, onCompleted: {p in routine.preference = p}, onCanceled: {})
+        .sheet(isPresented: $editMode, onDismiss: nil, content: {
+            TreePreferenceView(preference: routine.preference, editing: $editMode, onCompleted: {p in routine.preference = p}, onCanceled: {})
         })
         .toolbar(content: {
             Button(action: {
                 withAnimation{
-                    self.settingMode = true
+                    self.editMode = true
                 }
             }, label: {Image(systemName: "ellipsis")})
         })
