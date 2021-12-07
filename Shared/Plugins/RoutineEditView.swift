@@ -10,6 +10,7 @@ import SwiftUI
 struct RoutineEditView: View {
     @Binding var task:Routine
     @Binding var editingTaskId:RoutineId?
+    var onDelete:(Routine) -> Void = {_ in }
     
     var body: some View {
         VStack(alignment: .center, spacing: nil, content: {
@@ -83,6 +84,15 @@ struct RoutineEditView: View {
                     }
                 })
             }
+            
+            Button(role: .destructive, action: {
+                onDelete(task)
+            }, label: {
+                HStack(alignment: .center, spacing: nil, content: {
+                    Image(systemName: "trash")
+                    Text("delete this routine")
+                })
+            }).statusBar(hidden: true)
         }).background(.background)
     }
 }

@@ -6,12 +6,12 @@
 //
 
 import SwiftUI
-
 /// TODO : TabコンテンツのViewを独立させる
 struct TreeView: View {
     @State private var editingTaskId:RoutineId? = nil
     @State private var editMode:Bool = false
-
+    @State private var deleteMode:Bool = false
+    
     @Binding var routine:Tree
     
     var body: some View {
@@ -23,7 +23,9 @@ struct TreeView: View {
             TreeRootView(
                 routine: $routine,
                 node: {
-                    RoutineNodeView(task: $0, editing: $editingTaskId)
+                    RoutineNodeView(task: $0, editing: $editingTaskId, deletingMode: $deleteMode){target in
+                        routine = TreeInteractor().deleteRoutineFromTree(tree: routine, delete: target)
+                    }
                         .modifier(NodeStyle(color:themeColor))
                         .frame(width:colWidth)
                         .padding(8)
@@ -33,6 +35,7 @@ struct TreeView: View {
                         .modifier(NodeStyle(color: themeColor))
                         .frame(width:colWidth)
                         .padding(8)
+                        
                 })
             
             // ボタンで隠れた部分をスクロールで移動できるようにするためのスペース
@@ -43,11 +46,17 @@ struct TreeView: View {
             TreePreferenceView(preference: routine.preference, editing: $editMode, onCompleted: {p in routine.preference = p}, onCanceled: {})
         })
         .toolbar(content: {
-            Button(action: {
-                withAnimation{
-                    self.editMode = true
+            if(deleteMode){
+                Button("Done"){
+                    self.deleteMode = false
                 }
-            }, label: {Image(systemName: "ellipsis")})
+            } else {
+                Button(action: {
+                    withAnimation{
+                        self.editMode = true
+                    }
+                }, label: {Image(systemName: "ellipsis.circle")})
+            }
         })
         .navigationTitle(Text(self.routine.preference.title))
     }

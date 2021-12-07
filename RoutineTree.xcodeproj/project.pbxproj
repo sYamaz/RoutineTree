@@ -51,6 +51,7 @@
 		93876D0A274530C300201CF8 /* TreeNodeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93876D09274530C300201CF8 /* TreeNodeView.swift */; };
 		93B72875273C034F00121435 /* RoutineType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93B72874273C034F00121435 /* RoutineType.swift */; };
 		93CEFBE42754FE5600F9F76E /* RoutineEditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93CEFBE32754FE5600F9F76E /* RoutineEditView.swift */; };
+		93FC17CB27601D2000357266 /* TreeInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93FC17CA27601D2000357266 /* TreeInteractor.swift */; };
 		93FF6DD62747216B00A2A210 /* TreePlayingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93FF6DD52747216B00A2A210 /* TreePlayingView.swift */; };
 /* End PBXBuildFile section */
 
@@ -118,6 +119,7 @@
 		93876D09274530C300201CF8 /* TreeNodeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TreeNodeView.swift; sourceTree = "<group>"; };
 		93B72874273C034F00121435 /* RoutineType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutineType.swift; sourceTree = "<group>"; };
 		93CEFBE32754FE5600F9F76E /* RoutineEditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutineEditView.swift; sourceTree = "<group>"; };
+		93FC17CA27601D2000357266 /* TreeInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TreeInteractor.swift; sourceTree = "<group>"; };
 		93FF6DD52747216B00A2A210 /* TreePlayingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TreePlayingView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -257,6 +259,7 @@
 			isa = PBXGroup;
 			children = (
 				932D6C612757AA8F00048D80 /* PlayableTreeInteractor.swift */,
+				93FC17CA27601D2000357266 /* TreeInteractor.swift */,
 				936B00A7275EC92A00056E70 /* PlayableRoutineInteractor.swift */,
 			);
 			path = Usecase;
@@ -492,6 +495,7 @@
 				931891FE27369927007E2C5E /* RoutineTreeApp.swift in Sources */,
 				93FF6DD62747216B00A2A210 /* TreePlayingView.swift in Sources */,
 				93B72875273C034F00121435 /* RoutineType.swift in Sources */,
+				93FC17CB27601D2000357266 /* TreeInteractor.swift in Sources */,
 				931CCDC1275BA1DB00114A77 /* ReminderLikeColorPicker.swift in Sources */,
 				9340AA4F274EFA530030C766 /* CollectDict.swift in Sources */,
 				9318922A2736A04B007E2C5E /* RoutineId.swift in Sources */,
