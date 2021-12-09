@@ -16,9 +16,9 @@ struct Routine: Hashable, Identifiable, Codable{
     /// このタスクの詳細な説明
     public var description:String
     /// このタスクに関するその他の情報
-    public var properties:Dictionary<String, String>
+    public var properties:Dictionary<String, String> = .init()
     
-    public var tasks:[Routine]
+    public var tasks:[Routine] = .init()
     
 
     public func makePlayable() -> PlayableRoutine{

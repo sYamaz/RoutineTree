@@ -15,23 +15,35 @@ struct TreeView: View {
     @Binding var routine:Tree
     
     var body: some View {
+        let colWidth:Double = 128
+        let themeColor:Color = colorTable[routine.preference.colorId]
         // tree view
         ScrollView([.horizontal, .vertical], showsIndicators: true){
-            let colWidth:Double = 128
-            let themeColor:Color = colorTable[routine.preference.colorId]
-            
             TreeRootView(
                 routine: $routine,
-                node: {
-                    RoutineNodeView(task: $0, editing: $editingTaskId, deletingMode: $deleteMode){target in
-                        routine = TreeInteractor().deleteRoutineFromTree(tree: routine, delete: target)
+                node: {task in
+                    RoutineNodeView(task: task, editing: $editingTaskId, deletingMode: $deleteMode){target in
+                        
+                        self.routine = TreeInteractor().deleteRoutineFromTree(tree: routine, delete: target, all:false)
+                        
+                    } onDragDrop: {src, targetId in
+//                        var ele = src
+//                        ele.tasks.removeAll()
+//
+//                        let temp = TreeInteractor().deleteRoutineFromTree(tree: routine, delete: ele)
+//
+//                        self.routine.tasks = TreeInteractor().appendTo(tree: temp.tasks, element: ele, targetId: targetId)
+//
+                        dragdrop(src: src, targetId: targetId)
                     }
                         .modifier(NodeStyle(color:themeColor))
                         .frame(width:colWidth)
                         .padding(8)
                 },
                 root: {
-                    StartRoutineNodeView(routine: $0, editing: $editingTaskId)
+                    StartRoutineNodeView(routine: $0, editing: $editingTaskId){src, targetId in
+                        dragdrop(src: src, targetId: targetId)
+                    }
                         .modifier(NodeStyle(color: themeColor))
                         .frame(width:colWidth)
                         .padding(8)
@@ -59,6 +71,24 @@ struct TreeView: View {
             }
         })
         .navigationTitle(Text(self.routine.preference.title))
+    }
+    
+    private func dragdrop(src:Routine, targetId:RoutineId)
+    {
+        let interactor = TreeInteractor()
+        var ele = src
+        ele.tasks.removeAll()
+        
+        // 移動元から消す
+        var temp = interactor.deleteRoutineFromTree(tree: routine, delete: ele)
+        
+        // 移動さきに追加する
+        if(targetId.isStartTaskId()){
+            temp.tasks.append(ele)
+            self.routine.tasks = temp.tasks
+        }else{
+            self.routine.tasks = interactor.appendTo(tree: temp.tasks, element: ele, targetId: targetId)
+        }
     }
 }
 

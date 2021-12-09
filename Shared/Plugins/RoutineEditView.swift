@@ -67,11 +67,7 @@ struct RoutineEditView: View {
                                     print(t.id.id)
                                 }
                             }.buttonStyle(.plain)
-                        }.onDelete(perform: {index in
-                            for i in index{
-                                self.task.tasks.remove(at: i)
-                            }
-                        })
+                        }
                     }
                 }, header: {
                     // add button

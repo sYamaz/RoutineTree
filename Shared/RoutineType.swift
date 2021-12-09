@@ -13,3 +13,5 @@ enum RoutineType: String, Codable{
     case TimeSpan = "TimeSpan"
     case Add = "add"
 }
+
+typealias DeleteAll = Bool
