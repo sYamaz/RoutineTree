@@ -16,10 +16,10 @@ struct StartRoutineNodeView: View {
     @State private var isDropTargeted = false
     
     var body: some View {
-        Button(action: {editing = .createStartTaskId()}){
+        Button(action: {editing = .createStartTaskId()}, label:{
             Text("start")
-                .padding(8)
-        }.buttonStyle(.plain)
+                .padding(8)})
+            .buttonStyle(.plain)
             .sheet(isPresented: .init(
                 get: {
                     if let id = editing {
@@ -35,28 +35,7 @@ struct StartRoutineNodeView: View {
             }, content: {
                 StartRoutineEditView(appendable: $routine, editing: $editing)
             })
-            .onDrop(of: [.utf8PlainText], isTargeted: $isDropTargeted, perform: { providers in
-                guard let provider = providers.first else {
-                    return true
-                }
-                
-                provider.loadItem(forTypeIdentifier: UTType.utf8PlainText.identifier, options: nil) { (data, error) in
-
-                    let dec = JSONDecoder()
-                    guard let ret = try? dec.decode(Routine.self, from: data as! Data) else{
-                        return
-                    }
-            
-                    if(self.routine.tasks.contains(where: {r in r.id == ret.id})){
-                        // 元の位置にドロップする場合は何もしない
-                        return
-                    }
-                    onDragDrop(ret, .createStartTaskId())
-                }
-
-                
-                return true
-            })
+            .modifier(DroppableTreeStyle(tree: routine, onDragDrop: self.onDragDrop))
     }
 }
 

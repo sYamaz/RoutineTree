@@ -11,7 +11,7 @@ struct TreeView: View {
     @State private var editingTaskId:RoutineId? = nil
     @State private var editMode:Bool = false
     @State private var deleteMode:Bool = false
-    
+    private let treeInteractor:TreeInteractor = .init()
     @Binding var routine:Tree
     
     var body: some View {
@@ -22,32 +22,25 @@ struct TreeView: View {
             TreeRootView(
                 routine: $routine,
                 node: {task in
-                    RoutineNodeView(task: task, editing: $editingTaskId, deletingMode: $deleteMode){target in
-                        
-                        self.routine = TreeInteractor().deleteRoutineFromTree(tree: routine, delete: target, all:false)
-                        
-                    } onDragDrop: {src, targetId in
-//                        var ele = src
-//                        ele.tasks.removeAll()
-//
-//                        let temp = TreeInteractor().deleteRoutineFromTree(tree: routine, delete: ele)
-//
-//                        self.routine.tasks = TreeInteractor().appendTo(tree: temp.tasks, element: ele, targetId: targetId)
-//
-                        dragdrop(src: src, targetId: targetId)
-                    }
+                    RoutineNodeView(
+                        task: task,
+                        editing: $editingTaskId,
+                        deletingMode: $deleteMode,
+                        onDelete: {target in self.routine = treeInteractor.deleteRoutineFromTree(tree: routine, delete: target, all:false)},
+                        onDragDrop: {src, targetId in dragdrop(src: src, targetId: targetId)})
                         .modifier(NodeStyle(color:themeColor))
                         .frame(width:colWidth)
                         .padding(8)
                 },
                 root: {
-                    StartRoutineNodeView(routine: $0, editing: $editingTaskId){src, targetId in
-                        dragdrop(src: src, targetId: targetId)
-                    }
+                    StartRoutineNodeView(
+                        routine: $0,
+                        editing: $editingTaskId,
+                        onDragDrop:{src, targetId in dragdrop(src: src, targetId: targetId)})
                         .modifier(NodeStyle(color: themeColor))
                         .frame(width:colWidth)
                         .padding(8)
-                        
+                    
                 })
             
             // ボタンで隠れた部分をスクロールで移動できるようにするためのスペース
@@ -75,7 +68,7 @@ struct TreeView: View {
     
     private func dragdrop(src:Routine, targetId:RoutineId)
     {
-        let interactor = TreeInteractor()
+        let interactor = self.treeInteractor
         var ele = src
         ele.tasks.removeAll()
         

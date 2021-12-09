@@ -52,13 +52,14 @@ struct RoutineNodeView: View {
                     }else{
                         Text("")
                     }
+                    HStack{Spacer()}
                 }.onTapGesture {
                     deletingMode = false
                     editing = task.id
-                }
-                .onLongPressGesture(perform: {
+                }.onLongPressGesture(minimumDuration: 1, maximumDistance: 10, perform: {
                     deletingMode = true
-                })
+                }, onPressingChanged: nil)
+                
             }
             .buttonStyle(.plain)
             .sheet(isPresented: showBinding, onDismiss: {
@@ -66,50 +67,8 @@ struct RoutineNodeView: View {
             }, content: {
                 RoutineEditView(task: $task, editingTaskId: $editing, onDelete: onDelete).textCase(nil)
             })
-            .onDrag {
-                
-                // encodeToJson
-                let provider = NSItemProvider()
-                let enc = JSONEncoder()
-                guard let data = try? enc.encode(task) else{
-                    return provider
-                }
-                
-                provider.registerDataRepresentation(
-                    forTypeIdentifier: UTType.utf8PlainText.identifier,
-                    visibility: .all){ completion -> Progress? in
-                    completion(data, nil)
-                    return nil
-                }
-
-                return provider
-            } //preview: {Text("AAA").modifier(NodeStyle(color: .primary))}
-            .onDrop(of: [.utf8PlainText], isTargeted: $isDropTargeted, perform: {providers in
-                
-                guard let provider = providers.first else {
-                    return true
-                }
-                
-                provider.loadItem(forTypeIdentifier: UTType.utf8PlainText.identifier, options: nil) { (data, error) in
-
-                    let dec = JSONDecoder()
-                    guard let ret = try? dec.decode(Routine.self, from: data as! Data) else{
-                        return
-                    }
-            
-                    if(ret.id == self.task.id){
-                        // 自分自身にドロップできない
-                        return
-                    }else if(self.task.tasks.contains(where: {r in r.id == ret.id})){
-                        // 元の位置にドロップする場合は何もしない
-                        return
-                    }
-                    onDragDrop(ret, self.task.id)
-                }
-
-                
-                return true
-            })
+            .modifier(DraggableStyle(routine: self.task))
+            .modifier(DroppableRoutineStyle(routine: self.task, onDragDrop: self.onDragDrop))
             
             if(deletingMode){
                 Button(action: {
