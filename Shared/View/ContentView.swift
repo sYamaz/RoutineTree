@@ -30,7 +30,8 @@ struct ContentView: View  {
                 List{
                     ForEach(self.$routines, id: \.id){r in
                         NavigationLink(destination: {
-                            TreeView(routine: r)
+                                TreeView(routine: r)
+                            .navigationTitle(r.wrappedValue.preference.title)
                         }, label: {
                             HStack{
                                 Text(r.wrappedValue.preference.title)
@@ -40,6 +41,9 @@ struct ContentView: View  {
                     .onDelete(perform: {idxs in
                         // 削除
                         routines.remove(at: idxs.first!)
+                    })
+                    .onMove(perform: {idxs, targetIdx in
+                        routines.move(fromOffsets: idxs, toOffset: targetIdx)
                     })
                 }
                 .listStyle(.plain)

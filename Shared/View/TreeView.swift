@@ -13,12 +13,14 @@ struct TreeView: View {
     @State private var deleteMode:Bool = false
     private let treeInteractor:TreeInteractor = .init()
     @Binding var routine:Tree
+    var onStarted:(Tree) -> Void = {_ in }
     
     var body: some View {
         let colWidth:Double = 128
         let themeColor:Color = colorTable[routine.preference.colorId]
         // tree view
         ScrollView([.horizontal, .vertical], showsIndicators: true){
+            
             TreeRootView(
                 routine: $routine,
                 node: {task in
@@ -26,9 +28,9 @@ struct TreeView: View {
                         task: task,
                         editing: $editingTaskId,
                         deletingMode: $deleteMode,
+                        color: themeColor,
                         onDelete: {target in self.routine = treeInteractor.deleteRoutineFromTree(tree: routine, delete: target, all:false)},
                         onDragDrop: {src, targetId in dragdrop(src: src, targetId: targetId)})
-                        .modifier(NodeStyle(color:themeColor))
                         .frame(width:colWidth)
                         .padding(8)
                 },
@@ -42,28 +44,28 @@ struct TreeView: View {
                         .padding(8)
                     
                 })
-            
             // ボタンで隠れた部分をスクロールで移動できるようにするためのスペース
             Divider().padding(100)
-            
         }
+        .navigationTitle(routine.preference.title)
         .sheet(isPresented: $editMode, onDismiss: nil, content: {
             TreePreferenceView(preference: routine.preference, editing: $editMode, onCompleted: {p in routine.preference = p}, onCanceled: {})
         })
         .toolbar(content: {
-            if(deleteMode){
-                Button("Done"){
+            Button(action: {
+                if(deleteMode){
                     self.deleteMode = false
+                } else {
+                    self.editMode = true
                 }
-            } else {
-                Button(action: {
-                    withAnimation{
-                        self.editMode = true
-                    }
-                }, label: {Image(systemName: "ellipsis.circle")})
-            }
+            }, label: {
+                if(deleteMode){
+                    Text("Done")
+                } else {
+                    Image(systemName: "ellipsis.circle")}
+                
+            })
         })
-        .navigationTitle(Text(self.routine.preference.title))
     }
     
     private func dragdrop(src:Routine, targetId:RoutineId)

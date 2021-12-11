@@ -88,7 +88,7 @@ struct RoutineEditView: View {
                     Image(systemName: "trash")
                     Text("delete this routine")
                 })
-            }).statusBar(hidden: true)
+            })//.statusBar(hidden: true)
         }).background(.background)
     }
 }

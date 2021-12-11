@@ -27,26 +27,31 @@ struct StandbyView: View {
                 Text("no routines exist")
                 Spacer()
             }else{
-                Button(action: {
-                    confirming = true
-                }, label: {
-                    HStack(alignment: .center, spacing: nil, content: {
-                        Text(name).frame(minWidth:70, maxWidth:128)
-                        Image(systemName: "chevron.down")
-                    })
-                }).buttonStyle(.plain)
-                    .confirmationDialog("Select routine.", isPresented: $confirming, actions: {
-                        ForEach(routines, id: \.id){r in
-                            Button(r.preference.title){
-                                routineId = r.id
-                            }.buttonStyle(.plain)
-                        }
-                    })
-                    .padding(8)
-                    .foregroundColor(color)
-                    .background(RoundedRectangle(cornerRadius: 8).stroke(color))
-                
-                
+                Picker(selection: $routineId, content: {
+                    ForEach(routines, id: \.id){routine in
+                        Text(routine.preference.title).tag(routine.id).tint(colorTable[routine.preference.colorId])
+                    }
+                }, label: {Text("test")})
+//                Button(action: {
+//                    confirming = true
+//                }, label: {
+//                    HStack(alignment: .center, spacing: nil, content: {
+//                        Text(name).frame(minWidth:70, maxWidth:128)
+//                        Image(systemName: "chevron.down")
+//                    })
+//                }).buttonStyle(.plain)
+//                    .confirmationDialog("Select routine.", isPresented: $confirming, actions: {
+//                        ForEach(routines, id: \.id){r in
+//                            Button(r.preference.title){
+//                                routineId = r.id
+//                            }.buttonStyle(.plain)
+//                        }
+//                    })
+//                    .padding(8)
+//                    .foregroundColor(color)
+//                    .background(RoundedRectangle(cornerRadius: 8).stroke(color))
+//
+//
                 Spacer()
                 
                 
@@ -59,7 +64,7 @@ struct StandbyView: View {
                     Button(action: {
                         onStarted(r!)
                     }, label: {
-                        Image(systemName: "play.fill").foregroundColor(color).imageScale(.large)
+                        Image(systemName: "play.fill").imageScale(.large).foregroundColor(color)
                     })
                 }
             }

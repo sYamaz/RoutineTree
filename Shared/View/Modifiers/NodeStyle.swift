@@ -10,10 +10,11 @@ import SwiftUI
 import UniformTypeIdentifiers
 struct NodeStyle: ViewModifier{
     let color:Color
-    var draggable:Bool = false
+    @State private var opacity = 1.0
     func body(content: Content) -> some View {
         content
             .padding(4)
+            .contentShape(RoundedRectangle(cornerRadius: 8))
             .background(RoundedRectangle(cornerRadius: 8).fill(.regularMaterial))
             .background(RoundedRectangle(cornerRadius: 8).stroke(color, lineWidth: 2))
     }
@@ -21,23 +22,28 @@ struct NodeStyle: ViewModifier{
 
 struct DraggableStyle: ViewModifier{
     let routine:Routine
+    var enabled:Bool = true
     func body(content: Content) -> some View {
-        content.onDrag{
-            // encodeToJson
-            let provider = NSItemProvider()
-            let enc = JSONEncoder()
-            guard let data = try? enc.encode(routine) else{
+        if(enabled){
+            content.onDrag{
+                // encodeToJson
+                let provider = NSItemProvider()
+                let enc = JSONEncoder()
+                guard let data = try? enc.encode(routine) else{
+                    return provider
+                }
+                
+                provider.registerDataRepresentation(
+                    forTypeIdentifier: UTType.utf8PlainText.identifier,
+                    visibility: .all){ completion -> Progress? in
+                        completion(data, nil)
+                        return nil
+                    }
+                
                 return provider
             }
-            
-            provider.registerDataRepresentation(
-                forTypeIdentifier: UTType.utf8PlainText.identifier,
-                visibility: .all){ completion -> Progress? in
-                completion(data, nil)
-                return nil
-            }
-
-            return provider
+        } else {
+            content
         }
     }
 }
@@ -55,12 +61,12 @@ struct DroppableRoutineStyle:ViewModifier{
             }
             
             provider.loadItem(forTypeIdentifier: UTType.utf8PlainText.identifier, options: nil) { (data, error) in
-
+                
                 let dec = JSONDecoder()
                 guard let ret = try? dec.decode(Routine.self, from: data as! Data) else{
                     return
                 }
-        
+                
                 if(ret.id == self.routine.id){
                     // 自分自身にドロップできない
                     return
@@ -88,19 +94,19 @@ struct DroppableTreeStyle:ViewModifier{
             }
             
             provider.loadItem(forTypeIdentifier: UTType.utf8PlainText.identifier, options: nil) { (data, error) in
-
+                
                 let dec = JSONDecoder()
                 guard let ret = try? dec.decode(Routine.self, from: data as! Data) else{
                     return
                 }
-        
+                
                 if(self.tree.tasks.contains(where: {r in r.id == ret.id})){
                     // 元の位置にドロップする場合は何もしない
                     return
                 }
                 onDragDrop(ret, .createStartTaskId())
             }
-
+            
             
             return true
         })

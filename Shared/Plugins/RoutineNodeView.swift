@@ -14,7 +14,8 @@ struct RoutineNodeView: View {
     @Binding var deletingMode:Bool
     
     @State private var isDropTargeted:Bool = false
-    
+    @State private var opacity:Double = 1.0
+    let color:Color
     var onDelete:(Routine) -> Void = {_ in }
     var onDragDrop:(Routine, RoutineId) -> Void = {_,_ in }
     
@@ -31,9 +32,9 @@ struct RoutineNodeView: View {
             })
         ZStack(alignment: .topLeading){
             Button(action:{
-                //editing = task.id
+                // tapエフェクトのためだけの背景としてボタンを使用する
             }){
-                VStack(alignment: .leading, spacing: nil){
+                VStack(alignment: .leading, spacing: nil, content:{
                     Text(self.task.title)
                         .font(.body)
                         .lineLimit(1)
@@ -52,23 +53,28 @@ struct RoutineNodeView: View {
                     }else{
                         Text("")
                     }
-                    HStack{Spacer()}
-                }.onTapGesture {
-                    deletingMode = false
-                    editing = task.id
-                }.onLongPressGesture(minimumDuration: 1, maximumDistance: 10, perform: {
-                    deletingMode = true
-                }, onPressingChanged: nil)
+                    HStack{Spacer()} })
+                    .modifier(NodeStyle(color: self.color))
+                    .onTapGesture {
+                        withAnimation(.easeInOut(duration: 0.3)){
+                            self.opacity = 0.3
+                        }
+                        deletingMode = false
+                        editing = task.id
+                    }
+                    .onLongPressGesture(minimumDuration: 1, maximumDistance: 10, perform: {deletingMode = true}, onPressingChanged: nil)
+                    .modifier(DraggableStyle(routine: self.task, enabled: self.deletingMode))
+                    .modifier(DroppableRoutineStyle(routine: self.task, onDragDrop: self.onDragDrop))
                 
             }
             .buttonStyle(.plain)
+            .background()
             .sheet(isPresented: showBinding, onDismiss: {
                 
             }, content: {
                 RoutineEditView(task: $task, editingTaskId: $editing, onDelete: onDelete).textCase(nil)
             })
-            .modifier(DraggableStyle(routine: self.task))
-            .modifier(DroppableRoutineStyle(routine: self.task, onDragDrop: self.onDragDrop))
+            
             
             if(deletingMode){
                 Button(action: {
@@ -85,7 +91,7 @@ struct RoutineNodeView: View {
 struct RoutineNodeView_Previews: PreviewProvider {
     static var previews: some View {
         RoutineNodeView(task: .constant( tutorialRoutine.tasks[0]),
-                        editing: .constant(nil), deletingMode: .constant(false))
+                        editing: .constant(nil), deletingMode: .constant(false), color:.blue)
         
     }
 }
