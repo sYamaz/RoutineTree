@@ -24,4 +24,5 @@ struct Tree: Hashable, Identifiable, Codable{
 struct TreePreference: Hashable, Codable{
     var title:String
     var colorId:Int = 5
+    var pinned:Bool = false
 }

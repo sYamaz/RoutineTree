@@ -26,6 +26,7 @@ struct RoutineAddingView: View {
                     shown = false
                 }.disabled(task.title == "")
             }).padding()
+            
             List{
                 
                 Section("Title"){

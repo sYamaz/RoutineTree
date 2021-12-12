@@ -48,7 +48,7 @@ struct StartRoutineEditView: View {
                 })
             }
         }
-        .padding()
+        
     }
 }
 

@@ -17,7 +17,7 @@ struct TreeView: View {
     
     var body: some View {
         let colWidth:Double = 128
-        let themeColor:Color = colorTable[routine.preference.colorId]
+        //let themeColor:Color = colorTable[routine.preference.colorId]
         // tree view
         ScrollView([.horizontal, .vertical], showsIndicators: true){
             
@@ -28,10 +28,10 @@ struct TreeView: View {
                         task: task,
                         editing: $editingTaskId,
                         deletingMode: $deleteMode,
-                        color: themeColor,
+                        color: Color.accentColor,
                         onDelete: {target in self.routine = treeInteractor.deleteRoutineFromTree(tree: routine, delete: target, all:false)},
                         onDragDrop: {src, targetId in dragdrop(src: src, targetId: targetId)})
-                        .frame(width:colWidth)
+                        .frame(width:colWidth, height:colWidth/2)
                         .padding(8)
                 },
                 root: {
@@ -39,13 +39,16 @@ struct TreeView: View {
                         routine: $0,
                         editing: $editingTaskId,
                         onDragDrop:{src, targetId in dragdrop(src: src, targetId: targetId)})
-                        .modifier(NodeStyle(color: themeColor))
+                        .modifier(RootNodeStyle())
                         .frame(width:colWidth)
                         .padding(8)
                     
-                })
+                },
+                onStarted: self.onStarted)
             // ボタンで隠れた部分をスクロールで移動できるようにするためのスペース
             Divider().padding(100)
+        }.onTapGesture {
+            self.deleteMode = false
         }
         .navigationTitle(routine.preference.title)
         .sheet(isPresented: $editMode, onDismiss: nil, content: {

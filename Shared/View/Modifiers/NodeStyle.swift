@@ -20,6 +20,16 @@ struct NodeStyle: ViewModifier{
     }
 }
 
+struct RootNodeStyle:ViewModifier{
+    func body(content: Content) -> some View {
+        content
+            .padding(4)
+            .contentShape(RoundedRectangle(cornerRadius: 32))
+            .background(RoundedRectangle(cornerRadius: 32).fill(.regularMaterial))
+            .background(RoundedRectangle(cornerRadius: 32).stroke(Color.accentColor, lineWidth: 2))
+    }
+}
+
 struct DraggableStyle: ViewModifier{
     let routine:Routine
     var enabled:Bool = true

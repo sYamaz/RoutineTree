@@ -39,3 +39,23 @@ struct RightAngleLine : Shape{
         }
     }
 }
+
+struct RightAngleArrow:Shape{
+    var start, end:CGPoint
+    
+    func path(in rect:CGRect) -> Path{
+        Path{p in
+            let corner = CGPoint(x: end.x, y: start.y)
+            p.move(to: start)
+            p.addLine(to: corner)
+            p.addLine(to: end)
+            
+            
+            let left = CGPoint(x:end.x - 4, y:end.y - 4)
+            let right = CGPoint(x:end.x + 4, y:end.y - 4 )
+            p.addLine(to: left)
+            p.move(to: end)
+            p.addLine(to: right)
+        }
+    }
+}

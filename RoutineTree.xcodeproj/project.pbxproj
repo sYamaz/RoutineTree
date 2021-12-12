@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		9300C1E32764BE1700792068 /* TreePreferenceButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9300C1E22764BE1700792068 /* TreePreferenceButton.swift */; };
 		9306ACFE275838AE00D86719 /* PlayableRoutine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9306ACFD275838AE00D86719 /* PlayableRoutine.swift */; };
 		9306AD002758399D00D86719 /* PlayableRoutineTree.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9306ACFF2758399D00D86719 /* PlayableRoutineTree.swift */; };
 		9306AD0227583A2B00D86719 /* RoutineExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9306AD0127583A2B00D86719 /* RoutineExtension.swift */; };
@@ -40,7 +41,6 @@
 		93278749275CF5CD006C9651 /* MinSecPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93278748275CF5CD006C9651 /* MinSecPicker.swift */; };
 		932C30BC274CD81500D2DBA0 /* StartRoutineNodeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 932C30BB274CD81500D2DBA0 /* StartRoutineNodeView.swift */; };
 		932C30BE274CF51600D2DBA0 /* RoutinePlayingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 932C30BD274CF51600D2DBA0 /* RoutinePlayingView.swift */; };
-		932C30C0274D0C0900D2DBA0 /* PlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 932C30BF274D0C0900D2DBA0 /* PlayerView.swift */; };
 		932D6C622757AA8F00048D80 /* PlayableTreeInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 932D6C612757AA8F00048D80 /* PlayableTreeInteractor.swift */; };
 		93328029275E139100C3F4DD /* NodeStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93328028275E139100C3F4DD /* NodeStyle.swift */; };
 		9337A28D27564CFB004D10D5 /* HIGTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9337A28C27564CFB004D10D5 /* HIGTextField.swift */; };
@@ -73,6 +73,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		9300C1E22764BE1700792068 /* TreePreferenceButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TreePreferenceButton.swift; sourceTree = "<group>"; };
 		9306ACFD275838AE00D86719 /* PlayableRoutine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayableRoutine.swift; sourceTree = "<group>"; };
 		9306ACFF2758399D00D86719 /* PlayableRoutineTree.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayableRoutineTree.swift; sourceTree = "<group>"; };
 		9306AD0127583A2B00D86719 /* RoutineExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutineExtension.swift; sourceTree = "<group>"; };
@@ -108,7 +109,6 @@
 		93278748275CF5CD006C9651 /* MinSecPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MinSecPicker.swift; sourceTree = "<group>"; };
 		932C30BB274CD81500D2DBA0 /* StartRoutineNodeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartRoutineNodeView.swift; sourceTree = "<group>"; };
 		932C30BD274CF51600D2DBA0 /* RoutinePlayingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutinePlayingView.swift; sourceTree = "<group>"; };
-		932C30BF274D0C0900D2DBA0 /* PlayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerView.swift; sourceTree = "<group>"; };
 		932D6C612757AA8F00048D80 /* PlayableTreeInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayableTreeInteractor.swift; sourceTree = "<group>"; };
 		93328028275E139100C3F4DD /* NodeStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NodeStyle.swift; sourceTree = "<group>"; };
 		9337A28C27564CFB004D10D5 /* HIGTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HIGTextField.swift; sourceTree = "<group>"; };
@@ -245,10 +245,10 @@
 				930F7A592754456C00B91597 /* Modifiers */,
 				931891D727369926007E2C5E /* ContentView.swift */,
 				93091EBD27598E2D009D08D0 /* TreePreferenceView.swift */,
+				9300C1E22764BE1700792068 /* TreePreferenceButton.swift */,
 				9367A1D7273BE61300ED54E2 /* TreeView.swift */,
 				932624A12748D1030078FA02 /* TreeRootView.swift */,
 				93876D09274530C300201CF8 /* TreeNodeView.swift */,
-				932C30BF274D0C0900D2DBA0 /* PlayerView.swift */,
 				93FF6DD52747216B00A2A210 /* TreePlayingView.swift */,
 				932C30BD274CF51600D2DBA0 /* RoutinePlayingView.swift */,
 			);
@@ -499,13 +499,13 @@
 				931CCDC1275BA1DB00114A77 /* ReminderLikeColorPicker.swift in Sources */,
 				9340AA4F274EFA530030C766 /* CollectDict.swift in Sources */,
 				9318922A2736A04B007E2C5E /* RoutineId.swift in Sources */,
-				932C30C0274D0C0900D2DBA0 /* PlayerView.swift in Sources */,
 				93CEFBE42754FE5600F9F76E /* RoutineEditView.swift in Sources */,
 				930E5E8B274886460028B41E /* AddNewRoutineButton.swift in Sources */,
 				936B00A8275EC92A00056E70 /* PlayableRoutineInteractor.swift in Sources */,
 				931CCDBD275B6E9B00114A77 /* RoutineNodeView.swift in Sources */,
 				9340AA4D274EFA1A0030C766 /* Line.swift in Sources */,
 				932C30BE274CF51600D2DBA0 /* RoutinePlayingView.swift in Sources */,
+				9300C1E32764BE1700792068 /* TreePreferenceButton.swift in Sources */,
 				93091EBE27598E2D009D08D0 /* TreePreferenceView.swift in Sources */,
 				9312357B2756E20B0042EF70 /* ChevronUpDownBar.swift in Sources */,
 				932C30BC274CD81500D2DBA0 /* StartRoutineNodeView.swift in Sources */,

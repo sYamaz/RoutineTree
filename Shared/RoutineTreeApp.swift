@@ -14,8 +14,8 @@ struct RoutineTreeApp: App {
 
     var body: some Scene {
         WindowGroup {
-            ContentView(routines: $routines,
-                        routineId: $routineId)
+            ContentView(trees: $routines,
+                        treeId: $routineId)
                 .onAppear(perform: {
                     routines = load(key: "routines") ?? [tutorialRoutine]
                     routineId = load(key: "routineId") ?? tutorialRoutine.id

@@ -21,7 +21,6 @@ struct TreePlayingView: View {
             VStack{
                 Spacer()
                 CompletedView(onClick: onCompleted)
-                    .foregroundColor(colorTable[routine.colorId])
             }
         }
     }
