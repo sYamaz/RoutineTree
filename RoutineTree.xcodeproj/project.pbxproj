@@ -42,6 +42,7 @@
 		93278749275CF5CD006C9651 /* MinSecPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93278748275CF5CD006C9651 /* MinSecPicker.swift */; };
 		932C30BC274CD81500D2DBA0 /* StartRoutineNodeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 932C30BB274CD81500D2DBA0 /* StartRoutineNodeView.swift */; };
 		932C30BE274CF51600D2DBA0 /* RoutinePlayingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 932C30BD274CF51600D2DBA0 /* RoutinePlayingView.swift */; };
+		932C3AD22766B46C00E41E4B /* resources in Resources */ = {isa = PBXBuildFile; fileRef = 932C3AD12766B46C00E41E4B /* resources */; };
 		932D6C622757AA8F00048D80 /* PlayableTreeInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 932D6C612757AA8F00048D80 /* PlayableTreeInteractor.swift */; };
 		93328029275E139100C3F4DD /* NodeStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93328028275E139100C3F4DD /* NodeStyle.swift */; };
 		9337A28D27564CFB004D10D5 /* HIGTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9337A28C27564CFB004D10D5 /* HIGTextField.swift */; };
@@ -111,6 +112,7 @@
 		93278748275CF5CD006C9651 /* MinSecPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MinSecPicker.swift; sourceTree = "<group>"; };
 		932C30BB274CD81500D2DBA0 /* StartRoutineNodeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartRoutineNodeView.swift; sourceTree = "<group>"; };
 		932C30BD274CF51600D2DBA0 /* RoutinePlayingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutinePlayingView.swift; sourceTree = "<group>"; };
+		932C3AD12766B46C00E41E4B /* resources */ = {isa = PBXFileReference; lastKnownFileType = folder; path = resources; sourceTree = "<group>"; };
 		932D6C612757AA8F00048D80 /* PlayableTreeInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayableTreeInteractor.swift; sourceTree = "<group>"; };
 		93328028275E139100C3F4DD /* NodeStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NodeStyle.swift; sourceTree = "<group>"; };
 		9337A28C27564CFB004D10D5 /* HIGTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HIGTextField.swift; sourceTree = "<group>"; };
@@ -178,6 +180,7 @@
 		931891D027369926007E2C5E = {
 			isa = PBXGroup;
 			children = (
+				932C3AD12766B46C00E41E4B /* resources */,
 				932130742765F12600A8A492 /* docs */,
 				931891D527369926007E2C5E /* Shared */,
 				931891E427369927007E2C5E /* macOS */,
@@ -450,6 +453,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				9318920227369927007E2C5E /* Assets.xcassets in Resources */,
+				932C3AD22766B46C00E41E4B /* resources in Resources */,
 				932130752765F12600A8A492 /* docs in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
