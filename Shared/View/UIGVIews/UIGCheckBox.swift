@@ -19,8 +19,10 @@ struct UIGCheckBox<Content:View>: View {
                 self.checked.toggle()
             }
         }, label: {
-            Image(systemName: checked ? "checkmark.circle" : "circle")
-            label
+            HStack{
+                Image(systemName: checked ? "checkmark.circle" : "circle")
+                label
+            }.contentShape(Rectangle())
         }).onChange(of: checked, perform: {b in
             self.checkedChanged(checked)
         })
