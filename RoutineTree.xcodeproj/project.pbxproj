@@ -36,6 +36,7 @@
 		931CCDBD275B6E9B00114A77 /* RoutineNodeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 931CCDBC275B6E9B00114A77 /* RoutineNodeView.swift */; };
 		931CCDBF275B784000114A77 /* RoutinePlayItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 931CCDBE275B784000114A77 /* RoutinePlayItemView.swift */; };
 		931CCDC1275BA1DB00114A77 /* ReminderLikeColorPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 931CCDC0275BA1DB00114A77 /* ReminderLikeColorPicker.swift */; };
+		932130752765F12600A8A492 /* docs in Resources */ = {isa = PBXBuildFile; fileRef = 932130742765F12600A8A492 /* docs */; };
 		932624A22748D1030078FA02 /* TreeRootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 932624A12748D1030078FA02 /* TreeRootView.swift */; };
 		93278747275CF343006C9651 /* RoutineAddingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93278746275CF343006C9651 /* RoutineAddingView.swift */; };
 		93278749275CF5CD006C9651 /* MinSecPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93278748275CF5CD006C9651 /* MinSecPicker.swift */; };
@@ -104,6 +105,7 @@
 		931CCDBC275B6E9B00114A77 /* RoutineNodeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutineNodeView.swift; sourceTree = "<group>"; };
 		931CCDBE275B784000114A77 /* RoutinePlayItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutinePlayItemView.swift; sourceTree = "<group>"; };
 		931CCDC0275BA1DB00114A77 /* ReminderLikeColorPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReminderLikeColorPicker.swift; sourceTree = "<group>"; };
+		932130742765F12600A8A492 /* docs */ = {isa = PBXFileReference; lastKnownFileType = folder; path = docs; sourceTree = "<group>"; };
 		932624A12748D1030078FA02 /* TreeRootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TreeRootView.swift; sourceTree = "<group>"; };
 		93278746275CF343006C9651 /* RoutineAddingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutineAddingView.swift; sourceTree = "<group>"; };
 		93278748275CF5CD006C9651 /* MinSecPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MinSecPicker.swift; sourceTree = "<group>"; };
@@ -176,6 +178,7 @@
 		931891D027369926007E2C5E = {
 			isa = PBXGroup;
 			children = (
+				932130742765F12600A8A492 /* docs */,
 				931891D527369926007E2C5E /* Shared */,
 				931891E427369927007E2C5E /* macOS */,
 				931891ED27369927007E2C5E /* Tests iOS */,
@@ -447,6 +450,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				9318920227369927007E2C5E /* Assets.xcassets in Resources */,
+				932130752765F12600A8A492 /* docs in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
