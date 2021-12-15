@@ -2,8 +2,8 @@
 
 RoutineTree is a task management application that helps you accomplish your daily routine tasks.
 
-![img](images/RoutineTree.png)
+![img](assets/RoutineTree.png)
 
-## PrivacyPolicy
+## see also
 
-* [English](PrivacyPolicy/English.md)
+* [Privacy policy]()
